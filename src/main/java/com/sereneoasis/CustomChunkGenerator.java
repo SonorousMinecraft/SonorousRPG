@@ -33,7 +33,36 @@ public class CustomChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
+    public void generateNoise(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, ChunkData chunkData) {
+        for(int y = chunkData.getMinHeight(); y < 130 && y < chunkData.getMaxHeight(); y++) {
+            for(int x = 0; x < 16; x++) {
+                for(int z = 0; z < 16; z++) {
+                    float noise2 = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
+                    float noise3 = detailNoise.GetNoise(x + (chunkX * 16), y, z + (chunkZ * 16));
+                    float currentY = (65 + (noise2 * 30));
+
+                    if(y < currentY) {
+                        float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
+                        double function = .1 * Math.pow(distanceToSurface, 2) - 1; // A second grade polynomial offset to the noise max and min (1, -1).
+
+                        if(noise3 > Math.min(function, -.3)) {
+                            // It is not the closest block to the surface but still very close.
+                            if(distanceToSurface < 5) {
+                                chunkData.setBlock(x, y, z, layers.get(1).get(random.nextInt(layers.get(1).size())));
+                            }
+
+                        }
+                    }
+                    else if(y < 62) {
+                        chunkData.setBlock(x, y, z, Material.WATER);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void generateSurface(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
         for(int y = chunkData.getMinHeight(); y < 130 && y < chunkData.getMaxHeight(); y++) {
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
@@ -54,13 +83,45 @@ public class CustomChunkGenerator extends ChunkGenerator {
                                 chunkData.setBlock(x, y, z, layers.get(0).get(0));
                             }
 
-                            // It is not the closest block to the surface but still very close.
-                            else if(distanceToSurface < 5) {
-                                chunkData.setBlock(x, y, z, layers.get(1).get(random.nextInt(layers.get(1).size())));
-                            }
+                        }
+                    }
+                    else if(y < 62) {
+                        chunkData.setBlock(x, y, z, Material.WATER);
+                    }
+                }
+            }
+        }
+    }
 
+    @Override
+    public void generateBedrock(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
+        for(int y = chunkData.getMinHeight(); y < 130 && y < chunkData.getMaxHeight(); y++) {
+            for(int x = 0; x < 16; x++) {
+                for(int z = 0; z < 16; z++) {
+                    if(y < chunkData.getMinHeight() + 2) {
+                        chunkData.setBlock(x, y, z, layers.get(3).get(random.nextInt(layers.get(3).size())));
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void generateCaves(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
+        for(int y = chunkData.getMinHeight(); y < 130 && y < chunkData.getMaxHeight(); y++) {
+            for(int x = 0; x < 16; x++) {
+                for(int z = 0; z < 16; z++) {
+                    float noise2 = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
+                    float noise3 = detailNoise.GetNoise(x + (chunkX * 16), y, z + (chunkZ * 16));
+                    float currentY = (65 + (noise2 * 30));
+
+                    if(y < currentY) {
+                        float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
+                        double function = .1 * Math.pow(distanceToSurface, 2) - 1; // A second grade polynomial offset to the noise max and min (1, -1).
+
+                        if(noise3 > Math.min(function, -.3)) {
                             // Not close to the surface at all.
-                            else {
+                            if( distanceToSurface > 5) {
                                 Material neighbour = Material.STONE;
                                 List<Material> neighbourBlocks = new ArrayList<Material>(Arrays.asList(chunkData.getType(Math.max(x - 1, 0), y, z), chunkData.getType(x, Math.max(y - 1, 0), z), chunkData.getType(x, y, Math.max(z - 1, 0)))); // A list of all neighbour blocks.
 
@@ -81,9 +142,6 @@ public class CustomChunkGenerator extends ChunkGenerator {
                                 chunkData.setBlock(x, y, z, neighbour);
                             }
                         }
-                    }
-                    else if(y < 62) {
-                        chunkData.setBlock(x, y, z, Material.WATER);
                     }
                 }
             }
