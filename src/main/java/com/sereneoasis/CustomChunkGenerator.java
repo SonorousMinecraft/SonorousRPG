@@ -2,8 +2,11 @@ package com.sereneoasis;
 
 import com.sereneoasis.libs.FastNoiseLite;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -85,5 +88,11 @@ public class CustomChunkGenerator extends ChunkGenerator {
                 }
             }
         }
+    }
+
+    @NotNull
+    @Override
+    public List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
+        return List.of(new GrassPopulator(), new TreePopulator());
     }
 }
