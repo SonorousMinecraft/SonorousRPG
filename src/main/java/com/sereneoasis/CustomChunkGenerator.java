@@ -1,12 +1,15 @@
 package com.sereneoasis;
 
 import com.sereneoasis.libs.FastNoiseLite;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -93,6 +96,12 @@ public class CustomChunkGenerator extends ChunkGenerator {
         }
     }
 
+    @Nullable
+    @Override
+    public BiomeProvider getDefaultBiomeProvider(@NotNull WorldInfo worldInfo) {
+        return new CustomBiomeProvider();
+    }
+
     @Override
     public void generateBedrock(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
         for(int y = chunkData.getMinHeight(); y < 130 && y < chunkData.getMaxHeight(); y++) {
@@ -153,4 +162,34 @@ public class CustomChunkGenerator extends ChunkGenerator {
     public List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
         return List.of(new GrassPopulator(), new TreePopulator());
     }
+
+    @Override
+    public boolean shouldGenerateMobs() {
+        return super.shouldGenerateMobs();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
