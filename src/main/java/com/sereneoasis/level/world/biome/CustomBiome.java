@@ -1,4 +1,4 @@
-package com.sereneoasis;
+package com.sereneoasis.level.world.biome;
 
 import com.mojang.serialization.Lifecycle;
 
@@ -8,6 +8,7 @@ import java.util.IdentityHashMap;
 import java.util.logging.Level;
 
 
+import com.sereneoasis.SereneRPG;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.Registries;
@@ -28,7 +29,7 @@ public class CustomBiome {
     public static void addCustomBiome(CustomBiomeData data) {
         DedicatedServer dedicatedServer = ((CraftServer) Bukkit.getServer()).getServer();
         ResourceKey<Biome> minecraftKey = ResourceKey.create(Registries.BIOME, new ResourceLocation("minecraft", data.getMinecraftName()));
-        ResourceKey<Biome> customKey = ResourceKey.create(Registries.BIOME, new ResourceLocation("serene_rpg", data.getCustomName()));
+        ResourceKey<Biome> customKey = ResourceKey.create(Registries.BIOME, new ResourceLocation("serene_oasis", data.getCustomName()));
         WritableRegistry<Biome> registrywritable = (WritableRegistry<Biome>) dedicatedServer.registryAccess().registryOrThrow(Registries.BIOME);
         Biome minecraftbiome = registrywritable.get(minecraftKey);
         Biome.BiomeBuilder newBiome = new Biome.BiomeBuilder();

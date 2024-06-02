@@ -1,4 +1,4 @@
-package com.sereneoasis;
+package com.sereneoasis.level.world.biome;
 
 
 import net.minecraft.core.BlockPos;
@@ -30,7 +30,7 @@ public class BiomeHelper {
     /**
      * Set a chunk to a custom biome
      *
-     * @param newBiomeName the name of the custom biome to set (such as serene_rpg:skaro_lakes)
+     * @param newBiomeName the name of the custom biome to set (such as serene_oasis:skaro_lakes)
      * @param chunk        the chunk to set the biome for
      */
     public static void setCustomBiome(String newBiomeName, Chunk chunk) {
@@ -63,7 +63,7 @@ public class BiomeHelper {
     /**
      * Set a location to a custom biome
      *
-     * @param newBiomeName the name of the custom biome to set (such as serene_rpg:skaro_lakes)
+     * @param newBiomeName the name of the custom biome to set (such as serene_oasis:skaro_lakes)
      * @param location     the location to set the biome for
      * @return true if the biome was set
      */

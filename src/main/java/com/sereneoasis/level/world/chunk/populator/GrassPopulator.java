@@ -1,4 +1,4 @@
-package com.sereneoasis;
+package com.sereneoasis.level.world.chunk.populator;
 
 import org.bukkit.Chunk;
 import org.bukkit.Material;

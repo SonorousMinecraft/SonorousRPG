@@ -1,5 +1,9 @@
 package com.sereneoasis;
 
+import com.sereneoasis.level.world.biome.CustomBiome;
+import com.sereneoasis.level.world.biome.CustomBiomeProvider;
+import com.sereneoasis.level.world.biome.SereneBiomeData;
+import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,6 +27,12 @@ public class SereneRPG extends JavaPlugin {
         getLogger().log(Level.INFO, "WorldGenerator was enabled successfully.");
         plugin = this;
         CustomBiome.addCustomBiome(SereneBiomeData.BADLANDS);
+        CustomBiome.addCustomBiome(SereneBiomeData.PLAINS);
+        CustomBiome.addCustomBiome(SereneBiomeData.DESERT);
+        CustomBiome.addCustomBiome(SereneBiomeData.JUNGLE);
+        CustomBiome.addCustomBiome(SereneBiomeData.OCEAN);
+        CustomBiome.addCustomBiome(SereneBiomeData.RIVER);
+        CustomBiome.addCustomBiome(SereneBiomeData.FOREST);
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
     }
 

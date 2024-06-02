@@ -1,7 +1,9 @@
-package com.sereneoasis;
+package com.sereneoasis.level.world.chunk;
 
+import com.sereneoasis.level.world.chunk.populator.GrassPopulator;
+import com.sereneoasis.level.world.chunk.populator.TreePopulator;
+import com.sereneoasis.level.world.biome.CustomBiomeProvider;
 import com.sereneoasis.libs.FastNoiseLite;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BiomeProvider;
@@ -14,7 +16,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class CustomChunkGenerator extends ChunkGenerator {
+
+    // For larger terrain changes
     private final FastNoiseLite terrainNoise = new FastNoiseLite();
+
+    // For details
     private final FastNoiseLite detailNoise = new FastNoiseLite();
 
     private final HashMap<Integer, List<Material>> layers = new HashMap<Integer, List<Material>>() {{

@@ -1,4 +1,4 @@
-package com.sereneoasis;
+package com.sereneoasis.level.world.biome;
 
 public class CustomBiomeData {
 
