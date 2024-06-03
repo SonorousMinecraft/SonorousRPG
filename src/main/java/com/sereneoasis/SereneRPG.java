@@ -36,39 +36,39 @@ public class SereneRPG extends JavaPlugin {
     public void onEnable() {
         getLogger().log(Level.INFO, "WorldGenerator was enabled successfully.");
         plugin = this;
-        CustomBiome.addCustomBiome(SereneBiomeData.PLAINS);
-        CustomBiome.addCustomBiome(SereneBiomeData.DESERT);
-        CustomBiome.addCustomBiome(SereneBiomeData.JUNGLE);
-        CustomBiome.addCustomBiome(SereneBiomeData.OCEAN);
-        CustomBiome.addCustomBiome(SereneBiomeData.RIVER);
-        CustomBiome.addCustomBiome(SereneBiomeData.FOREST);
+//        CustomBiome.addCustomBiome(SereneBiomeData.PLAINS);
+//        CustomBiome.addCustomBiome(SereneBiomeData.DESERT);
+//        CustomBiome.addCustomBiome(SereneBiomeData.JUNGLE);
+//        CustomBiome.addCustomBiome(SereneBiomeData.OCEAN);
+//        CustomBiome.addCustomBiome(SereneBiomeData.RIVER);
+//        CustomBiome.addCustomBiome(SereneBiomeData.FOREST);
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
-        scheduleBiomeSwitching();
+//        scheduleBiomeSwitching();
     }
 
-    private Set<Chunk>changedChunks = new HashSet<>();
-
-    private void scheduleBiomeSwitching(){
-        Bukkit.getServer().getScheduler().runTaskLater(this, () -> {
-            World world = Bukkit.getWorld("test");
-            Set<Chunk> newChunks = Arrays.stream(world.getLoadedChunks()).filter(chunk -> !changedChunks.contains(chunk)).collect(Collectors.toSet());
-            newChunks.forEach(chunk -> {
-                        ChunkSnapshot chunkSnapshot = chunk.getChunkSnapshot(false, true, false);
-                        switch (chunkSnapshot.getBiome(8, 130, 8)) {
-                            case PLAINS -> BiomeHelper.setCustomBiome("serene_oasis:plains", chunk);
-                            case FOREST -> BiomeHelper.setCustomBiome("serene_oasis:forest", chunk);
-                            case RIVER -> BiomeHelper.setCustomBiome("serene_oasis:river", chunk);
-                            case JUNGLE -> BiomeHelper.setCustomBiome("serene_oasis:jungle", chunk);
-                            case OCEAN -> BiomeHelper.setCustomBiome("serene_oasis:ocean", chunk);
-                            case DESERT -> BiomeHelper.setCustomBiome("serene_oasis:desert", chunk);
-                        }
-                    });
-            changedChunks.addAll(newChunks);
-            Bukkit.broadcastMessage("Switched biomes");
-            scheduleBiomeSwitching();
-        }, 100L);
-    }
+//    private Set<Chunk>changedChunks = new HashSet<>();
+//
+//    private void scheduleBiomeSwitching(){
+//        Bukkit.getServer().getScheduler().runTaskLater(this, () -> {
+//            World world = Bukkit.getWorld("test");
+//            Set<Chunk> newChunks = Arrays.stream(world.getLoadedChunks()).filter(chunk -> !changedChunks.contains(chunk)).collect(Collectors.toSet());
+//            newChunks.forEach(chunk -> {
+//                        ChunkSnapshot chunkSnapshot = chunk.getChunkSnapshot(false, true, false);
+//                        switch (chunkSnapshot.getBiome(8, 130, 8)) {
+//                            case PLAINS -> BiomeHelper.setCustomBiome("serene_oasis:plains", chunk);
+//                            case FOREST -> BiomeHelper.setCustomBiome("serene_oasis:forest", chunk);
+//                            case RIVER -> BiomeHelper.setCustomBiome("serene_oasis:river", chunk);
+//                            case JUNGLE -> BiomeHelper.setCustomBiome("serene_oasis:jungle", chunk);
+//                            case OCEAN -> BiomeHelper.setCustomBiome("serene_oasis:ocean", chunk);
+//                            case DESERT -> BiomeHelper.setCustomBiome("serene_oasis:desert", chunk);
+//                        }
+//                    });
+//            changedChunks.addAll(newChunks);
+//            Bukkit.broadcastMessage("Switched biomes");
+//            scheduleBiomeSwitching();
+//        }, 100L);
+//    }
 
     @Override
     public void onDisable() {

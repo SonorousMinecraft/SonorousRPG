@@ -136,10 +136,6 @@ public class CustomChunkGenerator extends ChunkGenerator {
         }
     }
 
-    static DedicatedServer dedicatedServer = ((CraftServer) Bukkit.getServer()).getServer();
-
-    static String newBiomeName = "serene_oasis_plains";
-
     @Override
     public void generateSurface(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
         for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
