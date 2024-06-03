@@ -26,7 +26,6 @@ public class SereneRPG extends JavaPlugin {
     public void onEnable() {
         getLogger().log(Level.INFO, "WorldGenerator was enabled successfully.");
         plugin = this;
-        CustomBiome.addCustomBiome(SereneBiomeData.BADLANDS);
         CustomBiome.addCustomBiome(SereneBiomeData.PLAINS);
         CustomBiome.addCustomBiome(SereneBiomeData.DESERT);
         CustomBiome.addCustomBiome(SereneBiomeData.JUNGLE);
@@ -47,9 +46,4 @@ public class SereneRPG extends JavaPlugin {
         return new CustomChunkGenerator(); // Return an instance of the chunk generator we want to use.
     }
 
-    @Nullable
-    @Override
-    public BiomeProvider getDefaultBiomeProvider(@NotNull String worldName, @Nullable String id) {
-        return new CustomBiomeProvider();
-    }
 }
