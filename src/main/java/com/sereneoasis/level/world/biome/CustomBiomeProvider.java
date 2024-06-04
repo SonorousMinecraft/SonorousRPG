@@ -41,7 +41,7 @@ public class CustomBiomeProvider extends BiomeProvider {
 
     private static Biome getBiomeBasedOnSize(List<Biome> biomeList, int x, int z){
         double size = CustomChunkGenerator.getSize(x,z);
-        int index = (int) Math.round((size+1)* (biomeList.size()/2));
+        int index = Math.max(0, Math.round(Math.round((size+1)* (biomeList.size()/2))) - 1);
         return biomeList.get(index);
     }
 

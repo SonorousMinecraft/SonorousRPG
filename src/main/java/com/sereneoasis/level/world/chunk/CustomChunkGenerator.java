@@ -111,12 +111,12 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
 
         // Set frequencies
-        terrainNoise.SetFrequency(0.001f);
+        terrainNoise.SetFrequency(0.0004f);
         detailNoise.SetFrequency(0);
 
         // Add fractals
         terrainNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
-        terrainNoise.SetFractalOctaves(3);
+        terrainNoise.SetFractalOctaves(2);
 
 
         biomeLayers.put(Biome.FOREST, forestLayers);
