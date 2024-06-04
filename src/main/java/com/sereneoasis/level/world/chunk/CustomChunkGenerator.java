@@ -29,11 +29,18 @@ import java.util.*;
 
 public class CustomChunkGenerator extends ChunkGenerator {
 
-    // For larger terrain changes
+    // For larger terrain changes or continentalness
     private static final FastNoiseLite terrainNoise = new FastNoiseLite();
 
     public static double getContinentalness(float x, float z){
         return terrainNoise.GetNoise(x, z);
+    }
+
+    // For larger terrain changes or continentalness
+    private static final FastNoiseLite biomeSizeNoise = new FastNoiseLite();
+
+    public static double getSize(float x, float z){
+        return biomeSizeNoise.GetNoise(x, z);
     }
 
     // For details
@@ -97,13 +104,19 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
 
     public CustomChunkGenerator() {
+        // For biome generation specifically
+        biomeSizeNoise.SetFrequency(0.0001f);
+        biomeSizeNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
+        biomeSizeNoise.SetFractalOctaves(1);
+
+
         // Set frequencies
-        terrainNoise.SetFrequency(0.0001f);
+        terrainNoise.SetFrequency(0.001f);
         detailNoise.SetFrequency(0);
 
         // Add fractals
         terrainNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
-        terrainNoise.SetFractalOctaves(1);
+        terrainNoise.SetFractalOctaves(3);
 
 
         biomeLayers.put(Biome.FOREST, forestLayers);
@@ -119,7 +132,8 @@ public class CustomChunkGenerator extends ChunkGenerator {
         for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
-                    HashMap<Integer, List<Material>>layers = biomeLayers.get(chunkData.getBiome(x, y, z));
+                    HashMap<Integer, List<Material>>layers = biomeLayers.get(Biome.PLAINS);
+                    
 
                     float noise = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
                     float currentY = (65 + (noise * 30)); // some threshold
@@ -142,7 +156,8 @@ public class CustomChunkGenerator extends ChunkGenerator {
         for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
-                    HashMap<Integer, List<Material>>layers = biomeLayers.get(chunkData.getBiome(x, y, z));
+                    HashMap<Integer, List<Material>>layers = biomeLayers.get(Biome.PLAINS);
+
 
 
                     float noise = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
@@ -184,7 +199,8 @@ public class CustomChunkGenerator extends ChunkGenerator {
         for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
-                    HashMap<Integer, List<Material>>layers = biomeLayers.get(chunkData.getBiome(x, y, z));
+                    HashMap<Integer, List<Material>>layers = biomeLayers.get(Biome.PLAINS);
+
                     if(y < chunkData.getMinHeight() + 2) {
                         chunkData.setBlock(x, y, z, layers.get(3).get(random.nextInt(layers.get(3).size())));
                     }
@@ -198,7 +214,8 @@ public class CustomChunkGenerator extends ChunkGenerator {
         for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
-                    HashMap<Integer, List<Material>>layers = biomeLayers.get(chunkData.getBiome(x, y, z));
+                    HashMap<Integer, List<Material>>layers = biomeLayers.get(Biome.PLAINS);
+
 
                     float noise = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
                     float currentY = (65 + (noise * 30));
