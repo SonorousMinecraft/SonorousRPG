@@ -1,6 +1,5 @@
 package com.sereneoasis;
 
-import com.sereneoasis.level.world.biome.BiomeHelper;
 import com.sereneoasis.level.world.biome.CustomBiomeProvider;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;

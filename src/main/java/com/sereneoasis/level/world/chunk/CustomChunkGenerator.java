@@ -30,38 +30,42 @@ import java.util.*;
 public class CustomChunkGenerator extends ChunkGenerator {
 
     // For larger terrain changes
-    private final FastNoiseLite terrainNoise = new FastNoiseLite();
+    private static final FastNoiseLite terrainNoise = new FastNoiseLite();
+
+    public static double getContinentalness(float x, float z){
+        return terrainNoise.GetNoise(x, z);
+    }
 
     // For details
-    private final FastNoiseLite detailNoise = new FastNoiseLite();
+    private static final FastNoiseLite detailNoise = new FastNoiseLite();
     
-    private final int Y_LIMIT = 130;
+    private final int Y_LIMIT = 130, SEA_LEVEL = 50, LAYER_1_HEIGHT = 10;
 
     private final HashMap<Biome, HashMap<Integer, List<Material>> > biomeLayers = new HashMap<>();
 
     private final HashMap<Integer, List<Material>> forestLayers = new HashMap<>() {{
-        put(0, Arrays.asList(Material.PODZOL, Material.DIRT, Material.MYCELIUM));
+        put(0, Arrays.asList(Material.PODZOL));
         put(1, Arrays.asList(Material.DIRT, Material.COARSE_DIRT, Material.SAND, Material.GRAVEL));
         put(2, Arrays.asList(Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.DIAMOND_ORE));
         put(3, Arrays.asList(Material.BEDROCK));
     }};
 
     private final HashMap<Integer, List<Material>> riverLayers = new HashMap<>() {{
-        put(0, Arrays.asList(Material.GRASS_BLOCK, Material.DIRT));
+        put(0, Arrays.asList(Material.ICE));
         put(1, Arrays.asList(Material.DIRT, Material.COARSE_DIRT, Material.SAND, Material.GRAVEL));
         put(2, Arrays.asList(Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.DIAMOND_ORE));
         put(3, Arrays.asList(Material.BEDROCK));
     }};
 
     private final HashMap<Integer, List<Material>> jungleLayers = new HashMap<>() {{
-        put(0, Arrays.asList(Material.GRASS_BLOCK, Material.DIRT));
+        put(0, Arrays.asList(Material.COARSE_DIRT));
         put(1, Arrays.asList(Material.DIRT, Material.COARSE_DIRT, Material.SAND, Material.GRAVEL));
         put(2, Arrays.asList(Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.DIAMOND_ORE));
         put(3, Arrays.asList(Material.BEDROCK));
     }};
 
     private final HashMap<Integer, List<Material>> oceanLayers = new HashMap<>() {{
-        put(0, Arrays.asList(Material.GRASS_BLOCK, Material.DIRT));
+        put(0, Arrays.asList(Material.LAPIS_BLOCK));
         put(1, Arrays.asList(Material.DIRT, Material.COARSE_DIRT, Material.SAND, Material.GRAVEL));
         put(2, Arrays.asList(Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.DIAMOND_ORE));
         put(3, Arrays.asList(Material.BEDROCK));
@@ -76,7 +80,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
 
     private final HashMap<Integer, List<Material>> plainsLayers = new HashMap<>() {{
-        put(0, Arrays.asList(Material.GRASS_BLOCK, Material.DIRT, Material.COARSE_DIRT));
+        put(0, Arrays.asList( Material.GRASS_BLOCK));
         put(1, Arrays.asList(Material.DIRT, Material.COARSE_DIRT, Material.SAND, Material.GRAVEL));
         put(2, Arrays.asList(Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.DIAMOND_ORE));
         put(3, Arrays.asList(Material.BEDROCK));
@@ -94,12 +98,12 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
     public CustomChunkGenerator() {
         // Set frequencies
-        terrainNoise.SetFrequency(0.001f);
-        detailNoise.SetFrequency(0.05f);
+        terrainNoise.SetFrequency(0.0001f);
+        detailNoise.SetFrequency(0);
 
         // Add fractals
         terrainNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
-        terrainNoise.SetFractalOctaves(5);
+        terrainNoise.SetFractalOctaves(1);
 
 
         biomeLayers.put(Biome.FOREST, forestLayers);
@@ -124,12 +128,9 @@ public class CustomChunkGenerator extends ChunkGenerator {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
 
                         // It is not the closest block to the surface but still very close.
-                        if(distanceToSurface < 5) {
+                        if(distanceToSurface < LAYER_1_HEIGHT) {
                             chunkData.setBlock(x, y, z, layers.get(1).get(random.nextInt(layers.get(1).size())));
                         }
-                    }
-                    else if(y < 62) {
-                        chunkData.setBlock(x, y, z, Material.WATER);
                     }
                 }
             }
@@ -154,7 +155,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
 
                         // Set grass if the block closest to the surface.
-                        if(distanceToSurface < 1 && y > 63) {
+                        if(distanceToSurface < 1 && y > SEA_LEVEL) {
 
 //                            WritableRegistry<Biome> registryWritable = (WritableRegistry<Biome>) dedicatedServer.registryAccess().registry(Registries.BIOME).get();
 //                            ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, new ResourceLocation(newBiomeName.toLowerCase()));
@@ -164,7 +165,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
                             chunkData.setBlock(x, y, z, layers.get(0).get(random.nextInt(layers.get(0).size())));
                         }
                     }
-                    else if(y < 62) {
+                    else if(y < SEA_LEVEL) {
                         chunkData.setBlock(x, y, z, Material.WATER);
                     }
                 }
@@ -205,7 +206,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
                     if(y < currentY) {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
                         // Not close to the surface at all.
-                        if (distanceToSurface > 5) {
+                        if (distanceToSurface > LAYER_1_HEIGHT) {
                             Material neighbour = Material.STONE;
                             List<Material> neighbourBlocks = new ArrayList<Material>(Arrays.asList(chunkData.getType(Math.max(x - 1, 0), y, z), chunkData.getType(x, Math.max(y - 1, 0), z), chunkData.getType(x, y, Math.max(z - 1, 0)))); // A list of all neighbour blocks.
 
