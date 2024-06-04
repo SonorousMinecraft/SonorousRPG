@@ -46,7 +46,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
     // For details
     private static final FastNoiseLite detailNoise = new FastNoiseLite();
     
-    private final int Y_LIMIT = 130, SEA_LEVEL = 50, LAYER_1_HEIGHT = 10;
+    private final int Y_LIMIT = 200, SEA_LEVEL = 50, LAYER_1_HEIGHT = 10, AVERAGE_HEIGHT = 100, DEVIATION = 50;
 
     private final HashMap<Biome, HashMap<Integer, List<Material>> > biomeLayers = new HashMap<>();
 
@@ -136,7 +136,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
                     
 
                     float noise = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
-                    float currentY = (65 + (noise * 30)); // some threshold
+                    float currentY = (AVERAGE_HEIGHT + (noise * DEVIATION)); // some threshold
 
                     if(y < currentY) {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
@@ -161,7 +161,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
 
                     float noise = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
-                    float currentY = (65 + (noise * 30));
+                    float currentY = (AVERAGE_HEIGHT + (noise * DEVIATION));
 
                     if(y < 1) {
                         chunkData.setBlock(x, y, z, layers.get(3).get(random.nextInt(layers.get(3).size())));
@@ -218,7 +218,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
 
                     float noise = (terrainNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (detailNoise.GetNoise(x + (chunkX * 16), z + (chunkZ * 16)) / 10);
-                    float currentY = (65 + (noise * 30));
+                    float currentY = (AVERAGE_HEIGHT + (noise * DEVIATION));
 
                     if(y < currentY) {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
