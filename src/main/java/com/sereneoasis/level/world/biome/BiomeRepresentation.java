@@ -88,6 +88,8 @@ public abstract class BiomeRepresentation {
     }
 
 
+
+
     /***
      * Represents the Vanilla Biome
      * @return The Vanilla Biome associated with this class
@@ -135,7 +137,5 @@ public abstract class BiomeRepresentation {
     public double getHumidity(){
         return this.humidity;
     }
-
-
 
 }
