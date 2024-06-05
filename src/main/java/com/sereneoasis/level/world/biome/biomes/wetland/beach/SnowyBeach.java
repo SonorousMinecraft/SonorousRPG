@@ -17,7 +17,7 @@ public class SnowyBeach extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowyBeach() {
-        super(org.bukkit.block.Biome.SNOWY_BEACH, "Snowy Beach", layers, -0.7, -0.3, 0);
+        super(org.bukkit.block.Biome.SNOWY_BEACH, "Snowy Beach", layers, -0.7, -0.3, 0, 0.2);
     }
 }
 

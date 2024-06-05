@@ -2,6 +2,8 @@ package com.sereneoasis.level.world.biome.biomes.woodland.taiga;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
@@ -10,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class OldGrowthPineTaiga extends BiomeRepresentation implements TreeBiome {
+public class OldGrowthPineTaiga extends BiomeRepresentation implements TreeBiome, FloraBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -19,12 +21,23 @@ public class OldGrowthPineTaiga extends BiomeRepresentation implements TreeBiome
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public OldGrowthPineTaiga() {
-        super(org.bukkit.block.Biome.OLD_GROWTH_PINE_TAIGA, "Old Growth Pine Taiga", layers, 0.1, 0.5, 0);
+        super(org.bukkit.block.Biome.OLD_GROWTH_PINE_TAIGA, "Old Growth Pine Taiga", layers, 0.1, 0.5, 0, 0.1);
     }
 
     @Override
     public TreeType[] getTreeType() {
         return new TreeType[]{TreeType.REDWOOD, TreeType.TALL_REDWOOD};
+    }
+
+
+    @Override
+    public HashMap<Integer, Material> getFlora() {
+        HashMap<Integer, Material>flora = new HashMap<>();
+        flora.put(10, Material.SHORT_GRASS);
+        flora.put(5, Material.TALL_GRASS);
+        flora.putAll(FloraBiomeUtils.getFlowers(10));
+
+        return flora;
     }
 }
 

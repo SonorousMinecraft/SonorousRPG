@@ -1,5 +1,6 @@
 package com.sereneoasis.level.world.biome;
 
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import com.sereneoasis.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
@@ -23,7 +24,7 @@ public abstract class BiomeRepresentation {
 
     protected HashMap<BiomeLayers, List<Material>>layers;
 
-    protected double temperature, continentalness, humidity;
+    protected double temperature, continentalness, humidity, weirdness = 0;
 
     private static final HashSet<BiomeRepresentation> BIOME_REPRESENTATIONS = new HashSet<>();
 
@@ -72,6 +73,16 @@ public abstract class BiomeRepresentation {
     }
 
 
+    private static final HashMap<Biome, FloraBiome>FLORA_BIOMES = new HashMap<>();
+
+    public static boolean isFloraBiome(Biome biome){
+        return (FLORA_BIOMES.containsKey(biome));
+    }
+
+    public static HashMap<Integer, Material> getFloraTypes(Biome biome){
+        return FLORA_BIOMES.get(biome).getFlora();
+    }
+
     public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity){
         this.biome = biome;
         this.name = name;
@@ -85,9 +96,29 @@ public abstract class BiomeRepresentation {
         if (this instanceof TreeBiome treeBiome){
             TREE_BIOMES.put(biome, treeBiome);
         }
+        if (this instanceof FloraBiome floraBiome){
+            FLORA_BIOMES.put(biome, floraBiome);
+        }
     }
 
-
+    public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity, double weirdness){
+        this.biome = biome;
+        this.name = name;
+        this.layers = layers;
+        this.temperature = temperature;
+        this.continentalness = continentalness;
+        this.humidity = humidity;
+        this.weirdness = weirdness;
+        BIOME_MAP.put(biome, this);
+        BIOME_REPRESENTATIONS.add(this);
+        VALID_BIOMES.add(biome);
+        if (this instanceof TreeBiome treeBiome){
+            TREE_BIOMES.put(biome, treeBiome);
+        }
+        if (this instanceof FloraBiome floraBiome){
+            FLORA_BIOMES.put(biome, floraBiome);
+        }
+    }
 
 
     /***
@@ -138,4 +169,11 @@ public abstract class BiomeRepresentation {
         return this.humidity;
     }
 
+    /***
+     * Represents the weirdness, dictates whether a variant of a biome should spawn
+     * @return A double which makes this biome less likely to spawn
+     */
+    public double getWeirdness() {
+        return weirdness;
+    }
 }

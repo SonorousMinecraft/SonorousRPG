@@ -17,7 +17,7 @@ public class WindsweptGravellyHills extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WindsweptGravellyHills() {
-        super(org.bukkit.block.Biome.WINDSWEPT_GRAVELLY_HILLS, "Windswept Gravelly Hills", layers, -0.5, -0.7, -0.2);
+        super(org.bukkit.block.Biome.WINDSWEPT_GRAVELLY_HILLS, "Windswept Gravelly Hills", layers, -0.5, -0.7, -0.2, 0.5);
     }
 }
 

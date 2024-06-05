@@ -5,5 +5,7 @@ public enum NoiseTypes {
     CONTINENTALNESS,
     TEMPERATURE,
     HUMIDITY,
-    DETAIl
+    DETAIl,
+
+    WEIRDNESS
 }

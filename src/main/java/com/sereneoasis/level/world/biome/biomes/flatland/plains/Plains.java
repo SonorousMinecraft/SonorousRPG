@@ -2,6 +2,8 @@ package com.sereneoasis.level.world.biome.biomes.flatland.plains;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
@@ -10,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Plains extends BiomeRepresentation implements TreeBiome {
+public class Plains extends BiomeRepresentation implements TreeBiome, FloraBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -25,5 +27,10 @@ public class Plains extends BiomeRepresentation implements TreeBiome {
     @Override
     public TreeType[] getTreeType() {
         return new TreeType[]{TreeType.TREE};
+    }
+
+    @Override
+    public HashMap<Integer, Material> getFlora() {
+        return FloraBiomeUtils.getFlowers(5);
     }
 }

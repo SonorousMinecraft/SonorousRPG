@@ -17,7 +17,7 @@ public class WoodedBadlands extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WoodedBadlands() {
-        super(org.bukkit.block.Biome.WOODED_BADLANDS, "Wooded Badlands", layers, 1.0, 0.7, -0.9);
+        super(org.bukkit.block.Biome.WOODED_BADLANDS, "Wooded Badlands", layers, 1.0, 0.7, -0.9, 0.1);
     }
 }
 

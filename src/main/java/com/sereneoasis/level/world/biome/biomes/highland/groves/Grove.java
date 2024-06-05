@@ -2,13 +2,15 @@ package com.sereneoasis.level.world.biome.biomes.highland.groves;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import org.bukkit.Material;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Grove extends BiomeRepresentation {
+public class Grove extends BiomeRepresentation implements FloraBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -18,6 +20,15 @@ public class Grove extends BiomeRepresentation {
     }};
     public Grove() {
         super(org.bukkit.block.Biome.GROVE, "Grove", layers, 0.2, 0.5, 0.1);
+    }
+
+    @Override
+    public HashMap<Integer, Material> getFlora() {
+        HashMap<Integer, Material>flora = new HashMap<>();
+        flora.put(10, Material.SHORT_GRASS);
+        flora.putAll(FloraBiomeUtils.getFlowers(10));
+
+        return flora;
     }
 }
 

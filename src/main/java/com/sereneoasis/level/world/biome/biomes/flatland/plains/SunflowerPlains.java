@@ -2,13 +2,14 @@ package com.sereneoasis.level.world.biome.biomes.flatland.plains;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import org.bukkit.Material;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class SunflowerPlains extends BiomeRepresentation {
+public class SunflowerPlains extends BiomeRepresentation implements FloraBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -17,7 +18,14 @@ public class SunflowerPlains extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SunflowerPlains() {
-        super(org.bukkit.block.Biome.SUNFLOWER_PLAINS, "Sunflower Plains", layers, 0.4, 0.4, 0.2);
+        super(org.bukkit.block.Biome.SUNFLOWER_PLAINS, "Sunflower Plains", layers, 0.4, 0.4, 0.2, 0.1);
+    }
+
+    @Override
+    public HashMap<Integer, Material> getFlora() {
+        HashMap<Integer, Material>flora = new HashMap<>();
+        flora.put(40, Material.SUNFLOWER);
+        return flora;
     }
 }
 

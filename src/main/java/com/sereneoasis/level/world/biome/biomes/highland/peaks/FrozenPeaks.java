@@ -17,7 +17,7 @@ public class FrozenPeaks extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public FrozenPeaks() {
-        super(org.bukkit.block.Biome.FROZEN_PEAKS, "Frozen Peaks", layers, -1.0, -1.0, -0.2);
+        super(org.bukkit.block.Biome.FROZEN_PEAKS, "Frozen Peaks", layers, -1.0, -1.0, -0.2, 0.1);
     }
 }
 
