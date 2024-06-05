@@ -17,7 +17,7 @@ public class Grove extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Grove() {
-        super(org.bukkit.block.Biome.GROVE, "Grove", layers, 0.2, 0.5, 0);
+        super(org.bukkit.block.Biome.GROVE, "Grove", layers, 0.2, 0.5, 0.1);
     }
 }
 

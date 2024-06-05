@@ -17,7 +17,7 @@ public class BambooJungle extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public BambooJungle() {
-        super(org.bukkit.block.Biome.BAMBOO_JUNGLE, "Bamboo Jungle", layers, -0.5, 0.3, 0);
+        super(org.bukkit.block.Biome.BAMBOO_JUNGLE, "Bamboo Jungle", layers, -0.5, 0.3, 0.6);
     }
 }
 

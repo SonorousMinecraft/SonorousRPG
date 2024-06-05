@@ -17,7 +17,7 @@ public class SnowySlopes extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowySlopes() {
-        super(org.bukkit.block.Biome.SNOWY_SLOPES, "Snowy Slopes", layers, -0.5, 1.0, 0);
+        super(org.bukkit.block.Biome.SNOWY_SLOPES, "Snowy Slopes", layers, -0.5, 1.0, -0.2);
     }
 }
 

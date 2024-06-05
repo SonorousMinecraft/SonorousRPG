@@ -17,7 +17,7 @@ public class WindsweptHills extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WindsweptHills() {
-        super(org.bukkit.block.Biome.WINDSWEPT_HILLS, "Windswept Hills", layers, -0.5, 0.6, 0);
+        super(org.bukkit.block.Biome.WINDSWEPT_HILLS, "Windswept Hills", layers, -0.5, 0.6, -0.2);
     }
 }
 

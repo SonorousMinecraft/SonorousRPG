@@ -17,6 +17,6 @@ public class WarmOcean extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WarmOcean() {
-        super(org.bukkit.block.Biome.WARM_OCEAN, "Warm Ocean", layers, 0, -0.8, 0);
+        super(org.bukkit.block.Biome.WARM_OCEAN, "Warm Ocean", layers, 0, -0.8, 0.7);
     }
 }

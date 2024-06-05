@@ -17,6 +17,6 @@ public class DeepLukewarmOcean extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public DeepLukewarmOcean() {
-        super(org.bukkit.block.Biome.DEEP_LUKEWARM_OCEAN, "Deep Lukewarm Ocean", layers, -0.2, -1.0, 0);
+        super(org.bukkit.block.Biome.DEEP_LUKEWARM_OCEAN, "Deep Lukewarm Ocean", layers, -0.2, -1.0, 0.4);
     }
 }

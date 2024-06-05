@@ -19,7 +19,7 @@ public class Swamp extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Swamp() {
-        super(org.bukkit.block.Biome.SWAMP, "Swamp", layers, 0.3, -0.2, 0);
+        super(org.bukkit.block.Biome.SWAMP, "Swamp", layers, 0.3, -0.2, 0.5);
     }
 
     @Override

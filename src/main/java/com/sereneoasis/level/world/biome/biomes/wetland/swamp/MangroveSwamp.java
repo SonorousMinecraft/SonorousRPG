@@ -19,7 +19,7 @@ public class MangroveSwamp extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public MangroveSwamp() {
-        super(org.bukkit.block.Biome.MANGROVE_SWAMP, "Mangrove Swamp", layers, 0.5, -0.2, 0);
+        super(org.bukkit.block.Biome.MANGROVE_SWAMP, "Mangrove Swamp", layers, 0.5, -0.2, 0.6);
     }
 
     @Override

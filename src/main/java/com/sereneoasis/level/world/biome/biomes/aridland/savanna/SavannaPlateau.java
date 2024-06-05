@@ -19,7 +19,7 @@ public class SavannaPlateau extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SavannaPlateau() {
-        super(org.bukkit.block.Biome.SAVANNA_PLATEAU, "Savanna Plateau", layers, 0.6, 0.8, 0);
+        super(org.bukkit.block.Biome.SAVANNA_PLATEAU, "Savanna Plateau", layers, 0.6, 0.8, -0.3);
     }
 
     @Override

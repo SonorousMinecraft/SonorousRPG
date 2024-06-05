@@ -19,7 +19,7 @@ public class SparseJungle extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SparseJungle() {
-        super(org.bukkit.block.Biome.SPARSE_JUNGLE, "Sparse Jungle", layers, 0.3, 0.3, 0);
+        super(org.bukkit.block.Biome.SPARSE_JUNGLE, "Sparse Jungle", layers, 0.3, 0.3, 0.5);
     }
 
     @Override

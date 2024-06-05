@@ -19,7 +19,7 @@ public class Jungle extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Jungle() {
-        super(org.bukkit.block.Biome.JUNGLE, "Jungle", layers, 0.5, 0.4, 0);
+        super(org.bukkit.block.Biome.JUNGLE, "Jungle", layers, 0.5, 0.4, 0.7);
     }
 
     @Override

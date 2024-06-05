@@ -19,7 +19,7 @@ public class CherryGrove extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public CherryGrove() {
-        super(org.bukkit.block.Biome.CHERRY_GROVE, "Cherry Grove", layers, 0.3, 0.5, 0);
+        super(org.bukkit.block.Biome.CHERRY_GROVE, "Cherry Grove", layers, 0.3, 0.5, 0.1);
     }
 
     @Override

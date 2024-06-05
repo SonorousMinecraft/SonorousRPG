@@ -17,7 +17,7 @@ public class WindsweptSavanna extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WindsweptSavanna() {
-        super(org.bukkit.block.Biome.WINDSWEPT_SAVANNA, "Windswept Savanna", layers, 0.5, 1.0, 0);
+        super(org.bukkit.block.Biome.WINDSWEPT_SAVANNA, "Windswept Savanna", layers, 0.5, 1.0, -0.1);
     }
 }
 

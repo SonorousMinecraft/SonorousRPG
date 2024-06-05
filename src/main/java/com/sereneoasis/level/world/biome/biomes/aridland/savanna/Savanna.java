@@ -19,7 +19,7 @@ public class Savanna extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Savanna() {
-        super(org.bukkit.block.Biome.SAVANNA, "Savanna", layers, 0.6, 0.3, 0);
+        super(org.bukkit.block.Biome.SAVANNA, "Savanna", layers, 0.6, 0.3, -0.4);
     }
 
     @Override

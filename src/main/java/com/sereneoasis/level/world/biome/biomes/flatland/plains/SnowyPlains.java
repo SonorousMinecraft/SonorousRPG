@@ -17,6 +17,6 @@ public class SnowyPlains extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowyPlains() {
-        super(org.bukkit.block.Biome.SNOWY_PLAINS, "Snowy Plains", layers, -0.7, 0.6, 0);
+        super(org.bukkit.block.Biome.SNOWY_PLAINS, "Snowy Plains", layers, -0.7, 0.6, -0.2);
     }
 }

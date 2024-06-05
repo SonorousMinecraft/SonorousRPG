@@ -20,7 +20,7 @@ public class Meadow extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Meadow() {
-        super(Biome.MEADOW, "Meadow", layers, 0.3, 0.5, 0);
+        super(Biome.MEADOW, "Meadow", layers, 0.3, 0.5, 0.1);
     }
 
     @Override
