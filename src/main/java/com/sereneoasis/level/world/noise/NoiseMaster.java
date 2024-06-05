@@ -13,13 +13,22 @@ import java.util.List;
 public class NoiseMaster {
 
     public NoiseMaster(){
-        new GenerationNoise(0.00001f, 1, NoiseTypes.CONTINENTALNESS);
+        boolean isTest = true;
 
-//        new GenerationNoise(0.01f, 3, NoiseTypes.CONTINENTALNESS);
-        new GenerationNoise(0.0001f, 1, NoiseTypes.TEMPERATURE);
-        new GenerationNoise(0.0001f, 1, NoiseTypes.HUMIDITY);
+        if (isTest){
+            new GenerationNoise(0.001f, 1, NoiseTypes.CONTINENTALNESS);
+            new GenerationNoise(0.01f, 1, NoiseTypes.TEMPERATURE);
+            new GenerationNoise(0.01f, 1, NoiseTypes.HUMIDITY);
 
-        new GenerationNoise(0.001f, 2, NoiseTypes.DETAIl);
+            new GenerationNoise(0.1f, 2, NoiseTypes.DETAIl);
+        } else {
+            new GenerationNoise(0.00001f, 1, NoiseTypes.CONTINENTALNESS);
+            new GenerationNoise(0.0001f, 1, NoiseTypes.TEMPERATURE);
+            new GenerationNoise(0.0001f, 1, NoiseTypes.HUMIDITY);
+
+            new GenerationNoise(0.001f, 2, NoiseTypes.DETAIl);
+        }
+
     }
 
     public static float getMasterNoise(int chunkX, int chunkZ, int x, int z){
