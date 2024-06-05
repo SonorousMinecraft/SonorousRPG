@@ -1,11 +1,14 @@
 package com.sereneoasis.level.world.biome;
 
 import com.sereneoasis.utils.ReflectionUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
 
 /***
  * Represents data associated with a Vanilla Biome
@@ -20,17 +23,33 @@ public abstract class BiomeRepresentation {
 
     protected double temperature, continentalness, humidity;
 
-    private static final HashMap<Biome, BiomeRepresentation> biomeMap = new HashMap<>();
+    private static final HashSet<BiomeRepresentation> BIOME_REPRESENTATIONS = new HashSet<>();
+
+    public static HashSet<BiomeRepresentation> getBiomeRepresentations() {
+        return BIOME_REPRESENTATIONS;
+    }
+
+    private static final HashMap<Biome, BiomeRepresentation> BIOME_MAP = new HashMap<>();
+
+    public static HashMap<Biome, BiomeRepresentation> getBiomeMap() {
+        return BIOME_MAP;
+    }
 
     public static BiomeRepresentation getBiomeRepresentation(Biome biome){
-        return biomeMap.get(biome);
+        return BIOME_MAP.get(biome);
+    }
+
+    private static final HashSet<Biome> VALID_BIOMES = new HashSet<>();
+
+    public static HashSet<Biome> getValidBiomes() {
+        return VALID_BIOMES;
     }
 
     public static void initBiomes(){
-        ReflectionUtils.findAllClassesUsingReflectionsLibrary("com.sereneoasis.level.world.biome.biomes").stream()
-                .filter(aClass -> aClass.isInstance(BiomeRepresentation.class))
+        ReflectionUtils.findAllClasses("com.sereneoasis.level.world.biome.biomes").stream()
                 .forEach(aClass -> {
                     try {
+                        Bukkit.getServer().getLogger().log(Level.INFO, () -> aClass.getName() + " is loaded");
                         aClass.newInstance();
                     } catch (InstantiationException e) {
                         throw new RuntimeException(e);
@@ -49,7 +68,9 @@ public abstract class BiomeRepresentation {
         this.temperature = temperature;
         this.continentalness = continentalness;
         this.humidity = humidity;
-        biomeMap.put(biome, this);
+        BIOME_MAP.put(biome, this);
+        BIOME_REPRESENTATIONS.add(this);
+        VALID_BIOMES.add(biome);
     }
 
 
@@ -57,7 +78,7 @@ public abstract class BiomeRepresentation {
      * Represents the Vanilla Biome
      * @return The Vanilla Biome associated with this class
      */
-    org.bukkit.block.Biome getBiome(){
+    public org.bukkit.block.Biome getBiome(){
         return this.biome;
     }
 
@@ -65,7 +86,7 @@ public abstract class BiomeRepresentation {
      * Returns the name
      * @return The name of the Biome which should be displayed
      */
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -73,7 +94,7 @@ public abstract class BiomeRepresentation {
      * Represents the layers a Biome contains for World Generation purposes
      * @return A HashMap associating Biome layers with a list of materials
      */
-    HashMap<BiomeLayers, List<Material>>getLayers(){
+    public HashMap<BiomeLayers, List<Material>>getLayers(){
         return this.layers;
     }
 
@@ -81,7 +102,7 @@ public abstract class BiomeRepresentation {
      * Represents the temperature, used to dictate where it will generate
      * @return A double showing Biome temperature from -1 to 1
      */
-    double getTemperature(){
+    public double getTemperature(){
         return this.temperature;
     }
 
@@ -89,7 +110,7 @@ public abstract class BiomeRepresentation {
      * Represents the continentalness, used to dictate how inland it will generate
      * @return A double showing continentalness from -1 to 1
      */
-    double getContinentalness(){
+    public double getContinentalness(){
         return this.temperature;
     }
 
@@ -97,7 +118,7 @@ public abstract class BiomeRepresentation {
      * Represents the humidity, used to dictate where it will generate
      * @return A double showing humidity from -1 to 1
      */
-    double getHumidity(){
+    public double getHumidity(){
         return this.humidity;
     }
 

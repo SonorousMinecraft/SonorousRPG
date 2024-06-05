@@ -3,6 +3,7 @@ package com.sereneoasis;
 import com.sereneoasis.command.SerenityCommand;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
+import com.sereneoasis.level.world.noise.NoiseMaster;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,7 +32,7 @@ public class SereneRPG extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
-        BiomeRepresentation.initBiomes();
+
 //        scheduleBiomeSwitching();
     }
 
@@ -65,6 +66,8 @@ public class SereneRPG extends JavaPlugin {
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        BiomeRepresentation.initBiomes();
+        new NoiseMaster();
         getLogger().log(Level.WARNING, "CustomChunkGenerator is used!");
         return new CustomChunkGenerator(); // Return an instance of the chunk generator we want to use.
     }
