@@ -1,8 +1,10 @@
 package com.sereneoasis.level.world.biome;
 
+import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import com.sereneoasis.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 import org.bukkit.block.Biome;
 
 import java.util.HashMap;
@@ -59,6 +61,15 @@ public abstract class BiomeRepresentation {
                 });
     }
 
+    private static final HashMap<Biome, TreeBiome>TREE_BIOMES = new HashMap<>();
+
+    public static boolean isTreeBiome(Biome biome){
+        return (TREE_BIOMES.containsKey(biome));
+    }
+
+    public static List<TreeType> getTreeTypes(Biome biome){
+        return List.of(TREE_BIOMES.get(biome).getTreeType());
+    }
 
 
     public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity){
@@ -71,6 +82,9 @@ public abstract class BiomeRepresentation {
         BIOME_MAP.put(biome, this);
         BIOME_REPRESENTATIONS.add(this);
         VALID_BIOMES.add(biome);
+        if (this instanceof TreeBiome treeBiome){
+            TREE_BIOMES.put(biome, treeBiome);
+        }
     }
 
 

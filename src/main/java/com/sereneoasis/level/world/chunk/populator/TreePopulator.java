@@ -1,5 +1,6 @@
 package com.sereneoasis.level.world.chunk.populator;
 
+import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.TreeType;
@@ -13,11 +14,6 @@ import java.util.List;
 import java.util.Random;
 
 public class TreePopulator extends BlockPopulator {
-    private final HashMap<Biome, List<TreeType>> biomeTrees = new HashMap<Biome, List<TreeType>>() {{
-        put(Biome.PLAINS, Arrays.asList());
-        put(Biome.FOREST, Arrays.asList(TreeType.BIRCH));
-        put(Biome.DARK_FOREST, Arrays.asList(TreeType.DARK_OAK));
-    }};
 
     @Override
     public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {
@@ -27,10 +23,11 @@ public class TreePopulator extends BlockPopulator {
         while(limitedRegion.getType(x, y, z).isAir() && y > -64) y--;
 
         Location location = new Location(Bukkit.getWorld(worldInfo.getUID()), x, y, z);
-        List<TreeType> trees = biomeTrees.getOrDefault(limitedRegion.getBiome(location), Arrays.asList(TreeType.TREE, TreeType.BIRCH));
-
-        if (trees.size() > 0 && limitedRegion.getType(x, y - 1, z).isSolid()) {
-            limitedRegion.generateTree(location, random, trees.get(random.nextInt(trees.size())));
+        Biome biome = limitedRegion.getBiome(location);
+        if (BiomeRepresentation.isTreeBiome(biome)){
+            if (limitedRegion.getType(x, y - 1, z).isSolid()){
+                limitedRegion.generateTree(location, random, BiomeRepresentation.getTreeTypes(biome).get(random.nextInt(BiomeRepresentation.getTreeTypes(biome).size())));
+            }
         }
     }
 }

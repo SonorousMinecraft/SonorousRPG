@@ -1,15 +1,17 @@
-package com.sereneoasis.level.world.biome.biomes.woodland;
+package com.sereneoasis.level.world.biome.biomes.woodland.forest;
 
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
+import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 import org.bukkit.block.Biome;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Forest extends BiomeRepresentation {
+public class Forest extends BiomeRepresentation implements TreeBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -19,5 +21,10 @@ public class Forest extends BiomeRepresentation {
     }};
     public Forest() {
         super(Biome.FOREST, "Forest", layers, 0.5, 0.4, 0);
+    }
+
+    @Override
+    public TreeType[] getTreeType() {
+        return new TreeType[]{TreeType.TREE, TreeType.BIRCH};
     }
 }

@@ -2,13 +2,15 @@ package com.sereneoasis.level.world.biome.biomes.highland.groves;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class CherryGrove extends BiomeRepresentation {
+public class CherryGrove extends BiomeRepresentation implements TreeBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -18,5 +20,10 @@ public class CherryGrove extends BiomeRepresentation {
     }};
     public CherryGrove() {
         super(org.bukkit.block.Biome.CHERRY_GROVE, "Cherry Grove", layers, 0.3, 0.5, 0);
+    }
+
+    @Override
+    public TreeType[] getTreeType() {
+        return new TreeType[]{TreeType.CHERRY};
     }
 }

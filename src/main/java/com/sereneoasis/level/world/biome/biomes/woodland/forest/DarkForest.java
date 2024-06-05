@@ -1,14 +1,16 @@
-package com.sereneoasis.level.world.biome.biomes.woodland;
+package com.sereneoasis.level.world.biome.biomes.woodland.forest;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class DarkForest extends BiomeRepresentation {
+public class DarkForest extends BiomeRepresentation implements TreeBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
         put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
@@ -18,6 +20,11 @@ public class DarkForest extends BiomeRepresentation {
     }};
     public DarkForest() {
         super(org.bukkit.block.Biome.DARK_FOREST, "Dark Forest", layers, 0.3, 0.4, 0);
+    }
+
+    @Override
+    public TreeType[] getTreeType() {
+        return new TreeType[]{TreeType.DARK_OAK, TreeType.BROWN_MUSHROOM, TreeType.RED_MUSHROOM};
     }
 }
 
