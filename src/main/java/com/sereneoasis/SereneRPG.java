@@ -1,6 +1,7 @@
 package com.sereneoasis;
 
 import com.sereneoasis.command.SerenityCommand;
+import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +30,8 @@ public class SereneRPG extends JavaPlugin {
 //        CustomBiome.addCustomBiome(SereneBiomeData.FOREST);
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
+
+        BiomeRepresentation.initBiomes();
 //        scheduleBiomeSwitching();
     }
 
