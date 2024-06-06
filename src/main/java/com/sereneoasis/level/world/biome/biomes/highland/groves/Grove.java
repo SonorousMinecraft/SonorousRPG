@@ -23,9 +23,9 @@ public class Grove extends BiomeRepresentation implements FloraBiome {
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(10, Material.SHORT_GRASS);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put(Material.SHORT_GRASS, 20);
         flora.putAll(FloraBiomeUtils.getFlowers(10));
 
         return flora;

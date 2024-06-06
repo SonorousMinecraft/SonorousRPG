@@ -22,11 +22,11 @@ public class BambooJungle extends BiomeRepresentation implements FloraBiome {
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(10, Material.SHORT_GRASS);
-        flora.put(5, Material.TALL_GRASS);
-        flora.put(5, Material.BAMBOO);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put(Material.SHORT_GRASS, 5);
+        flora.put(Material.TALL_GRASS, 10);
+        flora.put(Material.BAMBOO, 30);
 
         return flora;
     }

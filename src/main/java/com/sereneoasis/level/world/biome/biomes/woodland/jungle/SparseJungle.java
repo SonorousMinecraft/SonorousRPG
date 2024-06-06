@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.biome.biomes.woodland.jungle;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
@@ -29,10 +30,10 @@ public class SparseJungle extends BiomeRepresentation implements TreeBiome, Flor
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(10, Material.SHORT_GRASS);
-        flora.put(5, Material.TALL_GRASS);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put(Material.SHORT_GRASS, 10);
+        flora.put(Material.TALL_GRASS, 10);
         return flora;
     }
 }

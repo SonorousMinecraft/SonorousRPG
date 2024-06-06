@@ -30,12 +30,12 @@ public class CherryGrove extends BiomeRepresentation implements TreeBiome, Flora
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
         flora.putAll(FloraBiomeUtils.getFlowers(10));
-        flora.put(10, Material.SHORT_GRASS);
-        flora.put(5, Material.POPPY);
-        flora.put(30, Material.PINK_PETALS);
+        flora.put(Material.SHORT_GRASS, 10);
+        flora.put(Material.POPPY, 5);
+        flora.put(Material.PINK_PETALS, 30);
         return flora;
     }
 }

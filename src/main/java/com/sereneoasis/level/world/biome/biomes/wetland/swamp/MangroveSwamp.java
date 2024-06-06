@@ -29,10 +29,10 @@ public class MangroveSwamp extends BiomeRepresentation implements TreeBiome, Flo
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(10, Material.SHORT_GRASS);
-        flora.put(5, Material.BIG_DRIPLEAF);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put(Material.SHORT_GRASS, 20);
+        flora.put(Material.BIG_DRIPLEAF, 5);
         return flora;
     }
 

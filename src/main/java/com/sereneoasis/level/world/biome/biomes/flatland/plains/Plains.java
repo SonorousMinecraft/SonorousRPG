@@ -30,7 +30,7 @@ public class Plains extends BiomeRepresentation implements TreeBiome, FloraBiome
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
+    public HashMap<Material, Integer> getFlora() {
         return FloraBiomeUtils.getFlowers(5);
     }
 }

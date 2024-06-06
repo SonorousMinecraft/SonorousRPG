@@ -6,5 +6,5 @@ import java.util.HashMap;
 
 public interface FloraBiome {
 
-    HashMap<Integer, Material>getFlora();
+    HashMap<Material, Integer>getFlora();
 }

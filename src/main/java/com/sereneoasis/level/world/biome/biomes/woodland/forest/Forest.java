@@ -32,11 +32,11 @@ public class Forest extends BiomeRepresentation implements TreeBiome, FloraBiome
 
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(10, Material.SHORT_GRASS);
-        flora.put(5, Material.TALL_GRASS);
-        flora.put(10, Material.SWEET_BERRY_BUSH);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put(Material.SHORT_GRASS, 5);
+        flora.put(Material.TALL_GRASS, 10);
+        flora.put(Material.SWEET_BERRY_BUSH, 10);
         flora.putAll(FloraBiomeUtils.getFlowers(10));
 
         return flora;

@@ -22,10 +22,10 @@ public class Desert extends BiomeRepresentation implements FloraBiome {
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(10, Material.CACTUS);
-        flora.put(5, Material.DEAD_BUSH);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put(Material.CACTUS, 5);
+        flora.put(Material.DEAD_BUSH, 5);
         return flora;
     }
 }

@@ -22,9 +22,9 @@ public class SunflowerPlains extends BiomeRepresentation implements FloraBiome {
     }
 
     @Override
-    public HashMap<Integer, Material> getFlora() {
-        HashMap<Integer, Material>flora = new HashMap<>();
-        flora.put(40, Material.SUNFLOWER);
+    public HashMap<Material, Integer> getFlora() {
+        HashMap<Material, Integer>flora = new HashMap<>();
+        flora.put( Material.SUNFLOWER, 40);
         return flora;
     }
 }

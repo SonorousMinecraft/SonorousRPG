@@ -16,7 +16,7 @@ public class GrassPopulator extends BlockPopulator {
     public void populate(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull LimitedRegion limitedRegion) {
         Biome biome = limitedRegion.getBiome(chunkX * 16,0,chunkZ * 16);
         if (BiomeRepresentation.isFloraBiome(biome)) {
-            BiomeRepresentation.getFloraTypes(biome).forEach((integer, material) -> {
+            BiomeRepresentation.getFloraTypes(biome).forEach((material, integer) -> {
                 for (int iteration = 0; iteration < integer; iteration++) {
                     int x = random.nextInt(16) + chunkX * 16;
                     int z = random.nextInt(16) + chunkZ * 16;

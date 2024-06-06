@@ -12,10 +12,10 @@ public class FloraBiomeUtils {
             Material.DANDELION, Material.AZURE_BLUET, Material.ORANGE_TULIP, Material.PINK_TULIP, Material.RED_TULIP,
             Material.WHITE_TULIP, Material.TORCHFLOWER, Material.BLUE_ORCHID, Material.OXEYE_DAISY};
 
-    public static HashMap<Integer, Material> getSmallFlowers(int amount) {
-        HashMap<Integer, Material>flora = new HashMap<>();
+    public static HashMap<Material, Integer> getSmallFlowers(int amount) {
+        HashMap<Material, Integer>flora = new HashMap<>();
         Arrays.stream(smallFlowers).forEach(material -> {
-            flora.put(amount, material);
+            flora.put(material, amount);
         });
         return flora;
     }
@@ -24,16 +24,16 @@ public class FloraBiomeUtils {
     private static final Material[] tallFlowers = new Material[]{Material.ROSE_BUSH, Material.LILAC, Material.PEONY, Material.SUNFLOWER};
 
 
-    public static HashMap<Integer, Material> getTallFlowers(int amount) {
-        HashMap<Integer, Material>flora = new HashMap<>();
+    public static HashMap<Material, Integer> getTallFlowers(int amount) {
+        HashMap<Material, Integer>flora = new HashMap<>();
         Arrays.stream(tallFlowers).forEach(material -> {
-            flora.put(amount, material);
+            flora.put(material, amount);
         });
         return flora;
     }
 
-    public static HashMap<Integer, Material> getFlowers(int amount) {
-        HashMap<Integer, Material>flora = new HashMap<>();
+    public static HashMap<Material, Integer> getFlowers(int amount) {
+        HashMap<Material, Integer>flora = new HashMap<>();
         flora.putAll(getSmallFlowers(amount));
         flora.putAll(getTallFlowers(amount));
         return flora;

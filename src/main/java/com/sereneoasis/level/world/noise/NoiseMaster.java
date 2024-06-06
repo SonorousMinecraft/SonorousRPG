@@ -17,26 +17,33 @@ public class NoiseMaster {
         boolean isTest = true;
 
         if (isTest){
-            new GenerationNoise(0.001f, 1, NoiseTypes.CONTINENTALNESS);
+            new GenerationNoise(0.001f, 5, NoiseTypes.TERRAIN_NOISE);
+
+            new GenerationNoise(0.0005f, 1, NoiseTypes.CONTINENTALNESS);
             new GenerationNoise(0.01f, 1, NoiseTypes.TEMPERATURE);
             new GenerationNoise(0.01f, 1, NoiseTypes.HUMIDITY);
 
 
-            new GenerationNoise(1.0f, 0, NoiseTypes.DETAIl);
-            new GenerationNoise(0.0001f, 0, NoiseTypes.WEIRDNESS);
+            new GenerationNoise(1.0f, 1, NoiseTypes.DETAIl);
+            new GenerationNoise(0.00001f, 1, NoiseTypes.WEIRDNESS);
         } else {
-            new GenerationNoise(0.00001f, 1, NoiseTypes.CONTINENTALNESS);
+            new GenerationNoise(0.00001f, 5, NoiseTypes.TERRAIN_NOISE);
+
+            new GenerationNoise(0.000005f, 1, NoiseTypes.CONTINENTALNESS);
             new GenerationNoise(0.0001f, 1, NoiseTypes.TEMPERATURE);
             new GenerationNoise(0.0001f, 1, NoiseTypes.HUMIDITY);
 
-            new GenerationNoise(0.01f, 0, NoiseTypes.DETAIl);
-            new GenerationNoise(0.00001f, 0, NoiseTypes.WEIRDNESS);
+            new GenerationNoise(0.01f, 1, NoiseTypes.DETAIl);
+            new GenerationNoise(0.00001f, 1, NoiseTypes.WEIRDNESS);
         }
 
     }
 
-    public static float getMasterNoise(int chunkX, int chunkZ, int x, int z){
-        return (GenerationNoise.getNoise(NoiseTypes.CONTINENTALNESS, x + (chunkX * 16), z + (chunkZ * 16)) * 2) + (GenerationNoise.getNoise(NoiseTypes.DETAIl, x + (chunkX * 16), z + (chunkZ * 16)) / 10);
+    public static float getMasterNoise(int chunkX, int chunkZ, int x, int z) {
+        return (GenerationNoise.getNoise(NoiseTypes.TERRAIN_NOISE, x + (chunkX * 16), z + (chunkZ * 16)) * 10) +
+                ( GenerationNoise.getNoise(NoiseTypes.CONTINENTALNESS, x + (chunkX * 16), z + (chunkZ * 16)) * 4  )
+                + (GenerationNoise.getNoise(NoiseTypes.DETAIl, x + (chunkX * 16), z + (chunkZ * 16)) / 2)
+    + (GenerationNoise.getNoise(NoiseTypes.TEMPERATURE, x + (chunkX * 16), z + (chunkZ * 16)) / 5);
     }
 
 

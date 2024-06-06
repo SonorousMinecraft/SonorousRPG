@@ -79,7 +79,7 @@ public abstract class BiomeRepresentation {
         return (FLORA_BIOMES.containsKey(biome));
     }
 
-    public static HashMap<Integer, Material> getFloraTypes(Biome biome){
+    public static HashMap<Material, Integer> getFloraTypes(Biome biome){
         return FLORA_BIOMES.get(biome).getFlora();
     }
 
