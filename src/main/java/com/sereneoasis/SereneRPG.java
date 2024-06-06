@@ -1,18 +1,26 @@
 package com.sereneoasis;
 
 import com.sereneoasis.command.SerenityCommand;
+import com.sereneoasis.config.FileManager;
+import com.sereneoasis.level.world.Schematics;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
 import com.sereneoasis.level.world.noise.NoiseMaster;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Level;
 
 public class SereneRPG extends JavaPlugin {
 
     public static SereneRPG plugin;
 
+    private static FileManager fileManager;
+
+    public static FileManager getFileManager() {
+        return fileManager;
+    }
 
     public static void SereneRPG(String[] args) {
         System.out.println("Hello world!");
@@ -23,6 +31,8 @@ public class SereneRPG extends JavaPlugin {
     public void onEnable() {
         getLogger().log(Level.INFO, "WorldGenerator was enabled successfully.");
         plugin = this;
+        fileManager = new FileManager();
+        new Schematics();
 //        CustomBiome.addCustomBiome(SereneBiomeData.PLAINS);
 //        CustomBiome.addCustomBiome(SereneBiomeData.DESERT);
 //        CustomBiome.addCustomBiome(SereneBiomeData.JUNGLE);

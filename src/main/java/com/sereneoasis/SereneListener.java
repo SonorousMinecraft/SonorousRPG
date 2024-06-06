@@ -1,12 +1,10 @@
 package com.sereneoasis;
 
+import com.sereneoasis.level.world.Schematics;
 import com.sereneoasis.level.world.biome.CustomBiomeProvider;
+import com.sereneoasis.utils.StructureUtils;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
-import org.bukkit.Chunk;
-import org.bukkit.ChunkSnapshot;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.craftbukkit.v1_20_R3.block.CraftBiome;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
@@ -18,9 +16,41 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkPopulateEvent;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class SereneListener implements Listener {
+
+    private static final Random random = new Random();
+
+    @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event){
+        if (random.nextDouble() < 0.001){
+
+            Chunk chunk = event.getChunk();
+
+            int snapshotX = random.nextInt(16);
+            int y = 256;
+            int snapshotZ = random.nextInt(16);
+
+            while(event.getChunk().getChunkSnapshot(false, false, false).getBlockType(snapshotX, y, snapshotZ).isAir() && y > -64) {
+                y--;
+                if (y == 0 ){
+                    return;
+                }
+            }
+            int x = snapshotX + chunk.getX() * 16;
+            int z = snapshotZ + chunk.getZ() * 16;
+            Location loc = new Location(event.getWorld(), x, y, z);
+            loc.setYaw(90 * random.nextInt(0, 4));
+            Schematics.pasteClipboard("fort1", loc);
+
+            Bukkit.getServer().getLogger().log(Level.INFO, loc.toString());
+
+
+        }
+    }
 
 //    @EventHandler
 //    public void onChunkLoad(ChunkLoadEvent event){

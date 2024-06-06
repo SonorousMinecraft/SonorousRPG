@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.chunk;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.populator.GrassPopulator;
+import com.sereneoasis.level.world.chunk.populator.StructurePopulator;
 import com.sereneoasis.level.world.chunk.populator.TreePopulator;
 import com.sereneoasis.level.world.biome.CustomBiomeProvider;
 import com.sereneoasis.level.world.noise.GenerationNoise;
@@ -170,7 +171,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
     @NotNull
     @Override
     public List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
-        return List.of(new TreePopulator(), new GrassPopulator());
+        return List.of( new TreePopulator(), new GrassPopulator());
     }
 
     @Override
