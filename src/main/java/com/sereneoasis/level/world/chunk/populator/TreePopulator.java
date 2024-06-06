@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.chunk.populator;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BlockPopulator;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class TreePopulator extends BlockPopulator {
 
@@ -23,11 +25,11 @@ public class TreePopulator extends BlockPopulator {
         while(limitedRegion.getType(x, y, z).isAir() && y > -64) y--;
 
         Location location = new Location(Bukkit.getWorld(worldInfo.getUID()), x, y, z);
+
         Biome biome = limitedRegion.getBiome(location);
         if (BiomeRepresentation.isTreeBiome(biome)){
-            if (limitedRegion.getType(x, y - 1, z).isSolid()){
-                limitedRegion.generateTree(location, random, BiomeRepresentation.getTreeTypes(biome).get(random.nextInt(BiomeRepresentation.getTreeTypes(biome).size())));
-            }
+            limitedRegion.setType(location, Material.AIR);
+            limitedRegion.generateTree(location, random, BiomeRepresentation.getTreeTypes(biome).get(random.nextInt(BiomeRepresentation.getTreeTypes(biome).size())));
         }
     }
 }
