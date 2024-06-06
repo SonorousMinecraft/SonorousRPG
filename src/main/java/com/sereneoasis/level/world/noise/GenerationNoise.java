@@ -8,8 +8,12 @@ public class GenerationNoise {
 
     private static final HashMap<NoiseTypes, FastNoiseLite> NOISE_TYPE_FUNCTION_MAP = new HashMap<>();
 
-    public static float getNoise(NoiseTypes noiseTypes, int x, int y){
-        return NOISE_TYPE_FUNCTION_MAP.get(noiseTypes).GetNoise(x, y);
+    public static float getNoise(NoiseTypes noiseTypes, int x, int z){
+        return NOISE_TYPE_FUNCTION_MAP.get(noiseTypes).GetNoise(x, z);
+    }
+
+    public static float getNoise(NoiseTypes noiseTypes, int x, int y, int z){
+        return NOISE_TYPE_FUNCTION_MAP.get(noiseTypes).GetNoise(x, y, z);
     }
 
     private final FastNoiseLite noise;

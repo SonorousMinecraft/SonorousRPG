@@ -8,5 +8,7 @@ public enum NoiseTypes {
     HUMIDITY,
     DETAIl,
 
-    WEIRDNESS
+    WEIRDNESS,
+
+    CAVES
 }

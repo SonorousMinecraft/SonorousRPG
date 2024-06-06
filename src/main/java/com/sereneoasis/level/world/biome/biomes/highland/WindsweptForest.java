@@ -17,7 +17,7 @@ public class WindsweptForest extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WindsweptForest() {
-        super(org.bukkit.block.Biome.WINDSWEPT_FOREST, "Windswept Forest", layers, 0, 0.8, 0, 0.5);
+        super(org.bukkit.block.Biome.WINDSWEPT_FOREST, "Windswept Forest", layers, -0.1, 0.8, 0, 0.5);
     }
 }
 

@@ -126,8 +126,6 @@ public class CustomChunkGenerator extends ChunkGenerator {
     public void generateCaves(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
         for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
             HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16, chunkZ * 16);
-
-
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
 
@@ -139,24 +137,29 @@ public class CustomChunkGenerator extends ChunkGenerator {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
                         // Not close to the surface at all.
                         if (distanceToSurface > LAYER_1_HEIGHT) {
-                            Material neighbour = Material.STONE;
-                            List<Material> neighbourBlocks = new ArrayList<Material>(Arrays.asList(chunkData.getType(Math.max(x - 1, 0), y, z), chunkData.getType(x, Math.max(y - 1, 0), z), chunkData.getType(x, y, Math.max(z - 1, 0)))); // A list of all neighbour blocks.
+                            if (NoiseMaster.getCaveNoise(chunkX, chunkZ, x, y, z) > 0.3) {
+                                chunkData.setBlock(x, y, z, Material.CAVE_AIR);
+                            } else {
+                                Material neighbour = Material.STONE;
+                                List<Material> neighbourBlocks = new ArrayList<Material>(Arrays.asList(chunkData.getType(Math.max(x - 1, 0), y, z), chunkData.getType(x, Math.max(y - 1, 0), z), chunkData.getType(x, y, Math.max(z - 1, 0)))); // A list of all neighbour blocks.
 
-                            // Randomly place vein anchors.
-                            if (random.nextFloat() < 0.002) {
-                                neighbour = layers.get(BiomeLayers.SECONDARY).get(Math.min(random.nextInt(layers.get(BiomeLayers.SECONDARY).size()), random.nextInt(layers.get(BiomeLayers.SECONDARY).size()))); // A basic way to shift probability to lower values.
-                            }
+                                // Randomly place vein anchors.
+                                if (random.nextFloat() < 0.002) {
+                                    neighbour = layers.get(BiomeLayers.SECONDARY).get(Math.min(random.nextInt(layers.get(BiomeLayers.SECONDARY).size()), random.nextInt(layers.get(BiomeLayers.SECONDARY).size()))); // A basic way to shift probability to lower values.
+                                }
 
-                            // If the current block has an ore block as neighbour, try the current block.
-                            if ((!Collections.disjoint(neighbourBlocks, layers.get(BiomeLayers.SECONDARY)))) {
-                                for (Material neighbourBlock : neighbourBlocks) {
-                                    if (layers.get(BiomeLayers.SECONDARY).contains(neighbourBlock) && random.nextFloat() < -0.01 * layers.get(BiomeLayers.SECONDARY).indexOf(neighbourBlock) + 0.4) {
-                                        neighbour = neighbourBlock;
+                                // If the current block has an ore block as neighbour, try the current block.
+                                if ((!Collections.disjoint(neighbourBlocks, layers.get(BiomeLayers.SECONDARY)))) {
+                                    for (Material neighbourBlock : neighbourBlocks) {
+                                        if (layers.get(BiomeLayers.SECONDARY).contains(neighbourBlock) && random.nextFloat() < -0.01 * layers.get(BiomeLayers.SECONDARY).indexOf(neighbourBlock) + 0.4) {
+                                            neighbour = neighbourBlock;
+                                        }
                                     }
                                 }
+
+                                chunkData.setBlock(x, y, z, neighbour);
                             }
 
-                            chunkData.setBlock(x, y, z, neighbour);
                         }
                     }
                 }
@@ -167,7 +170,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
     @NotNull
     @Override
     public List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
-        return List.of(new GrassPopulator(), new TreePopulator());
+        return List.of(new TreePopulator(), new GrassPopulator());
     }
 
     @Override
