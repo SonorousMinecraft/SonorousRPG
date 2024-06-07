@@ -17,7 +17,7 @@ public class JaggedPeaks extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public JaggedPeaks() {
-        super(org.bukkit.block.Biome.JAGGED_PEAKS, "Jagged Peaks", layers, -0.6, -0.9, -0.2, 0.1);
+        super(org.bukkit.block.Biome.JAGGED_PEAKS, "Jagged Peaks", layers, -0.6, 0.9, -0.2, 0.1);
     }
 }
 

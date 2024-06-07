@@ -1,6 +1,7 @@
 package com.sereneoasis.level.world.chunk.populator;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
+import com.sereneoasis.level.world.noise.NoiseMaster;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.BlockFace;
@@ -20,13 +21,16 @@ public class GrassPopulator extends BlockPopulator {
                 for (int iteration = 0; iteration < integer; iteration++) {
                     int x = random.nextInt(16) + chunkX * 16;
                     int z = random.nextInt(16) + chunkZ * 16;
-                    int y = 319;
+                    if (NoiseMaster.getFloraNoise(chunkX, chunkZ, x, z) > 0.25 ) {
+
+                        int y = 319;
 
 
-                    while (limitedRegion.getType(x, y, z).isAir() && y > -64) y--;
+                        while (limitedRegion.getType(x, y, z).isAir() && y > -64) y--;
 
-                    if (limitedRegion.getType(x, y, z).isSolid()) {
-                        limitedRegion.setType(x, y + 1, z, material);
+                        if (limitedRegion.getType(x, y, z).equals(Material.GRASS_BLOCK)) {
+                            limitedRegion.setType(x, y + 1, z, material);
+                        }
                     }
                 }
             });

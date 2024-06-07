@@ -35,7 +35,7 @@ import java.util.*;
 
 public class CustomChunkGenerator extends ChunkGenerator {
 
-    private final int Y_LIMIT = 200, SEA_LEVEL = 50, LAYER_1_HEIGHT = 10, AVERAGE_HEIGHT = 100, DEVIATION = 50;
+    private final int Y_LIMIT = 240, SEA_LEVEL = 50, LAYER_1_HEIGHT = 10, AVERAGE_HEIGHT = 100, DEVIATION = 50;
 
     public CustomChunkGenerator() {
     }
@@ -138,7 +138,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
                         float distanceToSurface = Math.abs(y - currentY); // The absolute y distance to the world surface.
                         // Not close to the surface at all.
                         if (distanceToSurface > LAYER_1_HEIGHT) {
-                            if (NoiseMaster.getCaveNoise(chunkX, chunkZ, x, y, z) > 0.3) {
+                            if (NoiseMaster.getCaveNoise(chunkX, chunkZ, x, y, z) > 0.4) {
                                 chunkData.setBlock(x, y, z, Material.CAVE_AIR);
                             } else {
                                 Material neighbour = Material.STONE;

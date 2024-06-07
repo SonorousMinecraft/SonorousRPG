@@ -10,5 +10,7 @@ public enum NoiseTypes {
 
     WEIRDNESS,
 
-    CAVES
+    CAVES,
+
+    FLORA
 }
