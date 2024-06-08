@@ -5,6 +5,7 @@ import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 
@@ -21,7 +22,7 @@ public class SparseJungle extends BiomeRepresentation implements TreeBiome, Flor
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SparseJungle() {
-        super(org.bukkit.block.Biome.SPARSE_JUNGLE, "Sparse Jungle", layers, 0.3, 0.3, 0.5);
+        super(org.bukkit.block.Biome.SPARSE_JUNGLE, "Sparse Jungle", layers, 0.3, 0.3, 0.5, BiomeCategories.WOOD);
     }
 
     @Override

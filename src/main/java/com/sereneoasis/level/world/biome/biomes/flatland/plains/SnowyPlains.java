@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.flatland.plains;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class SnowyPlains extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowyPlains() {
-        super(org.bukkit.block.Biome.SNOWY_PLAINS, "Snowy Plains", layers, -0.7, 0.6, -0.2);
+        super(org.bukkit.block.Biome.SNOWY_PLAINS, "Snowy Plains", layers, -0.7, 0.6, -0.2, BiomeCategories.FLAT);
     }
 }

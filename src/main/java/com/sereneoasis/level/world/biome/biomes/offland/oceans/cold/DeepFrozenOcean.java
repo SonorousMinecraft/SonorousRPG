@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.offland.oceans.cold;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class DeepFrozenOcean extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public DeepFrozenOcean() {
-        super(org.bukkit.block.Biome.DEEP_FROZEN_OCEAN, "Deep Frozen Ocean", layers, -1.0, -1.0, -0.7);
+        super(org.bukkit.block.Biome.DEEP_FROZEN_OCEAN, "Deep Frozen Ocean", layers, -1.0, -1.0, -0.7, BiomeCategories.OFF);
     }
 }

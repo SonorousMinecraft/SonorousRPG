@@ -5,6 +5,7 @@ import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 
@@ -21,7 +22,7 @@ public class SavannaPlateau extends BiomeRepresentation implements TreeBiome, Fl
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SavannaPlateau() {
-        super(org.bukkit.block.Biome.SAVANNA_PLATEAU, "Savanna Plateau", layers, 0.6, 0.8, -0.3);
+        super(org.bukkit.block.Biome.SAVANNA_PLATEAU, "Savanna Plateau", layers, 0.6, 0.8, -0.3, BiomeCategories.ARID);
     }
 
     @Override

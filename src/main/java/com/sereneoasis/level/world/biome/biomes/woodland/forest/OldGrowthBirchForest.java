@@ -5,6 +5,7 @@ import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 
@@ -21,7 +22,7 @@ public class OldGrowthBirchForest extends BiomeRepresentation implements TreeBio
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public OldGrowthBirchForest() {
-        super(org.bukkit.block.Biome.OLD_GROWTH_BIRCH_FOREST, "Old Growth Birch Forest", layers, 0.2, 0.4, 0, 0.1);
+        super(org.bukkit.block.Biome.OLD_GROWTH_BIRCH_FOREST, "Old Growth Birch Forest", layers, 0.2, 0.4, 0, 0.1, BiomeCategories.WOOD);
     }
 
     @Override

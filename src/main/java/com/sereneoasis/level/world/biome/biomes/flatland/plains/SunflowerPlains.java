@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.biome.biomes.flatland.plains;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class SunflowerPlains extends BiomeRepresentation implements FloraBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SunflowerPlains() {
-        super(org.bukkit.block.Biome.SUNFLOWER_PLAINS, "Sunflower Plains", layers, 0.4, 0.4, 0.2, 0.1);
+        super(org.bukkit.block.Biome.SUNFLOWER_PLAINS, "Sunflower Plains", layers, 0.4, 0.4, 0.2, 0.1, BiomeCategories.FLAT);
     }
 
     @Override

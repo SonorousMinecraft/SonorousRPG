@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.aridland.badlands;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class ErodedBadlands extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public ErodedBadlands() {
-        super(org.bukkit.block.Biome.ERODED_BADLANDS, "Eroded Badlands", layers, 0.7, 0.6, -0.7, 0.3);
+        super(org.bukkit.block.Biome.ERODED_BADLANDS, "Eroded Badlands", layers, 0.7, 0.6, -0.7, 0.3, BiomeCategories.ARID);
     }
 }
 

@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.noise;
 import com.mojang.datafixers.util.Pair;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 
@@ -68,13 +69,35 @@ public class NoiseMaster {
         double targetHumidity = GenerationNoise.getNoise(NoiseTypes.HUMIDITY, x, z) ;
         double weirdness = GenerationNoise.getNoise(NoiseTypes.WEIRDNESS, x ,z) ;
 
-        return BiomeRepresentation.getBiomeRepresentations()
+        BiomeCategories category = null;
+
+        if ( targetContinentalness <= -0.4){ // offland
+            category = BiomeCategories.OFF;
+        } else if (targetContinentalness > -0.4 && targetContinentalness <= -0.3) { // flatland
+            category = BiomeCategories.FLAT;
+
+        } else if (targetContinentalness > -0.3 && targetContinentalness <= -0.25) { // wetland
+            category = BiomeCategories.WET;
+
+        } else if (targetContinentalness > -0.25 && targetContinentalness <= 0.2) { // woodland
+            category = BiomeCategories.WOOD;
+
+        } else if (targetContinentalness > 0.2 && targetContinentalness <= 0.4) { // aridland
+            category = BiomeCategories.ARID;
+
+        } else { // highland
+            category = BiomeCategories.HIGH;
+
+        }
+
+
+        return BiomeRepresentation.getBiomeRepresentations(category)
                 .stream()
                 .map(biomeRepresentation -> {
-                    return Pair.of(biomeRepresentation, (Math.abs(biomeRepresentation.getContinentalness() - targetContinentalness) * 20)
-                            + (Math.abs(biomeRepresentation.getHumidity() - targetHumidity) * 5)
-                            + (Math.abs(biomeRepresentation.getTemperature() - targetTemeprature) * 10)
-                            + (Math.abs(weirdness * (biomeRepresentation.getWeirdness() +  weirdness) * 5)));
+                    return Pair.of(biomeRepresentation, (Math.abs(biomeRepresentation.getContinentalness() - targetContinentalness) )
+                            + (Math.abs(biomeRepresentation.getHumidity() - targetHumidity) )
+                            + (Math.abs(biomeRepresentation.getTemperature() - targetTemeprature) )
+                            + (Math.abs(weirdness * (biomeRepresentation.getWeirdness() +  weirdness) )));
                 })
                 .reduce((biomeRepresentationDoublePair, biomeRepresentationDoublePair2) -> {
                     if (biomeRepresentationDoublePair.getSecond() < biomeRepresentationDoublePair2.getSecond()) {

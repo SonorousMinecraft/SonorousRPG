@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.highland.peaks;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class JaggedPeaks extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public JaggedPeaks() {
-        super(org.bukkit.block.Biome.JAGGED_PEAKS, "Jagged Peaks", layers, -0.6, 0.9, -0.2, 0.1);
+        super(org.bukkit.block.Biome.JAGGED_PEAKS, "Jagged Peaks", layers, -0.6, 0.9, -0.2, 0.1, BiomeCategories.HIGH);
     }
 }
 

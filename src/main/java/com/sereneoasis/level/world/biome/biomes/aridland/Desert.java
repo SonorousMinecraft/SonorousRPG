@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.biome.biomes.aridland;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class Desert extends BiomeRepresentation implements FloraBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Desert() {
-        super(org.bukkit.block.Biome.DESERT, "Desert", layers, 0.7, 0.5, 0);
+        super(org.bukkit.block.Biome.DESERT, "Desert", layers, 0.7, 0.5, 0.2, BiomeCategories.ARID);
     }
 
     @Override

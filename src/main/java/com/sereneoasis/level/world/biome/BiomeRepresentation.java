@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome;
 
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import com.sereneoasis.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -48,6 +49,12 @@ public abstract class BiomeRepresentation {
         return VALID_BIOMES;
     }
 
+    private static final HashMap<BiomeCategories, HashSet<BiomeRepresentation>> BIOME_CATEGORIES_MAP = new HashMap<>();
+
+    public static HashSet<BiomeRepresentation> getBiomeRepresentations(BiomeCategories categories) {
+        return BIOME_CATEGORIES_MAP.get(categories);
+    }
+
     public static void initBiomes(){
         ReflectionUtils.findAllClasses("com.sereneoasis.level.world.biome.biomes").stream()
                 .forEach(aClass -> {
@@ -83,7 +90,7 @@ public abstract class BiomeRepresentation {
         return FLORA_BIOMES.get(biome).getFlora();
     }
 
-    public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity){
+    public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity, BiomeCategories categories){
         this.biome = biome;
         this.name = name;
         this.layers = layers;
@@ -99,9 +106,12 @@ public abstract class BiomeRepresentation {
         if (this instanceof FloraBiome floraBiome){
             FLORA_BIOMES.put(biome, floraBiome);
         }
+        HashSet<BiomeRepresentation> categoryBiomes = BIOME_CATEGORIES_MAP.getOrDefault(categories, new HashSet<>());
+        categoryBiomes.add(this);
+        BIOME_CATEGORIES_MAP.put(categories, categoryBiomes);
     }
 
-    public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity, double weirdness){
+    public BiomeRepresentation(org.bukkit.block.Biome biome, String name, HashMap<BiomeLayers, List<Material>> layers, double temperature, double continentalness, double humidity, double weirdness, BiomeCategories categories){
         this.biome = biome;
         this.name = name;
         this.layers = layers;
@@ -118,6 +128,10 @@ public abstract class BiomeRepresentation {
         if (this instanceof FloraBiome floraBiome){
             FLORA_BIOMES.put(biome, floraBiome);
         }
+
+        HashSet<BiomeRepresentation> categoryBiomes = BIOME_CATEGORIES_MAP.getOrDefault(categories, new HashSet<>());
+        categoryBiomes.add(this);
+        BIOME_CATEGORIES_MAP.put(categories, categoryBiomes);
     }
 
 

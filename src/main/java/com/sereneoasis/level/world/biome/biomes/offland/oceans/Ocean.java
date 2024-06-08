@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.offland.oceans;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class Ocean extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Ocean() {
-        super(org.bukkit.block.Biome.OCEAN, "Ocean", layers, -0.5, -0.8, 0);
+        super(org.bukkit.block.Biome.OCEAN, "Ocean", layers, -0.5, -0.8, 0, BiomeCategories.OFF);
     }
 }

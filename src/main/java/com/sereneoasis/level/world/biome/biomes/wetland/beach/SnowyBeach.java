@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.wetland.beach;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class SnowyBeach extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowyBeach() {
-        super(org.bukkit.block.Biome.SNOWY_BEACH, "Snowy Beach", layers, -0.7, -0.3, 0, 0.2);
+        super(org.bukkit.block.Biome.SNOWY_BEACH, "Snowy Beach", layers, -0.7, -0.3, 0, 0.2, BiomeCategories.WET);
     }
 }
 

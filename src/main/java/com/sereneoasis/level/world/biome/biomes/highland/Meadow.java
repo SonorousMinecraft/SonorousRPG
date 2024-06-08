@@ -5,6 +5,7 @@ import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.block.Biome;
@@ -22,7 +23,7 @@ public class Meadow extends BiomeRepresentation implements TreeBiome, FloraBiome
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Meadow() {
-        super(Biome.MEADOW, "Meadow", layers, 0.3, 0.5, 0.1);
+        super(Biome.MEADOW, "Meadow", layers, 0.3, 0.5, 0.1, BiomeCategories.HIGH);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.biome.biomes.woodland.jungle;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class BambooJungle extends BiomeRepresentation implements FloraBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public BambooJungle() {
-        super(org.bukkit.block.Biome.BAMBOO_JUNGLE, "Bamboo Jungle", layers, -0.5, 0.3, 0.6, 0.1);
+        super(org.bukkit.block.Biome.BAMBOO_JUNGLE, "Bamboo Jungle", layers, -0.5, 0.3, 0.6, 0.1, BiomeCategories.WOOD);
     }
 
     @Override

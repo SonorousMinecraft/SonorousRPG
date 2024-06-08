@@ -5,6 +5,7 @@ import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.block.Biome;
@@ -22,7 +23,7 @@ public class FlowerForest extends BiomeRepresentation implements TreeBiome, Flor
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public FlowerForest() {
-        super(Biome.FLOWER_FOREST, "Flower Forest", layers, 0.5, 0.4, 0, 0.2);
+        super(Biome.FLOWER_FOREST, "Flower Forest", layers, 0.5, 0.4, 0, 0.2, BiomeCategories.WOOD);
     }
 
     @Override

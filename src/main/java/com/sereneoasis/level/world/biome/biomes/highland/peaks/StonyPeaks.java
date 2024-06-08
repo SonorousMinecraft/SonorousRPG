@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.highland.peaks;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class StonyPeaks extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public StonyPeaks() {
-        super(org.bukkit.block.Biome.STONY_PEAKS, "Stony Peaks", layers, -0.3, 1.0, -0.2, 0.1);
+        super(org.bukkit.block.Biome.STONY_PEAKS, "Stony Peaks", layers, -0.3, 1.0, -0.2, 0.1, BiomeCategories.HIGH);
     }
 }

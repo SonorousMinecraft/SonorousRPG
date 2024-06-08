@@ -3,6 +3,7 @@ package com.sereneoasis.level.world.biome.biomes.woodland.taiga;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 
@@ -19,7 +20,7 @@ public class SnowyTaiga extends BiomeRepresentation implements TreeBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowyTaiga() {
-        super(org.bukkit.block.Biome.SNOWY_TAIGA, "Snowy Taiga", layers, -0.7, 0.4, 0);
+        super(org.bukkit.block.Biome.SNOWY_TAIGA, "Snowy Taiga", layers, -0.7, 0.4, 0, BiomeCategories.WOOD);
     }
 
     @Override

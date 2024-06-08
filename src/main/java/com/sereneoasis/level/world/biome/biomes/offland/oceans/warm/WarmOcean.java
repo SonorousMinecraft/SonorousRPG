@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.offland.oceans.warm;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class WarmOcean extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WarmOcean() {
-        super(org.bukkit.block.Biome.WARM_OCEAN, "Warm Ocean", layers, 0.2, -0.8, 0.7);
+        super(org.bukkit.block.Biome.WARM_OCEAN, "Warm Ocean", layers, 0.2, -0.8, 0.7, BiomeCategories.OFF);
     }
 }

@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.flatland;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class IceSpikes extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public IceSpikes() {
-        super(org.bukkit.block.Biome.ICE_SPIKES, "Ice Spikes", layers, -1.0, 0.4, 0);
+        super(org.bukkit.block.Biome.ICE_SPIKES, "Ice Spikes", layers, -1.0, 0.4, 0, BiomeCategories.FLAT);
     }
 }
 

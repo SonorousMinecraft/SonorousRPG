@@ -4,6 +4,7 @@ import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -19,7 +20,7 @@ public class Grove extends BiomeRepresentation implements FloraBiome {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Grove() {
-        super(org.bukkit.block.Biome.GROVE, "Grove", layers, 0.2, 0.5, 0.1);
+        super(org.bukkit.block.Biome.GROVE, "Grove", layers, 0.2, 0.5, 0.1, BiomeCategories.HIGH);
     }
 
     @Override

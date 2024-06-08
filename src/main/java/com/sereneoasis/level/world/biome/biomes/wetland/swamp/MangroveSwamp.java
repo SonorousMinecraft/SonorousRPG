@@ -4,6 +4,7 @@ import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 
@@ -20,7 +21,7 @@ public class MangroveSwamp extends BiomeRepresentation implements TreeBiome, Flo
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public MangroveSwamp() {
-        super(org.bukkit.block.Biome.MANGROVE_SWAMP, "Mangrove Swamp", layers, 0.5, -0.2, 0.6);
+        super(org.bukkit.block.Biome.MANGROVE_SWAMP, "Mangrove Swamp", layers, 0.5, -0.2, 0.6, BiomeCategories.WET);
     }
 
     @Override

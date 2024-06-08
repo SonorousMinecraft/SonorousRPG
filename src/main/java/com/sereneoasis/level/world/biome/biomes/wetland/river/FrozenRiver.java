@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.wetland.river;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class FrozenRiver extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public FrozenRiver() {
-        super(org.bukkit.block.Biome.FROZEN_RIVER, "FrozenRiver", layers, -1.0, -0.3, 0);
+        super(org.bukkit.block.Biome.FROZEN_RIVER, "FrozenRiver", layers, -1.0, -0.3, 0, BiomeCategories.WET);
     }
 }
 

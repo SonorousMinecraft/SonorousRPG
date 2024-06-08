@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.offland.oceans.warm;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class DeepLukewarmOcean extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public DeepLukewarmOcean() {
-        super(org.bukkit.block.Biome.DEEP_LUKEWARM_OCEAN, "Deep Lukewarm Ocean", layers, -0.2, -1.0, 0.4);
+        super(org.bukkit.block.Biome.DEEP_LUKEWARM_OCEAN, "Deep Lukewarm Ocean", layers, -0.2, -1.0, 0.4, BiomeCategories.OFF);
     }
 }

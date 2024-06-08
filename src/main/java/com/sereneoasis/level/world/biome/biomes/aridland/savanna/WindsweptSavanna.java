@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.aridland.savanna;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class WindsweptSavanna extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public WindsweptSavanna() {
-        super(org.bukkit.block.Biome.WINDSWEPT_SAVANNA, "Windswept Savanna", layers, 0.5, 1.0, -0.1, 0.5);
+        super(org.bukkit.block.Biome.WINDSWEPT_SAVANNA, "Windswept Savanna", layers, 0.5, 1.0, -0.1, 0.5, BiomeCategories.ARID);
     }
 }
 

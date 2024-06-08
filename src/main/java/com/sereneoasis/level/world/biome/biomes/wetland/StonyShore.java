@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.wetland;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,6 +18,6 @@ public class StonyShore extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public StonyShore() {
-        super(org.bukkit.block.Biome.STONY_SHORE, "Stony Shore", layers, -0.1, -0.3, 0);
+        super(org.bukkit.block.Biome.STONY_SHORE, "Stony Shore", layers, -0.1, -0.3, 0, BiomeCategories.WET);
     }
 }

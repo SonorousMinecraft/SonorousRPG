@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.wetland.beach;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
+import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class Beach extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public Beach() {
-        super(org.bukkit.block.Biome.BEACH, "Beach", layers, 0.5, -0.3, 0.7);
+        super(org.bukkit.block.Biome.BEACH, "Beach", layers, 0.5, -0.3, 0.7, BiomeCategories.WET);
     }
 }
 
