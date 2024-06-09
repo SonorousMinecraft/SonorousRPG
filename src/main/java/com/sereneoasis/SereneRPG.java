@@ -1,16 +1,27 @@
 package com.sereneoasis;
 
 import com.sereneoasis.command.SerenityCommand;
+import com.sereneoasis.config.FileManager;
+import com.sereneoasis.level.world.Schematics;
+import com.sereneoasis.level.world.biome.BiomeRepresentation;
+import com.sereneoasis.level.world.biome.biomefeatures.DefaultFeatures;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
+import com.sereneoasis.level.world.noise.NoiseMaster;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Level;
 
 public class SereneRPG extends JavaPlugin {
 
     public static SereneRPG plugin;
 
+    private static FileManager fileManager;
+
+    public static FileManager getFileManager() {
+        return fileManager;
+    }
 
     public static void SereneRPG(String[] args) {
         System.out.println("Hello world!");
@@ -21,6 +32,8 @@ public class SereneRPG extends JavaPlugin {
     public void onEnable() {
         getLogger().log(Level.INFO, "WorldGenerator was enabled successfully.");
         plugin = this;
+        fileManager = new FileManager();
+        new Schematics();
 //        CustomBiome.addCustomBiome(SereneBiomeData.PLAINS);
 //        CustomBiome.addCustomBiome(SereneBiomeData.DESERT);
 //        CustomBiome.addCustomBiome(SereneBiomeData.JUNGLE);
@@ -29,6 +42,8 @@ public class SereneRPG extends JavaPlugin {
 //        CustomBiome.addCustomBiome(SereneBiomeData.FOREST);
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
+        new DefaultFeatures();
+
 //        scheduleBiomeSwitching();
     }
 
@@ -62,6 +77,8 @@ public class SereneRPG extends JavaPlugin {
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        BiomeRepresentation.initBiomes();
+        new NoiseMaster();
         getLogger().log(Level.WARNING, "CustomChunkGenerator is used!");
         return new CustomChunkGenerator(); // Return an instance of the chunk generator we want to use.
     }
