@@ -1,5 +1,7 @@
 package com.sereneoasis.level.world.biome;
 
+import com.sereneoasis.level.world.biome.biomefeatures.Feature;
+import com.sereneoasis.level.world.biome.biomefeatures.FeatureBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
 import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
 import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
@@ -69,6 +71,18 @@ public abstract class BiomeRepresentation {
                 });
     }
 
+
+    private static final HashMap<Biome, FeatureBiome>FEATURE_BIOMES = new HashMap<>();
+
+    public static boolean isFeatureBiome(Biome biome){
+        return (FEATURE_BIOMES.containsKey(biome));
+    }
+
+    public static HashMap<Feature, Double> getBiomeFeatures(Biome biome){
+        return FEATURE_BIOMES.get(biome).getFeatures();
+    }
+    
+    
     private static final HashMap<Biome, TreeBiome>TREE_BIOMES = new HashMap<>();
 
     public static boolean isTreeBiome(Biome biome){
@@ -105,6 +119,9 @@ public abstract class BiomeRepresentation {
         }
         if (this instanceof FloraBiome floraBiome){
             FLORA_BIOMES.put(biome, floraBiome);
+        }
+        if (this instanceof FeatureBiome featureBiome){
+            FEATURE_BIOMES.put(biome, featureBiome);
         }
         HashSet<BiomeRepresentation> categoryBiomes = BIOME_CATEGORIES_MAP.getOrDefault(categories, new HashSet<>());
         categoryBiomes.add(this);

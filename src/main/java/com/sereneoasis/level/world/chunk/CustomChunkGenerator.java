@@ -2,6 +2,7 @@ package com.sereneoasis.level.world.chunk;
 
 import com.sereneoasis.level.world.biome.BiomeLayers;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
+import com.sereneoasis.level.world.chunk.populator.FeaturePopulator;
 import com.sereneoasis.level.world.chunk.populator.GrassPopulator;
 import com.sereneoasis.level.world.chunk.populator.StructurePopulator;
 import com.sereneoasis.level.world.chunk.populator.TreePopulator;
@@ -42,11 +43,12 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
     @Override
     public void generateNoise(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, ChunkData chunkData) {
-        for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
-            HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16, chunkZ * 16);
-
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
+                    HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16 + x, chunkZ * 16 + z);
+
+                    for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
+
                     float noise = NoiseMaster.getMasterNoise(chunkX, chunkZ, x, z);
 
                     float currentY = (AVERAGE_HEIGHT + (noise * DEVIATION)); // some threshold
@@ -66,11 +68,14 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
     @Override
     public void generateSurface(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
-        for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
-            HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16, chunkZ * 16);
 
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
+                    HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16 + x, chunkZ * 16 + z);
+
+                    for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
+
+
 
                     float noise = NoiseMaster.getMasterNoise(chunkX, chunkZ, x, z);
 
@@ -109,13 +114,13 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
     @Override
     public void generateBedrock(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
-        for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
-            HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16, chunkZ * 16);
-
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
+                    HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16 + x, chunkZ * 16 + z);
+                    for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
 
-                    if(y < chunkData.getMinHeight() + 2) {
+
+                        if(y < chunkData.getMinHeight() + 2) {
                         chunkData.setBlock(x, y, z, layers.get(BiomeLayers.BASE).get(random.nextInt(layers.get(BiomeLayers.BASE).size())));
                     }
                 }
@@ -125,10 +130,11 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
     @Override
     public void generateCaves(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkGenerator.ChunkData chunkData) {
-        for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
-            HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16, chunkZ * 16);
             for(int x = 0; x < 16; x++) {
                 for(int z = 0; z < 16; z++) {
+                    HashMap<BiomeLayers, List<Material>>layers = NoiseMaster.getBiomeLayers(chunkX * 16 + x, chunkZ * 16 + z);
+
+                    for(int y = chunkData.getMinHeight(); y < Y_LIMIT && y < chunkData.getMaxHeight(); y++) {
 
                     float noise = NoiseMaster.getMasterNoise(chunkX, chunkZ, x, z);
 
@@ -171,7 +177,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
     @NotNull
     @Override
     public List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
-        return List.of( new TreePopulator(), new GrassPopulator());
+        return List.of( new TreePopulator(), new GrassPopulator(), new FeaturePopulator());
     }
 
     @Override

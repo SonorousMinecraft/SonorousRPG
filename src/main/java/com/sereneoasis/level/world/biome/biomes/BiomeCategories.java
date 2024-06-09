@@ -6,5 +6,7 @@ public enum BiomeCategories {
     HIGH,
     OFF,
     WET,
-    WOOD
+    WOOD,
+
+    COASTAL
 }

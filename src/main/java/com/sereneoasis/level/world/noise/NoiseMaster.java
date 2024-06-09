@@ -14,23 +14,7 @@ import java.util.function.ToDoubleFunction;
 public class NoiseMaster {
 
     public NoiseMaster(){
-        boolean isTest = false;
 
-        if (isTest){
-            new GenerationNoise(0.001f, 2, NoiseTypes.TERRAIN_NOISE);
-
-            new GenerationNoise(0.001f, 1, NoiseTypes.CONTINENTALNESS);
-            new GenerationNoise(0.01f, 2, NoiseTypes.TEMPERATURE);
-            new GenerationNoise(0.01f, 2, NoiseTypes.HUMIDITY);
-
-
-            new GenerationNoise(0.01f, 1, NoiseTypes.DETAIl);
-            new GenerationNoise(0.001f, 2, NoiseTypes.WEIRDNESS);
-
-            new GenerationNoise(0.01F, 3, NoiseTypes.CAVES);
-            new GenerationNoise(0.05F, 3, NoiseTypes.FLORA);
-
-        } else {
             new GenerationNoise(0.0001f, 2, NoiseTypes.TERRAIN_NOISE);
 
             new GenerationNoise(0.0002f, 1, NoiseTypes.CONTINENTALNESS);
@@ -39,11 +23,9 @@ public class NoiseMaster {
 
             new GenerationNoise(0.01f, 1, NoiseTypes.DETAIl);
             new GenerationNoise(0.001f, 1, NoiseTypes.WEIRDNESS);
+            new GenerationNoise();
             new GenerationNoise(0.01F, 3, NoiseTypes.CAVES);
             new GenerationNoise(0.05F, 2, NoiseTypes.FLORA);
-
-        }
-
     }
 
     public static float getMasterNoise(int chunkX, int chunkZ, int x, int z) {
@@ -71,25 +53,28 @@ public class NoiseMaster {
 
         BiomeCategories category = null;
 
-        if ( targetContinentalness <= -0.4){ // offland
-            category = BiomeCategories.OFF;
-        } else if (targetContinentalness > -0.4 && targetContinentalness <= -0.3) { // flatland
-            category = BiomeCategories.FLAT;
-
-        } else if (targetContinentalness > -0.3 && targetContinentalness <= -0.25) { // wetland
+        if (GenerationNoise.getNoise(NoiseTypes.WETLAND, x ,z ) > 0.65 && targetContinentalness >= -0.1 ) {
             category = BiomeCategories.WET;
+        } else {
 
-        } else if (targetContinentalness > -0.25 && targetContinentalness <= 0.2) { // woodland
-            category = BiomeCategories.WOOD;
+            if (targetContinentalness <= -0.2) { // offland
+                category = BiomeCategories.OFF;
+            } else if (targetContinentalness > -0.2 && targetContinentalness <= -0.1) { // coastal
+                category = BiomeCategories.COASTAL;
+            } else if (targetContinentalness > -0.1 && targetContinentalness <= 0.1) { // flatland
+                category = BiomeCategories.FLAT;
 
-        } else if (targetContinentalness > 0.2 && targetContinentalness <= 0.4) { // aridland
-            category = BiomeCategories.ARID;
+            } else if (targetContinentalness > 0.1 && targetContinentalness <= 0.25) { // woodland
+                category = BiomeCategories.WOOD;
 
-        } else { // highland
-            category = BiomeCategories.HIGH;
+            } else if (targetContinentalness > 0.25 && targetContinentalness <= 0.4) { // aridland
+                category = BiomeCategories.ARID;
 
+            } else { // highland
+                category = BiomeCategories.HIGH;
+
+            }
         }
-
 
         return BiomeRepresentation.getBiomeRepresentations(category)
                 .stream()

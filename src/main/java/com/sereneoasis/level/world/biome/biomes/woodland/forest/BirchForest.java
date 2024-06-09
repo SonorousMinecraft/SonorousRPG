@@ -2,9 +2,7 @@ package com.sereneoasis.level.world.biome.biomes.woodland.forest;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
-import com.sereneoasis.level.world.biome.biomefeatures.FloraBiome;
-import com.sereneoasis.level.world.biome.biomefeatures.FloraBiomeUtils;
-import com.sereneoasis.level.world.biome.biomefeatures.TreeBiome;
+import com.sereneoasis.level.world.biome.biomefeatures.*;
 import com.sereneoasis.level.world.biome.biomes.BiomeCategories;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
@@ -40,4 +38,5 @@ public class BirchForest extends BiomeRepresentation implements TreeBiome, Flora
 
         return flora;
     }
+
 }

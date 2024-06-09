@@ -6,6 +6,7 @@ import com.sereneoasis.utils.StructureUtils;
 import net.minecraft.server.level.ServerLevel;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
+import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.block.CraftBiome;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;

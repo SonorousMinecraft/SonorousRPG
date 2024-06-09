@@ -18,10 +18,13 @@ public class GenerationNoise {
                 return noise;
             }
             case HUMIDITY -> {
-                return noise*1.2f;
+                return noise*1.5f;
             }
             case TEMPERATURE -> {
-                return noise*1.4f;
+                return noise*1.5f;
+            }
+            case WETLAND -> {
+                return noise;
             }
             default -> {
                 return noise;
@@ -43,6 +46,22 @@ public class GenerationNoise {
         noise.SetFractalType(FastNoiseLite.FractalType.FBm);
 
         NOISE_TYPE_FUNCTION_MAP.put(noiseTypes, noise);
+    }
+
+    public GenerationNoise(){
+        noise = new FastNoiseLite();
+        noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        noise.SetFrequency(0.005f);
+        noise.SetFractalOctaves(3);
+        noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
+        noise.SetFractalLacunarity(0.5f);
+        noise.SetFractalGain(10f);
+        noise.SetFractalPingPongStrength(1.0f);
+
+        noise.SetDomainWarpType(FastNoiseLite.DomainWarpType.OpenSimplex2);
+        noise.SetDomainWarpAmp(1.0f);
+
+        NOISE_TYPE_FUNCTION_MAP.put(NoiseTypes.WETLAND, noise);
     }
 
 }

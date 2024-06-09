@@ -1,4 +1,4 @@
-package com.sereneoasis.level.world.biome.biomes.wetland.beach;
+package com.sereneoasis.level.world.biome.biomes.coastal.beach;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.biome.BiomeLayers;
@@ -18,7 +18,7 @@ public class SnowyBeach extends BiomeRepresentation {
         put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
     }};
     public SnowyBeach() {
-        super(org.bukkit.block.Biome.SNOWY_BEACH, "Snowy Beach", layers, -0.7, -0.3, 0, 0.2, BiomeCategories.WET);
+        super(org.bukkit.block.Biome.SNOWY_BEACH, "Snowy Beach", layers, -0.7, -0.3, 0, 0.2, BiomeCategories.COASTAL);
     }
 }
 
