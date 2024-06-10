@@ -9,8 +9,10 @@ import org.bukkit.generator.WorldInfo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
-import java.util.Vector;
 
+/***
+ * Populates the world with features
+ */
 public class FeaturePopulator extends BlockPopulator {
 
     @Override

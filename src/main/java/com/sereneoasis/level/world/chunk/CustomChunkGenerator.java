@@ -1,30 +1,13 @@
 package com.sereneoasis.level.world.chunk;
 
 import com.sereneoasis.level.world.biome.BiomeLayers;
-import com.sereneoasis.level.world.biome.BiomeRepresentation;
-import com.sereneoasis.level.world.chunk.populator.FeaturePopulator;
-import com.sereneoasis.level.world.chunk.populator.GrassPopulator;
-import com.sereneoasis.level.world.chunk.populator.StructurePopulator;
-import com.sereneoasis.level.world.chunk.populator.TreePopulator;
 import com.sereneoasis.level.world.biome.CustomBiomeProvider;
-import com.sereneoasis.level.world.noise.GenerationNoise;
+import com.sereneoasis.level.world.chunk.populator.FeaturePopulator;
+import com.sereneoasis.level.world.chunk.populator.FloraPopulator;
+import com.sereneoasis.level.world.chunk.populator.TreePopulator;
 import com.sereneoasis.level.world.noise.NoiseMaster;
-import com.sereneoasis.level.world.noise.NoiseTypes;
-import com.sereneoasis.libs.FastNoiseLite;
-import net.minecraft.core.Holder;
-import net.minecraft.core.WritableRegistry;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dedicated.DedicatedServer;
-import net.minecraft.world.level.Level;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
-import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R3.block.CraftBiome;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -34,6 +17,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+/***
+ * Written with inspiration from https://www.spigotmc.org/threads/how-to-create-a-custom-world-generator.545616/
+ */
 public class CustomChunkGenerator extends ChunkGenerator {
 
     private final int Y_LIMIT = 240, SEA_LEVEL = 50, LAYER_1_HEIGHT = 10, AVERAGE_HEIGHT = 100, DEVIATION = 50;
@@ -89,11 +75,6 @@ public class CustomChunkGenerator extends ChunkGenerator {
 
                         // Set grass if the block closest to the surface.
                         if(distanceToSurface < 1 && y > SEA_LEVEL) {
-
-//                            WritableRegistry<Biome> registryWritable = (WritableRegistry<Biome>) dedicatedServer.registryAccess().registry(Registries.BIOME).get();
-//                            ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, new ResourceLocation(newBiomeName.toLowerCase()));
-//                            Biome base = registryWritable.get(key);
-//                            Holder<Biome> biomeHolder = Holder.direct(base);
 
                             chunkData.setBlock(x, y, z, layers.get(BiomeLayers.SURFACE).get(random.nextInt(layers.get(BiomeLayers.SURFACE).size())));
                         }
@@ -177,7 +158,7 @@ public class CustomChunkGenerator extends ChunkGenerator {
     @NotNull
     @Override
     public List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
-        return List.of( new TreePopulator(), new GrassPopulator(), new FeaturePopulator());
+        return List.of( new TreePopulator(), new FloraPopulator(), new FeaturePopulator());
     }
 
     @Override

@@ -2,9 +2,8 @@ package com.sereneoasis.level.world.chunk.populator;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.noise.NoiseMaster;
-import org.bukkit.*;
+import org.bukkit.Material;
 import org.bukkit.block.Biome;
-import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.LimitedRegion;
 import org.bukkit.generator.WorldInfo;
@@ -12,7 +11,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class GrassPopulator extends BlockPopulator {
+/***
+ * Populates the world with flora
+ */
+public class FloraPopulator extends BlockPopulator {
     @Override
     public void populate(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull LimitedRegion limitedRegion) {
         Biome biome = limitedRegion.getBiome(chunkX * 16,0,chunkZ * 16);
