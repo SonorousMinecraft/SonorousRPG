@@ -1,12 +1,10 @@
 package com.sereneoasis.utils;
 
 import com.sereneoasis.SereneRPG;
-import net.minecraft.data.worldgen.AncientCityStructurePieces;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.structure.Mirror;
 import org.bukkit.block.structure.StructureRotation;
-import org.bukkit.structure.Structure;
 
 import java.util.Random;
 

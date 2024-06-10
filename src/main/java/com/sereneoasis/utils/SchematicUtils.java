@@ -13,16 +13,23 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
-import com.sk89q.worldguard.WorldGuard;
 import org.bukkit.Location;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/***
+ * An intermediary between WorldEdit API to simplify schematic usage
+ */
 public class SchematicUtils {
 
+    /***
+     * Spawns a Schematic at a given location
+     * @param schematicName the name of the schematic file
+     * @param location The Bukkit Location within a World
+     * @throws IOException If no file is found
+     */
     public static void spawnSchematic(String schematicName, Location location) throws IOException {
         File file = new File(schematicName + ".schem");
         Clipboard clipboard;
@@ -35,10 +42,22 @@ public class SchematicUtils {
         }
     }
 
+    /***
+     * Spawns a Schematic at a given location
+     * @param file the schematic file
+     * @param location The Bukkit Location within a World
+     * @throws IOException If no file is found
+     */
     public static void spawnSchematic(File file, Location location) throws IOException {
         pasteClipboard(createClipboard(file), location);
     }
 
+    /***
+     * Initialises Clipboards which must be done before a schematic can be pasted
+     * @param file the schematic file
+     * @return the relevant clipboard to the schematic
+     * @throws IOException If no file is found
+     */
     public static Clipboard createClipboard(File file) throws IOException {
         Clipboard clipboard;
 
@@ -49,6 +68,11 @@ public class SchematicUtils {
         }
     }
 
+    /***
+     * Pastes a clipboard at a given location
+     * @param clipboard the clipboard which represents an intended schematic
+     * @param location the Location for the clipboard to be pasted at
+     */
     public static void pasteClipboard(Clipboard clipboard, Location location) {
         World world = BukkitAdapter.adapt(location.getWorld());
         try (EditSession editSession = WorldEdit.getInstance().newEditSession(world)) {

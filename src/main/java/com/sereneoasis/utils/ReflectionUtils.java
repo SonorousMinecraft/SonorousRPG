@@ -7,6 +7,9 @@ import org.reflections.scanners.SubTypesScanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/***
+ * Utilities to interact with the reflections library
+ */
 public class ReflectionUtils {
 
     public static Set<Class<?>> findAllClassesUsingReflectionsLibrary(String packageName) {

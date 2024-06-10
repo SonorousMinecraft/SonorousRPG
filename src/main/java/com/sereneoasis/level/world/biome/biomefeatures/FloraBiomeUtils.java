@@ -1,11 +1,13 @@
 package com.sereneoasis.level.world.biome.biomefeatures;
 
 import org.bukkit.Material;
-import org.bukkit.Tag;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
+/***
+ * Some basic templates of vegetation which biomes can use
+ */
 public class FloraBiomeUtils {
 
     private static final Material[] smallFlowers = new Material[]{Material.POPPY, Material.LILY_OF_THE_VALLEY, Material.ALLIUM,

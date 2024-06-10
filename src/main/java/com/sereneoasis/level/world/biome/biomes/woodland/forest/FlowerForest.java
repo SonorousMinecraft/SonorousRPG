@@ -17,10 +17,10 @@ import java.util.List;
 public class FlowerForest extends BiomeRepresentation implements TreeBiome, FloraBiome {
 
     private static final HashMap<BiomeLayers, List<Material>> layers = new HashMap<>() {{
-        put(BiomeLayers.SURFACE, Arrays.asList(Material.GRASS_BLOCK));
-        put(BiomeLayers.PRIMARY, Arrays.asList(Material.DIRT));
+        put(BiomeLayers.SURFACE, List.of(Material.GRASS_BLOCK));
+        put(BiomeLayers.PRIMARY, List.of(Material.DIRT));
         put(BiomeLayers.SECONDARY, Arrays.asList(Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.DIAMOND_ORE));
-        put(BiomeLayers.BASE, Arrays.asList(Material.BEDROCK));
+        put(BiomeLayers.BASE, List.of(Material.BEDROCK));
     }};
     public FlowerForest() {
         super(Biome.FLOWER_FOREST, "Flower Forest", layers, 0.5, 0.4, 0, 0.2, BiomeCategories.WOOD);

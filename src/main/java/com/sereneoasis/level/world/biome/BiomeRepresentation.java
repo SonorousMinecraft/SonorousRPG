@@ -21,51 +21,67 @@ import java.util.logging.Level;
  */
 public abstract class BiomeRepresentation {
 
+    // The Bukkit Biome
     protected Biome biome;
 
+    // A name to refer to the biome as
     protected String name;
 
+    // A HashMap between BiomeLayers and a list of the materials contained
     protected HashMap<BiomeLayers, List<Material>>layers;
 
+    // Biome specific characteristics
     protected double temperature, continentalness, humidity, weirdness = 0;
 
-    private static final HashSet<BiomeRepresentation> BIOME_REPRESENTATIONS = new HashSet<>();
-
-    public static HashSet<BiomeRepresentation> getBiomeRepresentations() {
-        return BIOME_REPRESENTATIONS;
-    }
-
+    // A HashMap tying Biomes in to their representations in case stored data needs to be retrieved
     private static final HashMap<Biome, BiomeRepresentation> BIOME_MAP = new HashMap<>();
 
-    public static HashMap<Biome, BiomeRepresentation> getBiomeMap() {
-        return BIOME_MAP;
-    }
-
+    /***
+     * Obtains the Biome representation per biome
+     * @param biome The Biome that we want to obtain the representation for
+     * @return the Biome Representation of a given biome
+     */
     public static BiomeRepresentation getBiomeRepresentation(Biome biome){
         return BIOME_MAP.get(biome);
     }
 
+    /***
+     * The Biomes that have been initialised
+     */
     private static final HashSet<Biome> VALID_BIOMES = new HashSet<>();
 
+    /***
+     * Retrieves valid biomes
+     * @return The Biomes that have been initialised
+     */
     public static HashSet<Biome> getValidBiomes() {
         return VALID_BIOMES;
     }
 
+    /***
+     * A HashMap with Biome Categories as keys and a HashSet of BiomeRepresentations as values.
+     */
     private static final HashMap<BiomeCategories, HashSet<BiomeRepresentation>> BIOME_CATEGORIES_MAP = new HashMap<>();
 
+    /***
+     * Retrieves the BiomeRepresentations under a category
+     * @param categories the specified category which the BiomeRepresentations will be under
+     * @return A HashMap with Biome Categories as keys and a HashSet of BiomeRepresentations as values.
+     */
     public static HashSet<BiomeRepresentation> getBiomeRepresentations(BiomeCategories categories) {
         return BIOME_CATEGORIES_MAP.get(categories);
     }
 
+    /***
+     * Uses Reflection to initialise all biomes with their representation classes
+     */
     public static void initBiomes(){
         ReflectionUtils.findAllClasses("com.sereneoasis.level.world.biome.biomes").stream()
                 .forEach(aClass -> {
                     try {
                         Bukkit.getServer().getLogger().log(Level.INFO, () -> aClass.getName() + " is loaded");
                         aClass.newInstance();
-                    } catch (InstantiationException e) {
-                        throw new RuntimeException(e);
-                    } catch (IllegalAccessException e) {
+                    } catch (InstantiationException | IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
                 });
@@ -112,7 +128,6 @@ public abstract class BiomeRepresentation {
         this.continentalness = continentalness;
         this.humidity = humidity;
         BIOME_MAP.put(biome, this);
-        BIOME_REPRESENTATIONS.add(this);
         VALID_BIOMES.add(biome);
         if (this instanceof TreeBiome treeBiome){
             TREE_BIOMES.put(biome, treeBiome);
@@ -137,7 +152,6 @@ public abstract class BiomeRepresentation {
         this.humidity = humidity;
         this.weirdness = weirdness;
         BIOME_MAP.put(biome, this);
-        BIOME_REPRESENTATIONS.add(this);
         VALID_BIOMES.add(biome);
         if (this instanceof TreeBiome treeBiome){
             TREE_BIOMES.put(biome, treeBiome);

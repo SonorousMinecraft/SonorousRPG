@@ -4,17 +4,16 @@ import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.TreeType;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.LimitedRegion;
 import org.bukkit.generator.WorldInfo;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.logging.Level;
 
+import java.util.Random;
+
+/***
+ * Populates the world with trees
+ */
 public class TreePopulator extends BlockPopulator {
 
     @Override
