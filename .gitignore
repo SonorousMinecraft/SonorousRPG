@@ -38,3 +38,4 @@ build/
 .DS_Store
 /.paper-nms/classes.json
 /.paper-nms/mappings_1.20.4.tiny
+/.idea/
