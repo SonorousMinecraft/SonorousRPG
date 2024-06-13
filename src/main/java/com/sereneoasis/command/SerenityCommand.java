@@ -12,7 +12,7 @@ public class SerenityCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player player) {
-            TreeGenerationUtils.generateAcaciaTree(player.getLocation(), 20, new Random());
+            TreeGenerationUtils.generateBirchTree(player.getLocation(), 20, new Random());
         }
         return false;
     }
