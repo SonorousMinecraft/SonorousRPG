@@ -197,4 +197,57 @@ public class TreeGenerationUtils {
 
     }
 
+    public static void generateOakTree(Location origin, int iterations, Random random ){
+        Location currentTrunkPos = origin.clone();
+
+        Set<Location> trunk = new HashSet<>();
+        Set<Pair<Vector, Location> >branches = new HashSet<>();
+
+        int currentHeight = 0;
+
+        for (int i = 0; i < iterations ; i ++){
+
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, 4).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
+
+            currentTrunkPos.add(0,1, 0);
+            currentHeight++;
+
+            Pair<Vector, Location> branch = new Pair<>(new Vector(random.nextDouble() - 0.5, random.nextDouble() - 0.5, random.nextDouble() - 0.5).normalize(), currentTrunkPos.clone());
+            branches.add(branch);
+        }
+
+        FastNoiseLite noise = new FastNoiseLite(random.nextInt(100000));
+        noise.SetNoiseType(FastNoiseLite.NoiseType.Cellular);
+        noise.SetFrequency(0.20F);
+        noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
+
+
+        branches.forEach(vectorLocationPair -> {
+            for (int i = 0; i < iterations * 2/3 ; i ++) {
+                vectorLocationPair.getB().add(vectorLocationPair.getA());
+                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 3).forEach(block -> {
+                    block.setType(Material.OAK_LOG);
+                });
+                vectorLocationPair.getA().add(new Vector(0,0.05,0)).normalize();
+            }
+            BlockUtils.getAirSphereBlocksAroundPoint(vectorLocationPair.getB(), iterations/2).forEach(block -> {
+                if (noise.GetNoise(block.getX(), block.getY(), block.getZ()) > 0.4) {
+                    block.setType(Material.OAK_LEAVES);
+                    Leaves blockData = (Leaves) block.getBlockData();
+                    blockData.setPersistent(true);
+                    block.setBlockData(blockData);
+
+                }
+            });
+        });
+
+
+
+
+        trunk.forEach(location -> location.getBlock().setType(Material.OAK_LOG));
+
+    }
+
 }
