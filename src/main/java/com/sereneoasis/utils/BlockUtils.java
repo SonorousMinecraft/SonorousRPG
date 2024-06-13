@@ -49,7 +49,7 @@ public class BlockUtils {
         Set<Block>blocks = new HashSet<>();
         for (double x = (double) -diameter /2; x < (double) diameter /2 ; x++){
             for (double z = (double) -diameter /2; z < (double) diameter /2 ; z++){
-                if ( (Math.abs(x) + Math.abs(z)) < (double) diameter /4) {
+                if ( ((x * x) + (z*z)) < ((double) diameter /2) * ((double) diameter /2)) {
                     Block b = location.clone().add(x, 0, z).getBlock();
                     if (b.getType().isAir()) {
                         blocks.add(b);
