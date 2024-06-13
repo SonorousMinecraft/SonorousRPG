@@ -5,6 +5,7 @@ import com.sereneoasis.utils.BlockUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.data.type.Leaves;
 import org.bukkit.util.Vector;
 import oshi.util.tuples.Pair;
 
@@ -66,31 +67,34 @@ public class TreeGenerationUtils {
             currentHeight++;
 
             if (currentHeight > iterations/3 && currentHeight < iterations*2/3) {
-                Pair<Vector, Location> branch = new Pair<>(new Vector(random.nextDouble() - 0.5, (random.nextDouble()) * currentHeight / 8, random.nextDouble() - 0.5).normalize(), currentTrunkPos.clone());
+                Pair<Vector, Location> branch = new Pair<>(new Vector(random.nextDouble() - 0.5, random.nextDouble() * currentHeight / 8, random.nextDouble() - 0.5).normalize(), currentTrunkPos.clone());
                 branches.add(branch);
             }
         }
 
         branches.forEach(vectorLocationPair -> {
-            for (int i = 0; i < iterations*2 ; i ++) {
+            for (int i = 0; i < iterations * 2/3 ; i ++) {
                 vectorLocationPair.getB().add(vectorLocationPair.getA());
                 vectorLocationPair.getB().getBlock().setType(Material.ACACIA_LOG);
-                vectorLocationPair.getA().add(new Vector(0,0.01,0)).normalize();
+                vectorLocationPair.getA().add(new Vector(0,0.2,0)).normalize();
             }
 //            BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 10).forEach(block -> block.setType(Material.ACACIA_LEAVES));
         });
 
         FastNoiseLite noise = new FastNoiseLite(random.nextInt(100000));
-        noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
-        noise.SetFrequency(30.0F);
+        noise.SetNoiseType(FastNoiseLite.NoiseType.Cellular);
+        noise.SetFrequency(0.20F);
 //        noise.SetFractalOctaves(2);
-        noise.SetFractalType(FastNoiseLite.FractalType.Ridged);
+        noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
 
-        for (int height = -iterations/2; height < iterations/2; height++) {
-            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, (iterations*4 - height) * 2 ).forEach(block -> {
+        for (int height = -iterations/6; height < iterations/2; height++) {
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, (iterations*2 - height)  ).forEach(block -> {
 
-                if (noise.GetNoise(block.getX(), block.getY(), block.getZ()) > 0.4) {
+                if (noise.GetNoise(block.getX(), block.getY(), block.getZ()) > 0.2) {
                     block.setType(Material.ACACIA_LEAVES);
+                    Leaves blockData = (Leaves) block.getBlockData();
+                    blockData.setPersistent(true);
+                    block.setBlockData(blockData);
 
                 }
             });
