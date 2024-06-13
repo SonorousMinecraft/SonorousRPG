@@ -1,5 +1,6 @@
 package com.sereneoasis;
 
+import com.sereneoasis.command.SerenityCommand;
 import com.sereneoasis.config.FileManager;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
@@ -34,6 +35,7 @@ public class SereneRPG extends JavaPlugin {
         plugin = this;
         fileManager = new FileManager();
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
+        this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
     }
 
