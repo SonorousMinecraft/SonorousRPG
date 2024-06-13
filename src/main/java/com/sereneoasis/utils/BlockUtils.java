@@ -30,6 +30,29 @@ public class BlockUtils {
         return blocks;
     }
 
+    public static Set<Block> getAirSphereBlocksAroundPoint(Location location, int diameter){
+        Set<Block>blocks = new HashSet<>();
+        for (double x = -diameter/2; x < diameter/2 ; x++){
+            for (double y = -diameter/2; y < diameter/2 ; y++){
+                if ( ((x * x) + (y*y)) < ((double) diameter /2) * ((double) diameter /2)) {
+
+                    for (double z = -diameter / 2; z < diameter / 2; z++) {
+                        if ( ((z * z) + (y*y)) < ((double) diameter /2) * ((double) diameter /2)) {
+                            if ( ((x * x) + (z*z)) < ((double) diameter /2) * ((double) diameter /2)) {
+
+                                Block b = location.clone().add(x, y, z).getBlock();
+                                if (b.getType().isAir()) {
+                                    blocks.add(b);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return blocks;
+    }
+
     public static Set<Block> getAirBlocksAroundPoint(Location location, int diameter){
         Set<Block>blocks = new HashSet<>();
         for (double x = -diameter/2; x < diameter/2 ; x++){
