@@ -24,11 +24,9 @@ public class TreeGenerationUtils {
 
         for (int i = 0; i < iterations ; i ++){
 
-            trunk.add(currentTrunkPos.clone().add(0,1,0));
-            trunk.add(currentTrunkPos.clone().add(-1,0,0));
-            trunk.add(currentTrunkPos.clone().add(1,0,0));
-            trunk.add(currentTrunkPos.clone().add(0,0,-1));
-            trunk.add(currentTrunkPos.clone().add(0,0,1));
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, 4).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
 
             currentTrunkPos.add(random.nextDouble() - 0.5,1,random.nextDouble() - 0.5);
 
@@ -58,11 +56,9 @@ public class TreeGenerationUtils {
 
         for (int i = 0; i < iterations ; i ++){
 
-            trunk.add(currentTrunkPos.clone().add(0,1,0));
-            trunk.add(currentTrunkPos.clone().add(-1,0,0));
-            trunk.add(currentTrunkPos.clone().add(1,0,0));
-            trunk.add(currentTrunkPos.clone().add(0,0,-1));
-            trunk.add(currentTrunkPos.clone().add(0,0,1));
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, 4).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
 
             currentTrunkPos.add(0,1, 0);
             currentHeight++;
@@ -114,11 +110,9 @@ public class TreeGenerationUtils {
 
         for (int i = 0; i < iterations ; i ++){
 
-            trunk.add(currentTrunkPos.clone().add(0,1,0));
-            trunk.add(currentTrunkPos.clone().add(-1,0,0));
-            trunk.add(currentTrunkPos.clone().add(1,0,0));
-            trunk.add(currentTrunkPos.clone().add(0,0,-1));
-            trunk.add(currentTrunkPos.clone().add(0,0,1));
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, 4).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
 
             currentTrunkPos.add(random.nextDouble() - 0.5,1,random.nextDouble() - 0.5);
 
@@ -164,11 +158,9 @@ public class TreeGenerationUtils {
 
         for (int i = 0; i < iterations ; i ++){
 
-            trunk.add(currentTrunkPos.clone().add(0,1,0));
-            trunk.add(currentTrunkPos.clone().add(-1,0,0));
-            trunk.add(currentTrunkPos.clone().add(1,0,0));
-            trunk.add(currentTrunkPos.clone().add(0,0,-1));
-            trunk.add(currentTrunkPos.clone().add(0,0,1));
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, 4).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
 
             currentTrunkPos.add(0, 1, 0);
 
@@ -250,4 +242,98 @@ public class TreeGenerationUtils {
 
     }
 
+    public static void generateJungleTree(Location origin, int iterations, Random random ){
+        Location currentTrunkPos = origin.clone();
+
+        Set<Location> trunk = new HashSet<>();
+        Set<Pair<Vector, Location> >branches = new HashSet<>();
+
+        for (int i = 0; i < iterations ; i ++){
+
+            BlockUtils.getAirHollowCircleAroundPoint(currentTrunkPos, 9).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
+
+            currentTrunkPos.add(0, 1, 0);
+
+            if (i > iterations * 2/3) {
+                    Pair<Vector, Location> branch = new Pair<>(new Vector(random.nextDouble() - 0.5, random.nextDouble(0.1), random.nextDouble() - 0.5).normalize(), currentTrunkPos.clone());
+                    branches.add(branch);
+
+            }
+
+        }
+
+        branches.forEach(vectorLocationPair -> {
+
+            for (int i = 0; i < iterations/3 ; i ++) {
+                vectorLocationPair.getB().add(vectorLocationPair.getA());
+                vectorLocationPair.getB().getBlock().setType(Material.JUNGLE_LOG);
+                vectorLocationPair.getA().add(new Vector(0,0.1,0));
+                vectorLocationPair.getA().normalize();
+            }
+            BlockUtils.getAirCircleAroundPoint(vectorLocationPair.getB(), 20).forEach(block -> block.setType(Material.JUNGLE_LEAVES));
+        });
+
+
+        trunk.forEach(location -> location.getBlock().setType(Material.JUNGLE_LOG));
+
+    }
+
+    public static void generateCherryTree(Location origin, int iterations, Random random ){
+        Location currentTrunkPos = origin.clone();
+
+        Set<Location> trunk = new HashSet<>();
+        Set<Pair<Vector, Location> >branches = new HashSet<>();
+
+        int currentHeight = 0;
+
+        for (int i = 0; i < iterations ; i ++){
+
+            BlockUtils.getAirCircleAroundPoint(currentTrunkPos, 4).forEach(block -> {
+                trunk.add(block.getLocation());
+            });
+
+            currentTrunkPos.add(0,1, 0);
+            currentHeight++;
+            if (currentHeight > iterations/3) {
+                Pair<Vector, Location> branch = new Pair<>(new Vector(random.nextDouble() - 0.5, random.nextDouble(), random.nextDouble() - 0.5).normalize(), currentTrunkPos.clone());
+                branches.add(branch);
+            }
+        }
+
+        FastNoiseLite noise = new FastNoiseLite(random.nextInt(100000));
+        noise.SetNoiseType(FastNoiseLite.NoiseType.Cellular);
+        noise.SetFrequency(0.20F);
+        noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
+
+
+        branches.forEach(vectorLocationPair -> {
+            for (int i = 0; i < iterations * 2/3 ; i ++) {
+                vectorLocationPair.getB().add(vectorLocationPair.getA());
+                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 3).forEach(block -> {
+                    block.setType(Material.CHERRY_LOG);
+                });
+                vectorLocationPair.getA().add(new Vector(0,0.01,0)).normalize();
+
+                BlockUtils.getAirSphereBlocksAroundPoint(vectorLocationPair.getB(), iterations/3).forEach(block -> {
+                    if (noise.GetNoise(block.getX(), block.getY(), block.getZ()) > 0.4) {
+                        block.setType(Material.CHERRY_LEAVES);
+                        if (block.getBlockData() instanceof Leaves blockData) {
+                            blockData.setPersistent(true);
+                            block.setBlockData(blockData);
+                        }
+
+                    }
+                });
+            }
+
+        });
+
+
+
+
+        trunk.forEach(location -> location.getBlock().setType(Material.CHERRY_LOG));
+
+    }
 }
