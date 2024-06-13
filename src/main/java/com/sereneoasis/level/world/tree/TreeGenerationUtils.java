@@ -156,4 +156,45 @@ public class TreeGenerationUtils {
 
     }
 
+    public static void generateSpruceTree(Location origin, int iterations, Random random ){
+        Location currentTrunkPos = origin.clone();
+
+        Set<Location> trunk = new HashSet<>();
+        Set<Pair<Vector, Location> >branches = new HashSet<>();
+
+        for (int i = 0; i < iterations ; i ++){
+
+            trunk.add(currentTrunkPos.clone().add(0,1,0));
+            trunk.add(currentTrunkPos.clone().add(-1,0,0));
+            trunk.add(currentTrunkPos.clone().add(1,0,0));
+            trunk.add(currentTrunkPos.clone().add(0,0,-1));
+            trunk.add(currentTrunkPos.clone().add(0,0,1));
+
+            currentTrunkPos.add(0, 1, 0);
+
+            for (int branchAmount = 0; branchAmount < random.nextInt(0, iterations/2) ; branchAmount++) {
+                Pair<Vector, Location> branch = new Pair<>(new Vector(random.nextDouble()-0.5, random.nextDouble(0.1), random.nextDouble()-0.5).normalize(), currentTrunkPos.clone());
+                branches.add(branch);
+            }
+
+        }
+
+        branches.forEach(vectorLocationPair -> {
+            double heightFromTop = iterations - Math.sqrt(vectorLocationPair.getB().distanceSquared(origin));
+            int heightRatio = Math.round(Math.round(heightFromTop/iterations));
+
+            for (int i = 0; i < heightFromTop ; i ++) {
+                vectorLocationPair.getB().add(vectorLocationPair.getA());
+                vectorLocationPair.getB().getBlock().setType(Material.SPRUCE_LOG);
+                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 5).forEach(block -> block.setType(Material.SPRUCE_LEAVES));
+
+            }
+
+        });
+
+
+        trunk.forEach(location -> location.getBlock().setType(Material.SPRUCE_LOG));
+
+    }
+
 }
