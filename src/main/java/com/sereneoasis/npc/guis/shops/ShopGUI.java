@@ -6,6 +6,7 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.Pane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.utils.EconUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,14 +32,15 @@ public class ShopGUI {
 
         PaginatedPane pages = new PaginatedPane(0, 0, 9, 5);
         pages.populateWithItemStacks(Arrays.asList(
-                new ItemStack(Material.GOLDEN_SWORD),
-                new ItemStack(Material.LIGHT_GRAY_GLAZED_TERRACOTTA, 16),
-                new ItemStack(Material.COOKED_COD, 64)
-        ));
+                ItemStacks.INFUSED_GOLDEN_CARROT.getItemStack(),
+                ItemStacks.SLOW_ROASTED_CHICKEN.getItemStack(),
+                ItemStacks.DOUBLE_CHOCOLATE_COOKIE.getItemStack()));
         pages.setOnClick(event -> {
             player.getInventory().addItem(event.getCurrentItem());
-            event.getCurrentItem().setAmount(0);
-            EconUtils.withdrawPlayer(player, 100);
+            if (ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()) != null) {
+                int price = ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()).getSellPrice();
+                EconUtils.withdrawPlayer(player, price);
+            }
         });
 
         gui.addPane(pages);
