@@ -6,7 +6,10 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.sereneoasis.SereneRPG;
 import com.sereneoasis.npc.guis.MainGUI;
 import com.sereneoasis.utils.ClientboundPlayerInfoUpdatePacketWrapper;
+import com.sereneoasis.utils.EconUtils;
 import com.sereneoasis.utils.PacketUtils;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -54,6 +57,7 @@ public class SereneListener implements Listener {
             PacketUtils.sendPacket(playerInfoPacket.getPacket(), player);
         });
         });
+        EconUtils.payPlayer(event.getPlayer(), 1000);
 
     }
 

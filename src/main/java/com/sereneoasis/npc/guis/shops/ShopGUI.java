@@ -6,6 +6,7 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.Pane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.sereneoasis.utils.EconUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +36,9 @@ public class ShopGUI {
                 new ItemStack(Material.COOKED_COD, 64)
         ));
         pages.setOnClick(event -> {
-            //buy item
+            player.getInventory().addItem(event.getCurrentItem());
+            event.getCurrentItem().setAmount(0);
+            EconUtils.withdrawPlayer(player, 100);
         });
 
         gui.addPane(pages);
