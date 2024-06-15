@@ -21,7 +21,7 @@ public class SerenityCommand implements CommandExecutor {
 //            SerenityEntities.getInstance().getNpcs().add(npc);
             player.sendMessage("command run");
             NPCUtils.updateEquipment(npc, player);
-            SereneRPG.plugin.getNpcs().put(npc, npc.getBukkitEntity().getLocation());
+            SereneRPG.plugin.getNpcs().add(npc);
         }
         return false;
     }

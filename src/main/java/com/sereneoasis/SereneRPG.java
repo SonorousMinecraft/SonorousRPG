@@ -13,6 +13,8 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 
 /***
@@ -39,8 +41,8 @@ public class SereneRPG extends JavaPlugin {
     }
 
     //Used to keep our NPCs to be accessed in other classes
-    private HashMap<ServerPlayer, Location> npcs = new HashMap<>();
-    public HashMap<ServerPlayer, Location> getNpcs() {
+    private Set<ServerPlayer> npcs = new HashSet<>();
+    public Set<ServerPlayer> getNpcs() {
         return npcs;
     }
 
