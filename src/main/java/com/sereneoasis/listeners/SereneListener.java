@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.sereneoasis.SereneRPG;
+import com.sereneoasis.npc.guis.MainGUI;
 import com.sereneoasis.utils.ClientboundPlayerInfoUpdatePacketWrapper;
 import com.sereneoasis.utils.PacketUtils;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
@@ -59,19 +60,7 @@ public class SereneListener implements Listener {
     @EventHandler
     public void onRightClickNPC(PlayerInteractEntityEvent event){
         if (SereneRPG.plugin.getNpcs().stream().map(serverPlayer -> serverPlayer.getBukkitEntity()).anyMatch(craftPlayer -> craftPlayer == event.getRightClicked())) {
-            //create a gui with 5 rows and the title My GUI
-                    ChestGui gui = new ChestGui(5, "My GUI");
-        //create a new pane occupying the entire gui
-                    OutlinePane pane = new OutlinePane(0, 0, 9, 5);
-                    ItemStack item = new ItemStack(Material.ICE);
-        //create an item which will send a message when clicked
-                    GuiItem guiItem = new GuiItem(item, e -> e.getWhoClicked().sendMessage("You clicked on ice!"));
-        //add the item to the pane
-                    pane.addItem(guiItem);
-        //add the pane to the gui
-                    gui.addPane(pane);
-
-                    event.getPlayer().openInventory(gui.getInventory());
+            new MainGUI(event.getPlayer()).openGUI(event.getPlayer());
         }
 
     }
