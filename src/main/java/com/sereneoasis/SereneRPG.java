@@ -5,9 +5,14 @@ import com.sereneoasis.config.FileManager;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
 import com.sereneoasis.level.world.noise.NoiseMaster;
+import com.sereneoasis.listeners.PacketListener;
+import com.sereneoasis.listeners.SereneListener;
+import net.minecraft.server.level.ServerPlayer;
+import org.bukkit.Location;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 
 /***
@@ -27,6 +32,17 @@ public class SereneRPG extends JavaPlugin {
         return fileManager;
     }
 
+    private static PacketListener packetListener;
+
+    public static PacketListener getPacketListener() {
+        return packetListener;
+    }
+
+    //Used to keep our NPCs to be accessed in other classes
+    private HashMap<ServerPlayer, Location> npcs = new HashMap<>();
+    public HashMap<ServerPlayer, Location> getNpcs() {
+        return npcs;
+    }
 
     @Override
     public void onEnable() {
@@ -37,6 +53,7 @@ public class SereneRPG extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
+        packetListener = new PacketListener();
     }
 
     @Override

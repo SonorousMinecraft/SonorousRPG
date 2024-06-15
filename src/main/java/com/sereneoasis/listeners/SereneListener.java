@@ -1,11 +1,14 @@
-package com.sereneoasis;
+package com.sereneoasis.listeners;
 
+import com.sereneoasis.SereneRPG;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -25,5 +28,15 @@ public class SereneListener implements Listener {
             biomeTracker.put(player.getUniqueId(), newBiome);
         }
     }
+
+//    @EventHandler
+//    public void onJoin(PlayerJoinEvent event){
+//        SereneRPG.getPacketListener().injectPlayer(event.getPlayer());
+//    }
+//
+//    @EventHandler
+//    public void onLeave(PlayerQuitEvent event){
+//        SereneRPG.getPacketListener().removePlayer(event.getPlayer());
+//    }
 
 }
