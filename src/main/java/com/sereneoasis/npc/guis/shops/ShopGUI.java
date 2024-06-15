@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class ShopGUI {
 
@@ -31,10 +32,7 @@ public class ShopGUI {
 
 
         PaginatedPane pages = new PaginatedPane(0, 0, 9, 5);
-        pages.populateWithItemStacks(Arrays.asList(
-                ItemStacks.INFUSED_GOLDEN_CARROT.getItemStack(),
-                ItemStacks.SLOW_ROASTED_CHICKEN.getItemStack(),
-                ItemStacks.DOUBLE_CHOCOLATE_COOKIE.getItemStack()));
+        pages.populateWithItemStacks(Arrays.stream(ItemStacks.values()).map(itemStacks -> itemStacks.getItemStack()).collect(Collectors.toList()));
         pages.setOnClick(event -> {
             player.getInventory().addItem(event.getCurrentItem());
             if (ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()) != null) {
