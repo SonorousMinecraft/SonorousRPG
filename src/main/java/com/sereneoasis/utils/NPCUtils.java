@@ -61,17 +61,16 @@ public class NPCUtils {
 //        serverPlayerConnection.setListener(new PacketListenerImpl());
 //        serverPlayerConnection.setListener(((CraftPlayer) player).getHandle().connection.connection.getPacketListener());
         serverPlayerConnection.channel = ((CraftPlayer) player).getHandle().connection.connection.channel;
-        Random rand = new Random();
-        int latency = rand.nextInt(1000);
+
         CommonListenerCookie commonListenerCookie = CommonListenerCookie.createInitial(gameProfile);
         ServerGamePacketListenerImpl serverGamePacketListener = new ServerGamePacketListenerImpl(minecraftServer, serverPlayerConnection, serverPlayer, commonListenerCookie);
         serverPlayer.connection = serverGamePacketListener;
 
 
         ClientboundPlayerInfoUpdatePacketWrapper playerInfoPacket = new ClientboundPlayerInfoUpdatePacketWrapper(
-                EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER),
+                EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LATENCY),
                 serverPlayer,
-                latency,
+                180,
                 true
         );
         PacketUtils.sendPacket(playerInfoPacket.getPacket(), player);
