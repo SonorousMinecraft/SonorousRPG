@@ -1,4 +1,4 @@
-package com.sereneoasis.npc.types.baker;
+package com.sereneoasis.npc.types.warrior;
 
 import com.mojang.authlib.GameProfile;
 import com.sereneoasis.entity.AI.goal.complex.combat.KillTargetEntity;
