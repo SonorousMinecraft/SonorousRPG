@@ -25,6 +25,7 @@ public class MainGUI {
     }
 
     public MainGUI(ShopGUI shopGUI, QuestGUI questGUI){
+
          gui = new ChestGui(3, "NPC");
 
         gui.setOnGlobalClick(event -> event.setCancelled(true));
@@ -57,9 +58,9 @@ public class MainGUI {
         navigationPane.addItem(new GuiItem(quest, event -> {
             Player player = (Player) event.getWhoClicked();
 
-            questGUI.addAttainmentQuest(new ItemStack(Material.DIRT), ItemStacks.TRAINING_SWORD.getItemStack());
-            questGUI.addHuntQuest(ItemStacks.BASIC_SOLDIER_SWORD.getItemStack(), EntityType.ZOMBIE, 5);
-            questGUI.addExploreQuest(ItemStacks.BESERKER_AXE.getItemStack(), player.getLocation().add(100,0,0));
+//            questGUI.addAttainmentQuest(new ItemStack(Material.DIRT), ItemStacks.TRAINING_SWORD.getItemStack());
+//            questGUI.addHuntQuest(ItemStacks.BASIC_SOLDIER_SWORD.getItemStack(), EntityType.ZOMBIE, 5);
+//            questGUI.addExploreQuest(ItemStacks.BESERKER_AXE.getItemStack(), player.getLocation().add(100,0,0));
 
             questGUI.openGUI(player);
         }));

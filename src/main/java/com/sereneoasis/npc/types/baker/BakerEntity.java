@@ -60,14 +60,14 @@ public class BakerEntity extends NPCMaster {
     public HashMap<ItemStack, Pair<EntityType, Integer>> getHuntQuests() {
         HashMap<ItemStack, Pair<EntityType, Integer>> rewardHuntAmountMap = new HashMap<>();
 
-        return null;
+        return rewardHuntAmountMap;
     }
 
     @Override
     public HashMap<ItemStack, Location> getExploreQuests() {
         HashMap<ItemStack, Location> rewardLocationMap = new HashMap<>();
 
-        return null;
+        return rewardLocationMap;
     }
 
     @Override

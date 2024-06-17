@@ -3,6 +3,8 @@ package com.sereneoasis.command;
 import com.sereneoasis.SereneRPG;
 import com.sereneoasis.entity.HumanEntity;
 import com.sereneoasis.level.world.tree.TreeGenerationUtils;
+import com.sereneoasis.npc.types.NPCMaster;
+import com.sereneoasis.npc.types.assassin.AssassinEntity;
 import com.sereneoasis.utils.NPCUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,12 +18,13 @@ public class SerenityCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player player) {
 //            TreeGenerationUtils.generateCherryTree(player.getLocation(), 60, new Random());
-
-            HumanEntity npc = NPCUtils.spawnNPC(player.getLocation(), player, strings[0], strings[0]);
+            NPCMaster npc = NPCUtils.spawnNPC(player.getLocation(), player, strings[0], strings[0]);
 //            SerenityEntities.getInstance().getNpcs().add(npc);
+            SereneRPG.plugin.addNPC(npc);
+
             player.sendMessage("command run");
-            NPCUtils.updateEquipment(npc, player);
-            SereneRPG.plugin.getNpcs().add(npc);
+//            NPCUtils.updateEquipment(npc, player);
+
         }
         return false;
     }

@@ -58,21 +58,21 @@ public class AssassinEntity extends NPCMaster {
     public HashMap<ItemStack, ItemStack> getAttainmentQuests() {
         HashMap<ItemStack, ItemStack> requirementRewardMap = new HashMap<>();
 //        requirementRewardMap.
-        return null;
+        return requirementRewardMap;
     }
 
     @Override
     public HashMap<ItemStack, Pair<EntityType, Integer>> getHuntQuests() {
         HashMap<ItemStack, Pair<EntityType, Integer>> rewardHuntAmountMap = new HashMap<>();
 
-        return null;
+        return rewardHuntAmountMap;
     }
 
     @Override
     public HashMap<ItemStack, Location> getExploreQuests() {
         HashMap<ItemStack, Location> rewardLocationMap = new HashMap<>();
 
-        return null;
+        return rewardLocationMap;
     }
 
     @Override

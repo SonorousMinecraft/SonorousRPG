@@ -35,6 +35,7 @@ public abstract class NPCMaster extends HumanEntity implements GuiBuilder {
         });
 
         mainGUI = new MainGUI(shopGUI, questGUI);
+
     }
 
     public void openGUI(Player player){

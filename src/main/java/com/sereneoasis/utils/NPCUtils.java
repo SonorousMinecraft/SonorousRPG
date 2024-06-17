@@ -8,6 +8,9 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.datafixers.util.Pair;
 import com.sereneoasis.SereneRPG;
 import com.sereneoasis.entity.HumanEntity;
+import com.sereneoasis.npc.types.NPCMaster;
+import com.sereneoasis.npc.types.assassin.AssassinEntity;
+import com.sereneoasis.npc.types.baker.BakerEntity;
 import io.netty.channel.Channel;
 import net.minecraft.network.Connection;
 import net.minecraft.network.PacketListener;
@@ -39,7 +42,7 @@ import java.util.*;
 
 public class NPCUtils {
 
-    public static HumanEntity spawnNPC(Location location, Player player, String name, String skinUsersIGN){
+    public static NPCMaster spawnNPC(Location location, Player player, String name, String skinUsersIGN){
         //ServerPlayer player = ((CraftPlayer)p).getHandle();
 
         MinecraftServer minecraftServer = ((CraftServer) Bukkit.getServer()).getServer();
@@ -47,7 +50,8 @@ public class NPCUtils {
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), name);
 
         net.minecraft.world.entity.player.Player nmsPlayer = ((CraftPlayer)player).getHandle();
-        HumanEntity serverPlayer = new HumanEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+//        HumanEntity serverPlayer = new HumanEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+        NPCMaster serverPlayer = new AssassinEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
         serverPlayer.setPos(location.getX(), location.getY(), location.getZ());
 
         SynchedEntityData synchedEntityData = serverPlayer.getEntityData();

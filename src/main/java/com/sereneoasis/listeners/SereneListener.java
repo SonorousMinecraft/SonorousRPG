@@ -6,6 +6,7 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.sereneoasis.SereneRPG;
 import com.sereneoasis.npc.guis.MainGUI;
 import com.sereneoasis.npc.guis.quests.QuestGUI;
+import com.sereneoasis.npc.types.assassin.AssassinEntity;
 import com.sereneoasis.utils.ClientboundPlayerInfoUpdatePacketWrapper;
 import com.sereneoasis.utils.EconUtils;
 import com.sereneoasis.utils.PacketUtils;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -66,8 +68,16 @@ public class SereneListener implements Listener {
 
     @EventHandler
     public void onRightClickNPC(PlayerInteractEntityEvent event){
-        if (SereneRPG.plugin.getNpcs().stream().map(serverPlayer -> serverPlayer.getBukkitEntity()).anyMatch(craftPlayer -> craftPlayer == event.getRightClicked())) {
+        if (!event.getPlayer().getOpenInventory().getType().equals(InventoryType.CHEST)) {
+            if (SereneRPG.plugin.getNpcs().stream().anyMatch(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())) {
+                SereneRPG.plugin.getNpcs()
+                        .stream()
+                        .filter(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())
+                        .findAny().get().openGUI(event.getPlayer());
+                event.setCancelled(true);
+
 //            new MainGUI().openGUI(event.getPlayer());
+            }
         }
 
     }
