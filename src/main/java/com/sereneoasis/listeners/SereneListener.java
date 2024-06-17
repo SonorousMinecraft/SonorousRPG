@@ -67,7 +67,7 @@ public class SereneListener implements Listener {
     @EventHandler
     public void onRightClickNPC(PlayerInteractEntityEvent event){
         if (SereneRPG.plugin.getNpcs().stream().map(serverPlayer -> serverPlayer.getBukkitEntity()).anyMatch(craftPlayer -> craftPlayer == event.getRightClicked())) {
-            new MainGUI(event.getPlayer()).openGUI(event.getPlayer());
+//            new MainGUI().openGUI(event.getPlayer());
         }
 
     }

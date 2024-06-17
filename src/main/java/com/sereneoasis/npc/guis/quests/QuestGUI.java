@@ -36,7 +36,7 @@ public class QuestGUI {
         gui.show(player);
     }
 
-    public QuestGUI(Player player){
+    public QuestGUI(){
         gui = new ChestGui(3, "Select amount");
 
         gui.setOnGlobalClick(event -> event.setCancelled(true));
@@ -152,7 +152,7 @@ public class QuestGUI {
                 return;
             }
             Location location = locationBooleanPair.getA();
-            if (player.getLocation().distanceSquared(location) < 20){
+            if (player.getLocation().distanceSquared(location) < 100){
                 player.sendMessage("You have successfully arrived at the location!");
                 EXPLORE_TRACKER.put(player.getUniqueId(), new Pair<>(location.clone(), true));
                 return;

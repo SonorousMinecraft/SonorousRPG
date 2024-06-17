@@ -130,11 +130,11 @@ public class HumanEntity extends ServerPlayer {
 
     private final PlayerAdvancements advancements;
 
-    private MasterGoalSelector masterGoalSelector;
+    protected MasterGoalSelector masterGoalSelector;
 
-    private TargetSelector targetSelector;
+    protected TargetSelector targetSelector;
 
-    private InventoryTracker inventoryTracker;
+    protected InventoryTracker inventoryTracker;
 
     public FoodData foodData = new FoodData(this);
 
@@ -163,10 +163,12 @@ public class HumanEntity extends ServerPlayer {
         this.cooldowns = this.createItemCooldowns();
 
         this.advancements = server.getPlayerList().getPlayerAdvancements(this);
-        this.setItemSlot(EquipmentSlot.HEAD, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_HELMET)));
-        this.setItemSlot(EquipmentSlot.CHEST, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_CHESTPLATE)));
-        this.setItemSlot(EquipmentSlot.LEGS, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_LEGGINGS)));
-        this.setItemSlot(EquipmentSlot.FEET, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_BOOTS)));
+
+
+//        this.setItemSlot(EquipmentSlot.HEAD, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_HELMET)));
+//        this.setItemSlot(EquipmentSlot.CHEST, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_CHESTPLATE)));
+//        this.setItemSlot(EquipmentSlot.LEGS, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_LEGGINGS)));
+//        this.setItemSlot(EquipmentSlot.FEET, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_BOOTS)));
 
         // Player player = this.getBukkitEntity().getPlayer();
 
@@ -1079,25 +1081,25 @@ public class HumanEntity extends ServerPlayer {
 //            masterGoalSelector.addMasterGoal(new GatherBlocks("break wood", this, Blocks.OAK_WOOD, 1));
 //        }
 
-        if (! masterGoalSelector.doingGoal("kill hostile entity")) {
-            if (targetSelector.retrieveTopHostile() instanceof LivingEntity hostile &&  (!Vec3Utils.isObstructed(this.getPosition(0), hostile.getPosition(0), this.level()))){
-                masterGoalSelector.addMasterGoal(new KillTargetEntity("kill hostile entity", this, hostile));
-            }
-            else {
-                if (!masterGoalSelector.doingGoal("roam")){
-                    masterGoalSelector.addMasterGoal(new RandomExploration("roam", this, null));
-                }
-                if (! inventoryTracker.hasEnoughFood()){
-                    if (! masterGoalSelector.doingGoal("kill food entity")) {
-                        if (targetSelector.retrieveTopPeaceful() instanceof LivingEntity peaceful){
-                            masterGoalSelector.addMasterGoal(new KillTargetEntity("kill food entity", this, peaceful));
-                        }
-                    }
-                } else if (inventoryTracker.hasFood()){
-                    this.eat(this.level(), inventoryTracker.getMostAppropriateFood());
-                }
-            }
-        }
+//        if (! masterGoalSelector.doingGoal("kill hostile entity")) {
+//            if (targetSelector.retrieveTopHostile() instanceof LivingEntity hostile &&  (!Vec3Utils.isObstructed(this.getPosition(0), hostile.getPosition(0), this.level()))){
+//                masterGoalSelector.addMasterGoal(new KillTargetEntity("kill hostile entity", this, hostile));
+//            }
+//            else {
+//                if (!masterGoalSelector.doingGoal("roam")){
+//                    masterGoalSelector.addMasterGoal(new RandomExploration("roam", this, null));
+//                }
+//                if (! inventoryTracker.hasEnoughFood()){
+//                    if (! masterGoalSelector.doingGoal("kill food entity")) {
+//                        if (targetSelector.retrieveTopPeaceful() instanceof LivingEntity peaceful){
+//                            masterGoalSelector.addMasterGoal(new KillTargetEntity("kill food entity", this, peaceful));
+//                        }
+//                    }
+//                } else if (inventoryTracker.hasFood()){
+//                    this.eat(this.level(), inventoryTracker.getMostAppropriateFood());
+//                }
+//            }
+//        }
 
 
         masterGoalSelector.tick();

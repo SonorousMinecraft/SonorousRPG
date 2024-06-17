@@ -15,32 +15,27 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ShopGUI {
 
     private ChestGui gui;
 
+    private PaginatedPane pages;
+
     public void openGUI(Player player) {
         gui.show(player);
     }
 
-    public ShopGUI(Player player){
+    public ShopGUI(){
         gui = new ChestGui(6, "Shop");
 
         gui.setOnGlobalClick(event -> event.setCancelled(true));
 
+        pages = new PaginatedPane(0, 0, 9, 5);
 
-        PaginatedPane pages = new PaginatedPane(0, 0, 9, 5);
-        pages.populateWithItemStacks(Arrays.stream(ItemStacks.values()).map(itemStacks -> itemStacks.getItemStack()).collect(Collectors.toList()));
-        pages.setOnClick(event -> {
-            if (ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()) != null) {
-                int price = ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()).getSellPrice();
-                if (EconUtils.withdrawPlayer(player, price)){
-                    player.getInventory().addItem(event.getCurrentItem());
-                }
-            }
-        });
 
         gui.addPane(pages);
 
@@ -72,5 +67,18 @@ public class ShopGUI {
                 event.getWhoClicked().closeInventory()), 4, 0);
 
         gui.addPane(navigation);
+    }
+
+    public void populateShop(List<ItemStacks>shopItemList){
+        pages.populateWithItemStacks(shopItemList.stream().map(itemStacks -> itemStacks.getItemStack()).collect(Collectors.toList()));
+        pages.setOnClick(event -> {
+            if (ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()) != null) {
+                Player player = (Player) event.getWhoClicked();
+                int price = ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()).getSellPrice();
+                if (EconUtils.withdrawPlayer(player, price)){
+                    player.getInventory().addItem(event.getCurrentItem());
+                }
+            }
+        });
     }
 }

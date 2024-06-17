@@ -27,7 +27,18 @@ public enum ItemStacks {
 
     TRAINING_SWORD(Material.WOODEN_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Training Sword", 0, 10),
     BASIC_SOLDIER_SWORD(Material.STONE_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Basic Soldier Sword", 0, 30),
-    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50);
+    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+
+    MURDERERS_DAGGER(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Murderer's Dagger", 0, 70),
+    SILENT_SNIPER(Material.CROSSBOW,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Silent Sniper", 0, 100),
+    POISONED_ARROW(Material.TIPPED_ARROW,  ItemCategory.WEAPONS, 32, ChatColor.DARK_GRAY + "Poisoned Arrow", 0, 50);
+//    BESERKER_AXE(Material.,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50);
 
 
 

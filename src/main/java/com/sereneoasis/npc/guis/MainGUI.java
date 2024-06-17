@@ -24,7 +24,7 @@ public class MainGUI {
         gui.show(player);
     }
 
-    public MainGUI(Player player){
+    public MainGUI(ShopGUI shopGUI, QuestGUI questGUI){
          gui = new ChestGui(3, "NPC");
 
         gui.setOnGlobalClick(event -> event.setCancelled(true));
@@ -43,7 +43,9 @@ public class MainGUI {
         shop.setItemMeta(shopMeta);
 
         navigationPane.addItem(new GuiItem(shop, event -> {
-            new ShopGUI(player).openGUI(player);
+            Player player = (Player) event.getWhoClicked();
+
+            shopGUI.openGUI(player);
         }));
 
         ItemStack quest = new ItemStack(Material.KNOWLEDGE_BOOK);
@@ -53,10 +55,12 @@ public class MainGUI {
         quest.setItemMeta(beaconMeta);
 
         navigationPane.addItem(new GuiItem(quest, event -> {
-            QuestGUI questGUI = new QuestGUI(player);
+            Player player = (Player) event.getWhoClicked();
+
             questGUI.addAttainmentQuest(new ItemStack(Material.DIRT), ItemStacks.TRAINING_SWORD.getItemStack());
             questGUI.addHuntQuest(ItemStacks.BASIC_SOLDIER_SWORD.getItemStack(), EntityType.ZOMBIE, 5);
             questGUI.addExploreQuest(ItemStacks.BESERKER_AXE.getItemStack(), player.getLocation().add(100,0,0));
+
             questGUI.openGUI(player);
         }));
 
