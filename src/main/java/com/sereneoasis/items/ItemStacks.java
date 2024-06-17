@@ -26,7 +26,8 @@ public enum ItemStacks {
     RED_VELVET_CAKE(Material.CAKE,  ItemCategory.BAKED_FOOD, 1, ChatColor.DARK_RED + "Red Velvet Cake", 0, 200),
 
     TRAINING_SWORD(Material.WOODEN_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Training Sword", 0, 10),
-    BASIC_SOLDIER_SWORD(Material.STONE_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Basic Soldier Sword", 0, 30);
+    BASIC_SOLDIER_SWORD(Material.STONE_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Basic Soldier Sword", 0, 30),
+    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50);
 
 
 

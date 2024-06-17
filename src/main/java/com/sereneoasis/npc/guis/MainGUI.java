@@ -56,7 +56,7 @@ public class MainGUI {
             QuestGUI questGUI = new QuestGUI(player);
             questGUI.addAttainmentQuest(new ItemStack(Material.DIRT), ItemStacks.TRAINING_SWORD.getItemStack());
             questGUI.addHuntQuest(ItemStacks.BASIC_SOLDIER_SWORD.getItemStack(), EntityType.ZOMBIE, 5);
-
+            questGUI.addExploreQuest(ItemStacks.BESERKER_AXE.getItemStack(), player.getLocation().add(100,0,0));
             questGUI.openGUI(player);
         }));
 

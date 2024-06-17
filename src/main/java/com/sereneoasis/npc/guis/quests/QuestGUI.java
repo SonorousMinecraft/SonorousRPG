@@ -8,8 +8,10 @@ import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.Pane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.github.stefvanschie.inventoryframework.pane.component.Label;
+import com.sereneoasis.SereneRPG;
 import net.minecraft.world.entity.MobType;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -137,6 +139,52 @@ public class QuestGUI {
             }
             });
     }
+
+    private static final HashMap<UUID, Pair<Location, Boolean>> EXPLORE_TRACKER = new HashMap<>();
+
+    public static void pollExploreTracker(){
+        EXPLORE_TRACKER.forEach((uuid, locationBooleanPair) -> {
+            if (locationBooleanPair.getB()){
+                return;
+            }
+            Player player = Bukkit.getPlayer(uuid);
+            if (! player.isOnline()){
+                return;
+            }
+            Location location = locationBooleanPair.getA();
+            if (player.getLocation().distanceSquared(location) < 20){
+                player.sendMessage("You have successfully arrived at the location!");
+                EXPLORE_TRACKER.put(player.getUniqueId(), new Pair<>(location.clone(), true));
+                return;
+            }
+            Bukkit.getScheduler().runTaskLater(SereneRPG.plugin, ()-> {
+                player.sendMessage("You have an active quest, head to \n " +
+                        "X: " + location.getX() + ", Y: " + location.getY() + ", Z: " + location.getZ() );
+                pollExploreTracker();
+            }, 100);
+        });
+    }
+
+    public void addExploreQuest(ItemStack reward, Location location){
+        GuiItem rewardItem = new GuiItem(reward);
+        itemPane.addItem(rewardItem);
+        rewardItem.setAction(inventoryClickEvent -> {
+            if (inventoryClickEvent.isRightClick()) {
+                if (inventoryClickEvent.getWhoClicked() instanceof Player player) {
+                    if (!EXPLORE_TRACKER.containsKey(player.getUniqueId())) {
+                        EXPLORE_TRACKER.put(player.getUniqueId(), new Pair<>(location.clone(), false));
+                        pollExploreTracker();
+                    }
+                    else {
+                        if (EXPLORE_TRACKER.get(player.getUniqueId()).getB()){
+                            player.getInventory().addItem(reward);
+                            inventoryClickEvent.getCurrentItem().setAmount(0);
+                        }
+                    }
+                }
+            }
+        });
+    };
 }
 
 
