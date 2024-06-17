@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.Pane;
+import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.npc.guis.quests.QuestGUI;
 import com.sereneoasis.npc.guis.shops.ShopGUI;
 import org.bukkit.Material;
@@ -50,7 +51,9 @@ public class MainGUI {
         quest.setItemMeta(beaconMeta);
 
         navigationPane.addItem(new GuiItem(quest, event -> {
-            new QuestGUI(player).openGUI(player);
+            QuestGUI questGUI = new QuestGUI(player);
+            questGUI.addAttainmentQuest(new ItemStack(Material.DIRT), ItemStacks.TRAINING_SWORD.getItemStack());
+            questGUI.openGUI(player);
         }));
 
         ItemStack bed = new ItemStack(Material.RED_BED);

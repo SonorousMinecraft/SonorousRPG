@@ -23,7 +23,10 @@ public enum ItemStacks {
     BRAISED_RABBIT(Material.COOKED_RABBIT, ItemCategory.VEGETABLES, 64, ChatColor.RED + "Braised Rabbit", 0, 60),
     DOUBLE_CHOCOLATE_COOKIE(Material.COOKIE,  ItemCategory.BAKED_FOOD, 8, ChatColor.DARK_RED + "Double Chocolate Cookie", 0, 20),
     BAKERS_LOAVES(Material.BREAD,  ItemCategory.BAKED_FOOD, 8, ChatColor.DARK_RED + "Baker's Loaves", 0, 100),
-    RED_VELVET_CAKE(Material.BREAD,  ItemCategory.BAKED_FOOD, 1, ChatColor.DARK_RED + "Red Velvet Cake", 0, 200);
+    RED_VELVET_CAKE(Material.CAKE,  ItemCategory.BAKED_FOOD, 1, ChatColor.DARK_RED + "Red Velvet Cake", 0, 200),
+
+    TRAINING_SWORD(Material.WOODEN_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Training Sword", 0, 10);
+
 
 
     public static ItemStacks getByName(String displayName){

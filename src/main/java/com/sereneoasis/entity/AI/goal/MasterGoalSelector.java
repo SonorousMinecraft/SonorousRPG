@@ -39,7 +39,7 @@ public class MasterGoalSelector {
             } else {
 //                Bukkit.broadcastMessage(goals.peek().getName());
 
-                goals.peek().tick();
+//                goals.peek().tick();
             }
         }
     }
