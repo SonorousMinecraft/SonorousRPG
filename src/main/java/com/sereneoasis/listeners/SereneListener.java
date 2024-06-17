@@ -5,6 +5,7 @@ import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.sereneoasis.SereneRPG;
 import com.sereneoasis.npc.guis.MainGUI;
+import com.sereneoasis.npc.guis.quests.QuestGUI;
 import com.sereneoasis.utils.ClientboundPlayerInfoUpdatePacketWrapper;
 import com.sereneoasis.utils.EconUtils;
 import com.sereneoasis.utils.PacketUtils;
@@ -15,9 +16,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -67,6 +70,15 @@ public class SereneListener implements Listener {
             new MainGUI(event.getPlayer()).openGUI(event.getPlayer());
         }
 
+    }
+
+    @EventHandler
+    public void onKill(EntityDamageByEntityEvent event){
+        if (event.getDamager() instanceof Player player){
+            if (event.getEntity() instanceof LivingEntity livingEntity &&  livingEntity.getHealth() < event.getDamage()) {
+                QuestGUI.decrementHuntKilLTracker(player, livingEntity);
+            }
+        }
     }
 //
 //    @EventHandler

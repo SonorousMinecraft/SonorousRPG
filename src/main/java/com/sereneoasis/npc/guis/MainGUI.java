@@ -8,6 +8,8 @@ import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.npc.guis.quests.QuestGUI;
 import com.sereneoasis.npc.guis.shops.ShopGUI;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -53,6 +55,8 @@ public class MainGUI {
         navigationPane.addItem(new GuiItem(quest, event -> {
             QuestGUI questGUI = new QuestGUI(player);
             questGUI.addAttainmentQuest(new ItemStack(Material.DIRT), ItemStacks.TRAINING_SWORD.getItemStack());
+            questGUI.addHuntQuest(ItemStacks.BASIC_SOLDIER_SWORD.getItemStack(), EntityType.ZOMBIE, 5);
+
             questGUI.openGUI(player);
         }));
 

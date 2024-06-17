@@ -8,14 +8,21 @@ import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.Pane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.github.stefvanschie.inventoryframework.pane.component.Label;
+import net.minecraft.world.entity.MobType;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class QuestGUI {
 
@@ -96,4 +103,66 @@ public class QuestGUI {
             }
         });
     }
+
+    private static final HashMap<UUID, Pair<EntityType, Integer>> HUNT_KILL_TRACKER = new HashMap<>();
+
+    public static void decrementHuntKilLTracker(Player killer, LivingEntity livingEntity){
+        if (HUNT_KILL_TRACKER.containsKey(killer.getUniqueId())){
+            if (HUNT_KILL_TRACKER.get(killer.getUniqueId()).getA().equals(livingEntity.getType())) {
+                int newKillsLeft = HUNT_KILL_TRACKER.get(killer.getUniqueId()).getB() - 1;
+                HUNT_KILL_TRACKER.put(killer.getUniqueId(), new Pair<>(livingEntity.getType(), newKillsLeft));
+                Bukkit.broadcastMessage("You're making progress !");
+            }
+        }
+    }
+
+    public void addHuntQuest(ItemStack reward, EntityType entityType, int amount){
+        GuiItem rewardItem = new GuiItem(reward);
+        itemPane.addItem(rewardItem);
+        rewardItem.setAction(inventoryClickEvent -> {
+            if (inventoryClickEvent.isRightClick()) {
+                if (inventoryClickEvent.getWhoClicked() instanceof Player player) {
+                    if (!HUNT_KILL_TRACKER.containsKey(player.getUniqueId())) {
+                        Bukkit.broadcastMessage("You have accepted the quest!");
+
+                        HUNT_KILL_TRACKER.put(player.getUniqueId(), new Pair<>(entityType, amount));
+                    } else if (HUNT_KILL_TRACKER.get(player.getUniqueId()).getA().equals(entityType)) {
+                        int newKillsLeft = HUNT_KILL_TRACKER.get(player.getUniqueId()).getB();
+                        if (newKillsLeft <= 0) {
+                            player.getInventory().addItem(reward);
+                            inventoryClickEvent.getCurrentItem().setAmount(0);
+                        }
+                    }
+                }
+            }
+            });
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
