@@ -18,14 +18,20 @@ public class EconUtils {
         }
     }
 
-    public static void withdrawPlayer(Player player, double amount){
+    public static boolean withdrawPlayer(Player player, double amount){
         Economy econ = SereneRPG.getEconomy();
         player.sendMessage(String.format("You have %s", econ.format(econ.getBalance(player.getName()))));
+
+        if (econ.getBalance(player.getName()) < amount ){
+            player.sendMessage("You do not have enough money");
+            return false;
+        }
         EconomyResponse r = econ.withdrawPlayer(player, amount);
         if(r.transactionSuccess()) {
             player.sendMessage(String.format("You lost %s and now have %s", econ.format(r.amount), econ.format(r.balance)));
         } else {
             player.sendMessage(String.format("An error occured: %s", r.errorMessage));
         }
+        return true;
     }
 }

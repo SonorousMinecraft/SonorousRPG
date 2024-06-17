@@ -34,10 +34,11 @@ public class ShopGUI {
         PaginatedPane pages = new PaginatedPane(0, 0, 9, 5);
         pages.populateWithItemStacks(Arrays.stream(ItemStacks.values()).map(itemStacks -> itemStacks.getItemStack()).collect(Collectors.toList()));
         pages.setOnClick(event -> {
-            player.getInventory().addItem(event.getCurrentItem());
             if (ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()) != null) {
                 int price = ItemStacks.getByName(event.getCurrentItem().getItemMeta().getDisplayName()).getSellPrice();
-                EconUtils.withdrawPlayer(player, price);
+                if (EconUtils.withdrawPlayer(player, price)){
+                    player.getInventory().addItem(event.getCurrentItem());
+                }
             }
         });
 
