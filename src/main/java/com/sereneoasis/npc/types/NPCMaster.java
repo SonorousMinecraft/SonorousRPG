@@ -41,4 +41,6 @@ public abstract class NPCMaster extends HumanEntity implements GuiBuilder {
     public void openGUI(Player player){
         mainGUI.openGUI(player);
     }
+
+    public abstract NPCTypes getNPCType();
 }

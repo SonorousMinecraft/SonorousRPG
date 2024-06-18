@@ -7,6 +7,7 @@ import com.sereneoasis.entity.HumanEntity;
 import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.npc.types.GuiBuilder;
 import com.sereneoasis.npc.types.NPCMaster;
+import com.sereneoasis.npc.types.NPCTypes;
 import com.sereneoasis.utils.Vec3Utils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
@@ -34,6 +35,11 @@ public class WarriorEntity extends NPCMaster {
         this.setItemSlot(EquipmentSlot.CHEST, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_CHESTPLATE)));
         this.setItemSlot(EquipmentSlot.LEGS, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_LEGGINGS)));
         this.setItemSlot(EquipmentSlot.FEET, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.IRON_BOOTS)));
+    }
+
+    @Override
+    public NPCTypes getNPCType() {
+        return NPCTypes.WARRIOR;
     }
 
     @Override

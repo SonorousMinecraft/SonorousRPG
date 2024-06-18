@@ -8,6 +8,7 @@ import com.sereneoasis.items.ItemCategory;
 import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.npc.types.GuiBuilder;
 import com.sereneoasis.npc.types.NPCMaster;
+import com.sereneoasis.npc.types.NPCTypes;
 import com.sereneoasis.utils.Vec3Utils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
@@ -33,6 +34,10 @@ public class ButcherEntity extends NPCMaster {
         this.setItemSlot(EquipmentSlot.FEET, net.minecraft.world.item.ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.LEATHER_BOOTS)));
     }
 
+    @Override
+    public NPCTypes getNPCType() {
+        return NPCTypes.BUTCHER;
+    }
     @Override
     public void tick() {
         super.tick();
@@ -65,7 +70,7 @@ public class ButcherEntity extends NPCMaster {
         requirementRewardMap.put(new ItemStack(Material.BEEF), ItemStacks.SIRLOIN_STEAK.getItemStack());
         requirementRewardMap.put(new ItemStack(Material.PORKCHOP), ItemStacks.PAN_SEARED_PORK_CHOPS.getItemStack());
         requirementRewardMap.put(new ItemStack(Material.MUTTON), ItemStacks.LAMB_CHOPS.getItemStack());
-        return null;
+        return requirementRewardMap;
     }
 
     @Override
@@ -75,7 +80,7 @@ public class ButcherEntity extends NPCMaster {
         rewardHuntAmountMap.put(ItemStacks.SIRLOIN_STEAK.getItemStack(), new Pair<>(EntityType.COW, 5));
         rewardHuntAmountMap.put(ItemStacks.PAN_SEARED_PORK_CHOPS.getItemStack(), new Pair<>(EntityType.PIG, 5));
         rewardHuntAmountMap.put(ItemStacks.LAMB_CHOPS.getItemStack(), new Pair<>(EntityType.SHEEP, 5));
-        return null;
+        return rewardHuntAmountMap;
     }
 
     @Override

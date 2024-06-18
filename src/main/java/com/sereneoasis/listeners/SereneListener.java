@@ -1,24 +1,20 @@
 package com.sereneoasis.listeners;
 
 import com.github.javafaker.Faker;
-import com.github.stefvanschie.inventoryframework.gui.GuiItem;
-import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
-import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.sereneoasis.SereneRPG;
-import com.sereneoasis.npc.guis.MainGUI;
+import com.sereneoasis.chat.ChatManager;
+import com.sereneoasis.chat.ChatMaster;
+import com.sereneoasis.chat.builders.ChatBuilder;
 import com.sereneoasis.npc.guis.quests.QuestGUI;
 import com.sereneoasis.npc.types.NPCMaster;
-import com.sereneoasis.npc.types.assassin.AssassinEntity;
+import com.sereneoasis.npc.types.NPCTypes;
 import com.sereneoasis.utils.ClientboundPlayerInfoUpdatePacketWrapper;
 import com.sereneoasis.utils.EconUtils;
 import com.sereneoasis.utils.NPCUtils;
 import com.sereneoasis.utils.PacketUtils;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
@@ -31,9 +27,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -73,16 +69,32 @@ public class SereneListener implements Listener {
     @EventHandler
     public void onRightClickNPC(PlayerInteractEntityEvent event){
 
-
-        if (!event.getPlayer().getOpenInventory().getType().equals(InventoryType.CHEST)) {
+        Player player = event.getPlayer();
+        if (player.isSneaking()) {
             if (SereneRPG.plugin.getNpcs().stream().anyMatch(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())) {
-                SereneRPG.plugin.getNpcs()
+                NPCTypes npcTypes = SereneRPG.plugin.getNpcs()
                         .stream()
                         .filter(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())
-                        .findAny().get().openGUI(event.getPlayer());
-                event.setCancelled(true);
+                        .findAny().get().getNPCType();
+
+
+                ChatManager chatManager = new ChatManager();
+                ChatBuilder chatBuilder = chatManager.getChatBuilder(npcTypes);
+
+                ChatMaster chatMaster = new ChatMaster(player, chatBuilder);
+            }
+        }
+        else {
+            if (!event.getPlayer().getOpenInventory().getType().equals(InventoryType.CHEST)) {
+                if (SereneRPG.plugin.getNpcs().stream().anyMatch(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())) {
+                    SereneRPG.plugin.getNpcs()
+                            .stream()
+                            .filter(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())
+                            .findAny().get().openGUI(event.getPlayer());
+                    event.setCancelled(true);
 
 //            new MainGUI().openGUI(event.getPlayer());
+                }
             }
         }
 
@@ -97,8 +109,8 @@ public class SereneListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onMove(PlayerMoveEvent moveEvent){
+   /* @EventHandler
+    public void onMove(PlayerMoveEvent moveEvent) throws IOException {
         Player player = moveEvent.getPlayer();
         Location location = player.getLocation();
         World world = location.getWorld();
@@ -115,11 +127,20 @@ public class SereneListener implements Listener {
 
         if (nearbyNPCs.size() < 5) {
             Faker faker = new Faker();
-            NPCMaster npc = NPCUtils.spawnNPC(location, player, faker.name().firstName(), faker.name().firstName());
-            SereneRPG.plugin.addNPC(npc);
+//            if (Bukkit.getPlayer(faker.name().firstName()) != null) {
+
+            String url = "https://api.mojang.com/users/profiles/minecraft/" + faker.name().firstName();
+            try {
+                Scanner scanner = new Scanner(new URL(url).openStream());
+
+                NPCMaster npc = NPCUtils.spawnNPC(location, player, faker.name().firstName(), faker.name().firstName());
+                SereneRPG.plugin.addNPC(npc);
+            } catch (IOException ignored){
+
+            }
         }
 
-    }
+    }*/
 //
 //    @EventHandler
 //    public void onLeave(PlayerQuitEvent event){

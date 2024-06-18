@@ -7,6 +7,7 @@ import com.sereneoasis.entity.HumanEntity;
 import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.npc.types.GuiBuilder;
 import com.sereneoasis.npc.types.NPCMaster;
+import com.sereneoasis.npc.types.NPCTypes;
 import com.sereneoasis.utils.Vec3Utils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
@@ -37,6 +38,11 @@ public class MageEntity extends NPCMaster {
     }
 
     @Override
+    public NPCTypes getNPCType() {
+        return NPCTypes.MAGE;
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
@@ -64,21 +70,21 @@ public class MageEntity extends NPCMaster {
     @Override
     public HashMap<ItemStack, ItemStack> getAttainmentQuests() {
         HashMap<ItemStack, ItemStack> requirementRewardMap = new HashMap<>();
-        return null;
+        return requirementRewardMap;
     }
 
     @Override
     public HashMap<ItemStack, Pair<EntityType, Integer>> getHuntQuests() {
         HashMap<ItemStack, Pair<EntityType, Integer>> rewardHuntAmountMap = new HashMap<>();
 
-        return null;
+        return rewardHuntAmountMap;
     }
 
     @Override
     public HashMap<ItemStack, Location> getExploreQuests() {
         HashMap<ItemStack, Location> rewardLocationMap = new HashMap<>();
 
-        return null;
+        return rewardLocationMap;
     }
 
     @Override

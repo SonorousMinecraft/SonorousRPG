@@ -153,6 +153,7 @@ public class NPCUtils {
     public static GameProfile setSkin(String name, GameProfile gameProfile) {
         Gson gson = new Gson();
         String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
+
         String json = getStringFromURL(url);
         String uuid = gson.fromJson(json, JsonObject.class).get("id").getAsString();
 
@@ -185,7 +186,7 @@ public class NPCUtils {
             }
             scanner.close();
         } catch (IOException exception) {
-            exception.printStackTrace();
+//            exception.printStackTrace();
         }
         return text.toString();
     }

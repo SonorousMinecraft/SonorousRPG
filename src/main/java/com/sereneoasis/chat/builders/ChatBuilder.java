@@ -1,9 +1,6 @@
 package com.sereneoasis.chat.builders;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import  net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -21,6 +18,20 @@ public class ChatBuilder{
         TextComponent message = new TextComponent(text);
         message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/serenerpg next " + next));
 
+        ChatUnit chatUnit = new ChatUnit(message);
+        chatUnitArrayList.add(chatUnit);
+    }
+
+    public void addQuestion(String text, int yesNext, int noNext){
+        TextComponent message = new TextComponent(text);
+        TextComponent yes = new TextComponent("yes");
+        yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/serenerpg next " + yesNext));
+
+        TextComponent no = new TextComponent("no");
+        no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/serenerpg next " + noNext));
+
+        message.addExtra(yes);
+        message.addExtra(no);
         ChatUnit chatUnit = new ChatUnit(message);
         chatUnitArrayList.add(chatUnit);
     }
