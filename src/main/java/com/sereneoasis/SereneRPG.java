@@ -1,6 +1,7 @@
 package com.sereneoasis;
 
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.sereneoasis.chat.ChatConfiguration;
 import com.sereneoasis.command.SerenityCommand;
 import com.sereneoasis.config.FileManager;
 import com.sereneoasis.entity.HumanEntity;
@@ -79,6 +80,7 @@ public class SereneRPG extends JavaPlugin {
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
         packetListener = new PacketListener();
+        new ChatConfiguration();
     }
 
     private boolean setupEconomy() {

@@ -72,6 +72,8 @@ public class SereneListener implements Listener {
 
     @EventHandler
     public void onRightClickNPC(PlayerInteractEntityEvent event){
+
+
         if (!event.getPlayer().getOpenInventory().getType().equals(InventoryType.CHEST)) {
             if (SereneRPG.plugin.getNpcs().stream().anyMatch(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == event.getRightClicked().getUniqueId())) {
                 SereneRPG.plugin.getNpcs()
@@ -116,6 +118,7 @@ public class SereneListener implements Listener {
             NPCMaster npc = NPCUtils.spawnNPC(location, player, faker.name().firstName(), faker.name().firstName());
             SereneRPG.plugin.addNPC(npc);
         }
+
     }
 //
 //    @EventHandler
