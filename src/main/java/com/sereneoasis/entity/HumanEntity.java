@@ -1,8 +1,7 @@
 package com.sereneoasis.entity;
 
 import com.destroystokyo.paper.event.entity.EntityJumpEvent;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
+
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Pair;
 import com.sereneoasis.entity.AI.control.BodyRotationControl;
@@ -551,7 +550,7 @@ public class HumanEntity extends ServerPlayer {
             }
 
             List<Entity> list = this.level().getEntities(this, axisalignedbb);
-            List<Entity> list1 = Lists.newArrayList();
+            List<Entity> list1 = new ArrayList<>();
             Iterator iterator = list.iterator();
 
             while(iterator.hasNext()) {
@@ -845,7 +844,7 @@ public class HumanEntity extends ServerPlayer {
 
             if (!this.level().isClientSide) {
                 BlockPos blockposition = this.blockPosition();
-                if (!Objects.equal(this.lastPos, blockposition)) {
+                if (!Objects.equals(this.lastPos, blockposition)) {
                     this.lastPos = blockposition;
                     this.onChangedBlock(blockposition);
                 }

@@ -15,6 +15,7 @@ import com.sereneoasis.utils.PacketUtils;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
@@ -23,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -107,6 +109,16 @@ public class SereneListener implements Listener {
                 QuestGUI.decrementHuntKilLTracker(player, livingEntity);
             }
         }
+    }
+
+
+    @EventHandler
+    private void onItemFrameItemSpawn(ItemSpawnEvent event) {
+        if(event.getEntity().getItemStack().getType() == Material.FILLED_MAP || event.getEntity().getItemStack().getType() == Material.ITEM_FRAME) {
+            event.setCancelled(true);
+
+        }
+
     }
 
    /* @EventHandler

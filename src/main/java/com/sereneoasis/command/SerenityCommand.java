@@ -13,6 +13,7 @@ import com.sereneoasis.npc.types.assassin.AssassinEntity;
 import com.sereneoasis.utils.NPCUtils;
 import com.sereneoasis.video.MapRenderMan;
 import com.sereneoasis.video.MapStitcher;
+import com.sereneoasis.video.VideoFrameGrabber;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Item;
@@ -25,7 +26,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
+import org.bytedeco.javacv.FrameGrabber;
 
+import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -44,7 +47,20 @@ public class SerenityCommand implements CommandExecutor {
 //            player.sendMessage("command run");
 ////            NPCUtils.updateEquipment(npc, player);
 
-           new MapStitcher(player);
+//            if (strings.length ==  0) {
+//                new MapStitcher(player);
+//            } else {
+//                new MapStitcher(player, strings[0]);
+//            }
+
+
+            try {
+                new VideoFrameGrabber(strings[0]);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (FrameGrabber.Exception e) {
+                throw new RuntimeException(e);
+            }
 
 //            if (strings.length == 0){
 //
