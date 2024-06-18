@@ -1,22 +1,27 @@
 package com.sereneoasis.listeners;
 
+import com.github.javafaker.Faker;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.sereneoasis.SereneRPG;
 import com.sereneoasis.npc.guis.MainGUI;
 import com.sereneoasis.npc.guis.quests.QuestGUI;
+import com.sereneoasis.npc.types.NPCMaster;
 import com.sereneoasis.npc.types.assassin.AssassinEntity;
 import com.sereneoasis.utils.ClientboundPlayerInfoUpdatePacketWrapper;
 import com.sereneoasis.utils.EconUtils;
+import com.sereneoasis.utils.NPCUtils;
 import com.sereneoasis.utils.PacketUtils;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,9 +34,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SereneListener implements Listener {
 
@@ -88,6 +92,29 @@ public class SereneListener implements Listener {
             if (event.getEntity() instanceof LivingEntity livingEntity &&  livingEntity.getHealth() < event.getDamage()) {
                 QuestGUI.decrementHuntKilLTracker(player, livingEntity);
             }
+        }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent moveEvent){
+        Player player = moveEvent.getPlayer();
+        Location location = player.getLocation();
+        World world = location.getWorld();
+        Collection<Entity> nearbyEntities = world.getNearbyEntities(location, 100, 100, 100);
+
+        Set<UUID> validUUIDs = nearbyEntities.stream()
+                .filter(entity -> SereneRPG.plugin.getNpcs().stream().anyMatch(humanEntity -> humanEntity.getBukkitEntity().getUniqueId() == entity.getUniqueId()))
+                .map(entity -> entity.getUniqueId())
+                .collect(Collectors.toSet());
+
+        Set<NPCMaster> nearbyNPCs = SereneRPG.plugin.getNpcs().stream()
+                .filter(npcMaster -> validUUIDs.contains(npcMaster.getBukkitEntity().getUniqueId()))
+                .collect(Collectors.toSet());
+
+        if (nearbyNPCs.size() < 5) {
+            Faker faker = new Faker();
+            NPCMaster npc = NPCUtils.spawnNPC(location, player, faker.name().firstName(), faker.name().firstName());
+            SereneRPG.plugin.addNPC(npc);
         }
     }
 //

@@ -11,6 +11,10 @@ import com.sereneoasis.entity.HumanEntity;
 import com.sereneoasis.npc.types.NPCMaster;
 import com.sereneoasis.npc.types.assassin.AssassinEntity;
 import com.sereneoasis.npc.types.baker.BakerEntity;
+import com.sereneoasis.npc.types.butcher.ButcherEntity;
+import com.sereneoasis.npc.types.mage.MageEntity;
+import com.sereneoasis.npc.types.rogue.RogueEntity;
+import com.sereneoasis.npc.types.warrior.WarriorEntity;
 import io.netty.channel.Channel;
 import net.minecraft.network.Connection;
 import net.minecraft.network.PacketListener;
@@ -51,7 +55,34 @@ public class NPCUtils {
 
         net.minecraft.world.entity.player.Player nmsPlayer = ((CraftPlayer)player).getHandle();
 //        HumanEntity serverPlayer = new HumanEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
-        NPCMaster serverPlayer = new AssassinEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+        Random random = new Random();
+        NPCMaster serverPlayer = null;
+        switch (random.nextInt(6)) {
+            case 0 -> {
+                serverPlayer = new AssassinEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+
+            }
+            case 1 -> {
+                serverPlayer = new BakerEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+
+            }
+            case 2 -> {
+                serverPlayer = new ButcherEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+
+            }
+            case 3 -> {
+                serverPlayer = new MageEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+
+            }
+            case 4 -> {
+                serverPlayer = new RogueEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+
+            }
+            case 5 -> {
+                serverPlayer = new WarriorEntity(minecraftServer, serverLevel, setSkin(skinUsersIGN, gameProfile), ClientInformation.createDefault());
+
+            }
+        }
         serverPlayer.setPos(location.getX(), location.getY(), location.getZ());
 
         SynchedEntityData synchedEntityData = serverPlayer.getEntityData();
