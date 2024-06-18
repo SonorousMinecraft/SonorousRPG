@@ -6,10 +6,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public enum ItemStacks {
 
@@ -31,12 +29,12 @@ public enum ItemStacks {
 
     MURDERERS_DAGGER(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Murderer's Dagger", 0, 70),
     SILENT_SNIPER(Material.CROSSBOW,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Silent Sniper", 0, 100),
-    POISONED_ARROW(Material.TIPPED_ARROW,  ItemCategory.WEAPONS, 32, ChatColor.DARK_GRAY + "Poisoned Arrow", 0, 50);
-//    BESERKER_AXE(Material.,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
-//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
-//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
-//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
-//    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
+    POISONED_ARROW(Material.TIPPED_ARROW,  ItemCategory.WEAPONS, 32, ChatColor.DARK_GRAY + "Poisoned Arrow", 0, 50),
+
+    WORN_ROGUE_RAGS(Material.LEATHER_CHESTPLATE,  ItemCategory.ARMOR, 1, ChatColor.DARK_GRAY + "Worn Rogue Rags", 0, 20),
+    STOLEN_INGOTS(Material.IRON_INGOT,  ItemCategory.MISC, 3, ChatColor.GRAY + "Stolen Ingots", 0, 100),
+    MYSTERIOUS_PEARLS(Material.ENDER_PEARL,  ItemCategory.MISC, 8, ChatColor.LIGHT_PURPLE + "Mysterious Pearls", 0, 50);
+
 //    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
 //    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50);
 
@@ -67,8 +65,10 @@ public enum ItemStacks {
     }
     
     private ItemCategory category;
-    
-    
+
+    public ItemCategory getCategory(){
+        return  this.category;
+    }
 
     ItemStacks(Material material, ItemCategory category, int amount, String displayName) {
         ItemStack itemStack = new ItemStack(material, amount);

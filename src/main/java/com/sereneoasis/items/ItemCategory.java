@@ -7,6 +7,8 @@ public enum ItemCategory {
     GOD_FOOD,
     BAKED_FOOD,
     CROPS,
+    MISC,
+    ARMOR,
     WEAPONS,
     TOOLS;
 }
