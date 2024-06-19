@@ -85,11 +85,14 @@ public class BlockUtils {
 
     public static Set<Block> getAirHollowCircleAroundPoint(Location location, int diameter){
         Set<Block>blocks = new HashSet<>();
-        for (double x = (double) -diameter /2; x < (double) diameter /2 + 1 ; x++){
-            for (double z = (double) -diameter /2; z < (double) diameter /2 + 1 ; z++){
+
+        for (double x = (double) -diameter /2 -1; x < (double) diameter /2 + 1 ; x++){
+            for (double z = (double) -diameter /2 -1; z < (double) diameter /2 + 1 ; z++){
                 if ( ((x * x) + (z*z)) < ((double) diameter /2) * ((double) diameter /2) &&
                         (((x+1) * (x+1)) + ((z+1)*(z+1))) > ((double) diameter /2) * ((double) diameter /2)){
+
                     Block b = location.clone().add(x, 0, z).getBlock();
+
                     if (b.getType().isAir()) {
                         blocks.add(b);
                     }

@@ -25,6 +25,8 @@ public class NoiseMaster {
             new GenerationNoise(0.005f, 3, NoiseTypes.WETLAND, 0.5f, 10f, 1.0f, 1.0f);
             new GenerationNoise(0.01F, 3, NoiseTypes.CAVES);
             new GenerationNoise(0.05F, 2, NoiseTypes.FLORA);
+
+            new GenerationNoise(0.02F, 2, NoiseTypes.CUSTOM_TREES);
     }
 
     /***
