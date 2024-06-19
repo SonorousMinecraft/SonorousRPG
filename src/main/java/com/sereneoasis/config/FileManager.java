@@ -4,11 +4,16 @@ import java.io.File;
 
 public class FileManager {
 
-    private final File mainDir, schemDir;
+    private final File mainDir, schemDir, chatDir;
+
+    public File getChatDir() {
+        return chatDir;
+    }
 
     public FileManager(){
         mainDir = getOrCreateDir("SereneRPG");
         schemDir = getOrCreateDir("Schematics", mainDir);
+        chatDir = getOrCreateDir("Chats", mainDir);
     }
 
     public File[] getSchematics(){
