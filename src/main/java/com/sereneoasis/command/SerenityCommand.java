@@ -39,7 +39,58 @@ public class SerenityCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player player) {
-////            TreeGenerationUtils.generateCherryTree(player.getLocation(), 60, new Random());
+            if (strings.length == 0) {
+                
+            }
+            switch (strings[0]) {
+                case "tree" -> {
+                    int iterations = Integer.valueOf(strings[2]);
+                    switch (strings[1]) {
+                        case "fir" -> {
+                            TreeGenerationUtils.generateFirTree(player.getLocation(), iterations, new Random());
+                        }
+                        case "acacia" -> {
+                            TreeGenerationUtils.generateAcaciaTree(player.getLocation(), iterations, new Random());
+                        }
+                        case "birch" -> {
+                            TreeGenerationUtils.generateBirchTree(player.getLocation(), iterations, new Random());
+                        }
+                        case "spruce" -> {
+                            TreeGenerationUtils.generateSpruceTree(player.getLocation(), iterations, new Random());
+                        }
+                        case "oak" -> {
+                            TreeGenerationUtils.generateOakTree(player.getLocation(), iterations, new Random());
+                        }
+                        case "jungle" -> {
+                            TreeGenerationUtils.generateJungleTree(player.getLocation(), iterations, new Random());
+                        }
+                        case "cherry" -> {
+                            TreeGenerationUtils.generateCherryTree(player.getLocation(), iterations, new Random());
+                        }
+                        default -> {
+                            player.sendMessage("Not a valid tree");
+                        }
+
+                    }
+                }
+                case "video" -> {
+                    if (strings.length == 1){
+                        return false;
+                    }
+                        try {
+                            new VideoFrameGrabber(strings[1]);
+                        } catch (MalformedURLException e) {
+                            throw new RuntimeException(e);
+                        } catch (FrameGrabber.Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    
+                }
+            }
+            
+            
+            
+////            TreeGenerationUtils.generateCherryTree(player.getLocation(), iterations, new Random());
 //            NPCMaster npc = NPCUtils.spawnNPC(player.getLocation(), player, strings[0], strings[0]);
 ////            SerenityEntities.getInstance().getNpcs().add(npc);
 //            SereneRPG.plugin.addNPC(npc);
@@ -53,14 +104,14 @@ public class SerenityCommand implements CommandExecutor {
 //                new MapStitcher(player, strings[0]);
 //            }
 
-
-            try {
-                new VideoFrameGrabber(strings[0]);
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            } catch (FrameGrabber.Exception e) {
-                throw new RuntimeException(e);
-            }
+//
+//            try {
+//                new VideoFrameGrabber(strings[0]);
+//            } catch (MalformedURLException e) {
+//                throw new RuntimeException(e);
+//            } catch (FrameGrabber.Exception e) {
+//                throw new RuntimeException(e);
+//            }
 
 //            if (strings.length == 0){
 //
