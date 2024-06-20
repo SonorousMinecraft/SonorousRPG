@@ -27,11 +27,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bytedeco.javacv.FrameGrabber;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.net.URL;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SerenityCommand implements CommandExecutor {
 
@@ -77,6 +83,54 @@ public class SerenityCommand implements CommandExecutor {
                     if (strings.length == 1){
                         return false;
                     }
+                    if (strings[1].equals("browse")){
+                        if (strings.length == 2){
+                            return false;
+                        }
+                        try {
+                            Document mainDoc = Jsoup.connect(strings[2]).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36").get();
+
+//                            Elements allLinks = new Elements();
+
+                            List<String> allLinks = new ArrayList<>();
+                            mainDoc.body().select("video").forEach(element -> {
+                             allLinks.add(element.attr("data-mp4").toString());
+                            });
+                            mainDoc.body().select("video").forEach(element -> {
+                                allLinks.add(element.attr("src").toString());
+                            });
+
+                            mainDoc.body().select("source").forEach(element -> {
+                                allLinks.add(element.attr("src").toString());
+                            });
+
+                            mainDoc.head().select("meta").forEach(element -> {
+                                if (element.attr("property").equals("og:image")) {
+                                    String mediaLink = element.attr("content").toString();
+                                    if (mediaLink.contains("gif")){
+                                        allLinks.add(mediaLink);
+                                    }
+
+
+                                }
+                            });
+
+//                            for (String link : allLinks) {
+                            String link = allLinks.get(new Random().nextInt(allLinks.size()));
+                                if (link.contains("https://")) {
+                                    Bukkit.broadcastMessage(link);
+
+                                    new VideoFrameGrabber(link);
+                                    break;
+//                                }
+                            }
+                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+                        } catch (FrameGrabber.Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    else {
                         try {
                             new VideoFrameGrabber(strings[1]);
                         } catch (MalformedURLException e) {
@@ -84,7 +138,7 @@ public class SerenityCommand implements CommandExecutor {
                         } catch (FrameGrabber.Exception e) {
                             throw new RuntimeException(e);
                         }
-                    
+                    }
                 }
             }
             

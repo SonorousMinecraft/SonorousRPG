@@ -1,5 +1,6 @@
 package com.sereneoasis.video;
 
+import com.sereneoasis.SereneRPG;
 import com.sereneoasis.utils.PacketUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.network.protocol.game.ClientboundMapItemDataPacket;
@@ -64,6 +65,14 @@ public class MapStitcher {
              yBlocks = Math.floorDiv(displayImage.getHeight(), PIXEL) ;
             this.world = loc.getWorld();
 
+            loc.add(xBlocks/2, yBlocks, 0);
+
+            loc.getWorld().getNearbyEntities(loc, xBlocks, yBlocks, xBlocks)
+                    .forEach(entity -> {
+                        if (entity instanceof ItemFrame){
+                            entity.remove();
+                        }
+                    });
 
             for (int x = 0; x < xBlocks; x+=1) {
 
@@ -141,17 +150,25 @@ public class MapStitcher {
                 List<SynchedEntityData.DataValue<?>> metadata = new ArrayList<>();
 //                List<SynchedEntityData.DataValue<?>> metadata = nmsItemFrame.getEntityData().getNonDefaultValues();
 
-                byte[] pixels = MapPalette.imageToBytes(image);
-                MapItemSavedData.MapPatch updateData = new MapItemSavedData.MapPatch(0, 0, 128, 128, pixels);
-                ClientboundMapItemDataPacket clientboundMapItemDataPacket = new ClientboundMapItemDataPacket(MapItem.getMapId(nmsMap),  (byte) 4, false, null, updateData  );
+                Bukkit.getScheduler().runTaskAsynchronously(SereneRPG.plugin, () -> {
+                    byte[] pixels = MapPalette.imageToBytes(image);
+                    MapItemSavedData.MapPatch updateData = new MapItemSavedData.MapPatch(0, 0, 128, 128, pixels);
+                    ClientboundMapItemDataPacket clientboundMapItemDataPacket = new ClientboundMapItemDataPacket(MapItem.getMapId(nmsMap),  (byte) 4, false, null, updateData  );
 
-                PacketUtils.sendPacket(clientboundMapItemDataPacket, Bukkit.getPlayer("Sakrajin"));
+                    Bukkit.getOnlinePlayers().forEach(player -> {
+                        PacketUtils.sendPacket(clientboundMapItemDataPacket, player);
 
-                metadata.add(new SynchedEntityData.DataValue<>(8, EntityDataSerializers.ITEM_STACK, nmsMap));
+                    });
 
-                ClientboundSetEntityDataPacket clientboundSetEntityDataPacket = new ClientboundSetEntityDataPacket(craftItemFrame.getEntityId(), metadata);
+                    metadata.add(new SynchedEntityData.DataValue<>(8, EntityDataSerializers.ITEM_STACK, nmsMap));
 
-                PacketUtils.sendPacket(clientboundSetEntityDataPacket, Bukkit.getPlayer("Sakrajin"));
+                    ClientboundSetEntityDataPacket clientboundSetEntityDataPacket = new ClientboundSetEntityDataPacket(craftItemFrame.getEntityId(), metadata);
+
+                    Bukkit.getOnlinePlayers().forEach(player -> {
+                        PacketUtils.sendPacket(clientboundSetEntityDataPacket, player);
+
+                    });
+                });
 
 
                 //                images.get(key).setItem(mapItem);
