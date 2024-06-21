@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapPalette;
+import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
 import javax.imageio.ImageIO;
@@ -110,6 +111,23 @@ public class MapStitcher {
 
     }
 
+    public static byte[] imageToBytes(@NotNull BufferedImage image) {
+//        BufferedImage temp = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+//        Graphics2D graphics = temp.createGraphics();
+//        graphics.drawImage(image, 0, 0, null);
+//        graphics.dispose();
+
+        int[] pixels = new int[image.getWidth() * image.getHeight()];
+        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+
+        byte[] result = new byte[image.getWidth() * image.getHeight()];
+        for (int i = 0; i < pixels.length; i++) {
+            result[i] = MapPalette.matchColor(new Color(pixels[i], false));
+        }
+        return result;
+    }
+
+
     public void changeImages(BufferedImage img){
 
         for (int x = 0; x < xBlocks; x+=1) {
@@ -151,7 +169,7 @@ public class MapStitcher {
 //                List<SynchedEntityData.DataValue<?>> metadata = nmsItemFrame.getEntityData().getNonDefaultValues();
 
                 Bukkit.getScheduler().runTaskAsynchronously(SereneRPG.plugin, () -> {
-                    byte[] pixels = MapPalette.imageToBytes(image);
+                    byte[] pixels = imageToBytes(image);
                     MapItemSavedData.MapPatch updateData = new MapItemSavedData.MapPatch(0, 0, 128, 128, pixels);
                     ClientboundMapItemDataPacket clientboundMapItemDataPacket = new ClientboundMapItemDataPacket(MapItem.getMapId(nmsMap),  (byte) 4, false, null, updateData  );
 

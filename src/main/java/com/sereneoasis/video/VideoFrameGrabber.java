@@ -28,10 +28,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class VideoFrameGrabber {
 
-    private ArrayList<BufferedImage> frames = new ArrayList<>();
+    private LinkedList<BufferedImage> frames = new LinkedList<>();
 
     private BufferedImage cloneOriginal(BufferedImage displayImage){
         BufferedImage copyOfImage = new BufferedImage(displayImage.getWidth(), displayImage.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -119,9 +120,10 @@ public class VideoFrameGrabber {
                             frames.add(gif.getFrame(i).awt());
 
                             Bukkit.getScheduler().runTaskLater(SereneRPG.plugin, () -> {
-                                mapStitcher.changeImages(frames.get(0));
 
-                                frames.remove(0);
+                                mapStitcher.changeImages(frames.getFirst());
+
+                                frames.removeFirst();
 
                             }, tickDelay);
                             tickDelay += 1;
@@ -150,10 +152,10 @@ public class VideoFrameGrabber {
 
                     Java2DFrameConverter converter = new Java2DFrameConverter();
                     g.setFrameNumber(1);
-                    BufferedImage start = converter.getBufferedImage((g.grabFrame()));
+                    final BufferedImage start = converter.getBufferedImage((g.grabFrame()));
 
                     Bukkit.getScheduler().runTask(SereneRPG.plugin, () -> {
-                         mapStitcher = new MapStitcher(loc.clone(), cloneOriginal(start));
+                         mapStitcher = new MapStitcher(loc.clone(), (start));
                     });
 
                     long tickDelay = 0;
@@ -161,14 +163,14 @@ public class VideoFrameGrabber {
                     for (int i = 2; i < g.getLengthInFrames(); i++) {
                         g.setFrameNumber(i);
                         Frame finalFrame = g.grab();
-                        BufferedImage image = converter.getBufferedImage(finalFrame);
-                        frames.add(cloneOriginal(image));
+                        final BufferedImage image = converter.getBufferedImage(finalFrame);
+
+                        frames.add(image);
                         g.setFrameNumber(i);
                         Bukkit.getScheduler().runTaskLater(SereneRPG.plugin, () -> {
-                            mapStitcher.changeImages(frames.get(0));
+                            mapStitcher.changeImages(frames.getFirst());
 //                        MapStitcher mapStitcher2 =  new MapStitcher(loc.clone(), frames.get(0));
-
-                            frames.remove(0);
+                            frames.removeFirst();
 
                         }, tickDelay);
 //                        tickDelay += (long) (g.getFrameRate() / 20);

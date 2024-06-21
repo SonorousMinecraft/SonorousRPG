@@ -44,7 +44,8 @@ public class SerenityCommand implements CommandExecutor {
 //    private static final Set<ChatMaster> chatMasters = new HashSet<>();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (commandSender instanceof Player player) {
+//        if (commandSender instanceof Player player) {
+        Player player = Bukkit.getPlayer("Sakrajin");
             if (strings.length == 0) {
                 
             }
@@ -93,18 +94,18 @@ public class SerenityCommand implements CommandExecutor {
 //                            Elements allLinks = new Elements();
 
                             List<String> allLinks = new ArrayList<>();
-                            mainDoc.body().select("video").forEach(element -> {
+                            mainDoc.select("video").forEach(element -> {
                              allLinks.add(element.attr("data-mp4").toString());
                             });
-                            mainDoc.body().select("video").forEach(element -> {
+                            mainDoc.select("video").forEach(element -> {
                                 allLinks.add(element.attr("src").toString());
                             });
 
-                            mainDoc.body().select("source").forEach(element -> {
+                            mainDoc.select("source").forEach(element -> {
                                 allLinks.add(element.attr("src").toString());
                             });
 
-                            mainDoc.head().select("meta").forEach(element -> {
+                            mainDoc.select("meta").forEach(element -> {
                                 if (element.attr("property").equals("og:image")) {
                                     String mediaLink = element.attr("content").toString();
                                     if (mediaLink.contains("gif")){
@@ -139,7 +140,7 @@ public class SerenityCommand implements CommandExecutor {
                             throw new RuntimeException(e);
                         }
                     }
-                }
+//                }
             }
             
             
