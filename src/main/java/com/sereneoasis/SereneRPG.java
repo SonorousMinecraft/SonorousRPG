@@ -2,13 +2,9 @@ package com.sereneoasis;
 
 import com.sereneoasis.command.SerenityCommand;
 import com.sereneoasis.config.FileManager;
-import com.sereneoasis.level.world.biome.BiomeRepresentation;
-import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
-import com.sereneoasis.level.world.noise.NoiseMaster;
 import com.sereneoasis.listeners.EnchantmentListener;
 import com.sereneoasis.listeners.SereneListener;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,7 +38,7 @@ public class SereneRPG extends JavaPlugin {
             return;
         }
 
-        getLogger().log(Level.INFO, "WorldGenerator was enabled successfully.");
+        getLogger().log(Level.INFO, "SereneRPG was enabled successfully.");
         plugin = this;
         fileManager = new FileManager();
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
@@ -69,15 +65,9 @@ public class SereneRPG extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().log(Level.INFO, "WorldGenerator was disabled successfully.");
+        getLogger().log(Level.INFO, "SereneRPG was disabled successfully.");
     }
 
-    @Override
-    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        BiomeRepresentation.initBiomes();
-        NoiseMaster.initNoise();
-        getLogger().log(Level.WARNING, "CustomChunkGenerator is used!");
-        return new CustomChunkGenerator();
-    }
+
 
 }
