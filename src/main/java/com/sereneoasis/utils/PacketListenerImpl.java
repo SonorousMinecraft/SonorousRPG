@@ -2,7 +2,6 @@ package com.sereneoasis.utils;
 
 import net.minecraft.network.ClientboundPacketListener;
 import net.minecraft.network.ConnectionProtocol;
-import net.minecraft.network.PacketListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.PacketFlow;
 

@@ -1,7 +1,5 @@
 package com.sereneoasis.enchantments;
 
-import com.sereneoasis.items.ItemCategory;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
