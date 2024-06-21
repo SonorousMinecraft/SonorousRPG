@@ -17,5 +17,7 @@ public enum NoiseTypes {
 
     FLORA,
 
-    WETLAND
+    WETLAND,
+
+    CUSTOM_TREES
 }

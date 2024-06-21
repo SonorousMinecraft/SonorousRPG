@@ -1,5 +1,6 @@
 package com.sereneoasis.video;
 
+import com.sereneoasis.SereneRPG;
 import com.sereneoasis.utils.PacketUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.network.protocol.game.ClientboundMapItemDataPacket;
@@ -23,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapPalette;
+import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
 import javax.imageio.ImageIO;
@@ -64,6 +66,14 @@ public class MapStitcher {
              yBlocks = Math.floorDiv(displayImage.getHeight(), PIXEL) ;
             this.world = loc.getWorld();
 
+            loc.add(xBlocks/2, yBlocks, 0);
+
+            loc.getWorld().getNearbyEntities(loc, xBlocks, yBlocks, xBlocks)
+                    .forEach(entity -> {
+                        if (entity instanceof ItemFrame){
+                            entity.remove();
+                        }
+                    });
 
             for (int x = 0; x < xBlocks; x+=1) {
 
@@ -100,6 +110,23 @@ public class MapStitcher {
 //            player.sendMessage(ChatColor.GREEN + "Here you go!");
 
     }
+
+    public static byte[] imageToBytes(@NotNull BufferedImage image) {
+//        BufferedImage temp = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+//        Graphics2D graphics = temp.createGraphics();
+//        graphics.drawImage(image, 0, 0, null);
+//        graphics.dispose();
+
+        int[] pixels = new int[image.getWidth() * image.getHeight()];
+        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+
+        byte[] result = new byte[image.getWidth() * image.getHeight()];
+        for (int i = 0; i < pixels.length; i++) {
+            result[i] = MapPalette.matchColor(new Color(pixels[i], false));
+        }
+        return result;
+    }
+
 
     public void changeImages(BufferedImage img){
 
@@ -141,17 +168,25 @@ public class MapStitcher {
                 List<SynchedEntityData.DataValue<?>> metadata = new ArrayList<>();
 //                List<SynchedEntityData.DataValue<?>> metadata = nmsItemFrame.getEntityData().getNonDefaultValues();
 
-                byte[] pixels = MapPalette.imageToBytes(image);
-                MapItemSavedData.MapPatch updateData = new MapItemSavedData.MapPatch(0, 0, 128, 128, pixels);
-                ClientboundMapItemDataPacket clientboundMapItemDataPacket = new ClientboundMapItemDataPacket(MapItem.getMapId(nmsMap),  (byte) 4, false, null, updateData  );
+                Bukkit.getScheduler().runTaskAsynchronously(SereneRPG.plugin, () -> {
+                    byte[] pixels = imageToBytes(image);
+                    MapItemSavedData.MapPatch updateData = new MapItemSavedData.MapPatch(0, 0, 128, 128, pixels);
+                    ClientboundMapItemDataPacket clientboundMapItemDataPacket = new ClientboundMapItemDataPacket(MapItem.getMapId(nmsMap),  (byte) 4, false, null, updateData  );
 
-                PacketUtils.sendPacket(clientboundMapItemDataPacket, Bukkit.getPlayer("Sakrajin"));
+                    Bukkit.getOnlinePlayers().forEach(player -> {
+                        PacketUtils.sendPacket(clientboundMapItemDataPacket, player);
 
-                metadata.add(new SynchedEntityData.DataValue<>(8, EntityDataSerializers.ITEM_STACK, nmsMap));
+                    });
 
-                ClientboundSetEntityDataPacket clientboundSetEntityDataPacket = new ClientboundSetEntityDataPacket(craftItemFrame.getEntityId(), metadata);
+                    metadata.add(new SynchedEntityData.DataValue<>(8, EntityDataSerializers.ITEM_STACK, nmsMap));
 
-                PacketUtils.sendPacket(clientboundSetEntityDataPacket, Bukkit.getPlayer("Sakrajin"));
+                    ClientboundSetEntityDataPacket clientboundSetEntityDataPacket = new ClientboundSetEntityDataPacket(craftItemFrame.getEntityId(), metadata);
+
+                    Bukkit.getOnlinePlayers().forEach(player -> {
+                        PacketUtils.sendPacket(clientboundSetEntityDataPacket, player);
+
+                    });
+                });
 
 
                 //                images.get(key).setItem(mapItem);

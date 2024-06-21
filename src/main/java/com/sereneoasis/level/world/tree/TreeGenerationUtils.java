@@ -15,6 +15,53 @@ import java.util.Random;
 import java.util.Set;
 
 public class TreeGenerationUtils {
+    
+    public static void genRandomTree(Location origin, Random random){
+        switch (random.nextInt(8)) {
+            case 0 -> {
+                int iterations = random.nextInt(50, 100);
+                TreeGenerationUtils.generateFirTree(origin, iterations, new Random());
+
+            }
+            case 1 -> {
+                int iterations = random.nextInt(10, 40);
+
+                TreeGenerationUtils.generateAcaciaTree(origin, iterations, new Random());
+
+            }
+            case 2 -> {
+                int iterations = random.nextInt(40, 70);
+
+                TreeGenerationUtils.generateBirchTree(origin, iterations, new Random());
+
+            }
+            case 3 -> {
+                int iterations = random.nextInt(30, 60);
+
+                TreeGenerationUtils.generateSpruceTree(origin, iterations, new Random());
+
+            }
+            case 4 -> {
+
+                int iterations = random.nextInt(20, 40);
+
+                TreeGenerationUtils.generateOakTree(origin, iterations, new Random());
+
+            }
+            case 5 -> {
+                int iterations = random.nextInt(60, 80);
+
+                TreeGenerationUtils.generateJungleTree(origin, iterations, new Random());
+
+            }
+            case 6 -> {
+                int iterations = random.nextInt(20, 40);
+
+                TreeGenerationUtils.generateCherryTree(origin, iterations, new Random());
+
+            }
+        }
+    }
 
     public static void generateFirTree(Location origin, int iterations, Random random ){
         Location currentTrunkPos = origin.clone();
@@ -39,7 +86,12 @@ public class TreeGenerationUtils {
             for (int i = 0; i < random.nextInt(1, iterations) ; i ++) {
                 vectorLocationPair.getB().add(vectorLocationPair.getA());
                 vectorLocationPair.getB().getBlock().setType(Material.OAK_LOG);
-                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 3).forEach(block -> block.setType(Material.OAK_LEAVES));
+                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 3).forEach(block -> {
+                    block.setType(Material.OAK_LEAVES);
+                    Leaves blockData = (Leaves) block.getBlockData();
+                    blockData.setPersistent(true);
+                    block.setBlockData(blockData);
+                });
             }});
 
         trunk.forEach(location -> location.getBlock().setType(Material.OAK_LOG));
@@ -171,6 +223,8 @@ public class TreeGenerationUtils {
 
         }
 
+        int diameter = Math.floorDiv(iterations, 10) + 2;
+
         branches.forEach(vectorLocationPair -> {
             double heightFromTop = iterations - Math.sqrt(vectorLocationPair.getB().distanceSquared(origin));
             int heightRatio = Math.round(Math.round(heightFromTop/iterations));
@@ -178,7 +232,12 @@ public class TreeGenerationUtils {
             for (int i = 0; i < heightFromTop ; i ++) {
                 vectorLocationPair.getB().add(vectorLocationPair.getA());
                 vectorLocationPair.getB().getBlock().setType(Material.SPRUCE_LOG);
-                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), 5).forEach(block -> block.setType(Material.SPRUCE_LEAVES));
+                BlockUtils.getAirBlocksAroundPoint(vectorLocationPair.getB(), diameter).forEach(block -> {
+                    block.setType(Material.SPRUCE_LEAVES);
+                    Leaves blockData = (Leaves) block.getBlockData();
+                    blockData.setPersistent(true);
+                    block.setBlockData(blockData);
+                });
 
             }
 
@@ -272,7 +331,12 @@ public class TreeGenerationUtils {
                 vectorLocationPair.getA().add(new Vector(0,0.1,0));
                 vectorLocationPair.getA().normalize();
             }
-            BlockUtils.getAirCircleAroundPoint(vectorLocationPair.getB(), 20).forEach(block -> block.setType(Material.JUNGLE_LEAVES));
+            BlockUtils.getAirCircleAroundPoint(vectorLocationPair.getB(), 20).forEach(block -> {
+                block.setType(Material.JUNGLE_LEAVES);
+                Leaves blockData = (Leaves) block.getBlockData();
+                blockData.setPersistent(true);
+                block.setBlockData(blockData);
+            });
         });
 
 
@@ -329,9 +393,6 @@ public class TreeGenerationUtils {
             }
 
         });
-
-
-
 
         trunk.forEach(location -> location.getBlock().setType(Material.CHERRY_LOG));
 

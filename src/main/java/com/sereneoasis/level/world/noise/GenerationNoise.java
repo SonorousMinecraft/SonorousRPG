@@ -30,6 +30,9 @@ public class GenerationNoise {
             case HUMIDITY, TEMPERATURE -> {
                 return noise*1.5f;
             }
+            case CUSTOM_TREES -> {
+                return noise *1.6f;
+            }
             default -> {
                 return noise;
             }

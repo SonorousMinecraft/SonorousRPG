@@ -5,6 +5,7 @@ import com.sereneoasis.SereneRPG;
 import com.sereneoasis.chat.ChatManager;
 import com.sereneoasis.chat.ChatMaster;
 import com.sereneoasis.chat.builders.ChatBuilder;
+import com.sereneoasis.level.world.tree.TreeGenerationUtils;
 import com.sereneoasis.npc.guis.quests.QuestGUI;
 import com.sereneoasis.npc.types.NPCMaster;
 import com.sereneoasis.npc.types.NPCTypes;
@@ -13,10 +14,7 @@ import com.sereneoasis.utils.EconUtils;
 import com.sereneoasis.utils.NPCUtils;
 import com.sereneoasis.utils.PacketUtils;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -29,6 +27,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +38,41 @@ public class SereneListener implements Listener {
 
     private static final HashMap<UUID, Biome> biomeTracker = new HashMap<>();
 
+    private static final Random random = new Random();
+
     @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event){
+        if (random.nextDouble() < 0.002){
+
+            Chunk chunk = event.getChunk();
+
+            int snapshotX = random.nextInt(16);
+            int y = 256;
+            int snapshotZ = random.nextInt(16);
+
+            while(event.getChunk().getChunkSnapshot(false, false, false).getBlockType(snapshotX, y, snapshotZ).isAir() && y > -64) {
+                y--;
+                if (y == 0 ){
+                    return;
+                }
+            }
+            int x = snapshotX + chunk.getX() * 16;
+            int z = snapshotZ + chunk.getZ() * 16;
+            Location loc = new Location(event.getWorld(), x, y, z);
+            loc.setYaw(90 * random.nextInt(0, 4));
+
+            TreeGenerationUtils.genRandomTree(loc, random);
+
+//            Schematics.pasteClipboard("fort1", loc);
+
+//            Bukkit.getServer().getLogger().log(Level.INFO, loc.toString());
+
+
+        }
+    }
+
+
+                            @EventHandler
     public void onPlayerMove(PlayerMoveEvent playerMoveEvent){
         Player player = playerMoveEvent.getPlayer();
         World world = player.getWorld();
