@@ -1,9 +1,6 @@
 package com.sereneoasis.level.world.chunk.populator;
 
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
-import com.sereneoasis.level.world.noise.GenerationNoise;
-import com.sereneoasis.level.world.noise.NoiseTypes;
-import com.sereneoasis.level.world.tree.TreeGenerationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

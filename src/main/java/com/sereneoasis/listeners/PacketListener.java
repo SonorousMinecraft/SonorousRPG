@@ -1,13 +1,11 @@
 package com.sereneoasis.listeners;
 
 
-import com.sereneoasis.SereneRPG;
 import com.sereneoasis.utils.PacketUtils;
 import io.netty.channel.*;
-import net.md_5.bungee.api.ChatColor;
 import net.minecraft.network.protocol.Packet;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_20_R3.entity.*;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class PacketListener {
