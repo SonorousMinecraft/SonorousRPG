@@ -8,6 +8,7 @@ import com.sereneoasis.entity.HumanEntity;
 import com.sereneoasis.level.world.biome.BiomeRepresentation;
 import com.sereneoasis.level.world.chunk.CustomChunkGenerator;
 import com.sereneoasis.level.world.noise.NoiseMaster;
+import com.sereneoasis.listeners.EnchantmentListener;
 import com.sereneoasis.listeners.PacketListener;
 import com.sereneoasis.listeners.SereneListener;
 import com.sereneoasis.npc.types.NPCMaster;
@@ -77,6 +78,7 @@ public class SereneRPG extends JavaPlugin {
         plugin = this;
         fileManager = new FileManager();
         this.getServer().getPluginManager().registerEvents(new SereneListener(), this);
+        this.getServer().getPluginManager().registerEvents(new EnchantmentListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
         packetListener = new PacketListener();

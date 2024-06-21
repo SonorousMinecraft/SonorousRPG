@@ -5,6 +5,8 @@ import com.sereneoasis.chat.ChatConfiguration;
 import com.sereneoasis.chat.ChatManager;
 import com.sereneoasis.chat.ChatMaster;
 import com.sereneoasis.chat.builders.ChatBuilder;
+import com.sereneoasis.enchantments.EnchantmentWrapper;
+import com.sereneoasis.enchantments.Enchantments;
 import com.sereneoasis.entity.HumanEntity;
 import com.sereneoasis.items.ItemStacks;
 import com.sereneoasis.level.world.tree.TreeGenerationUtils;
@@ -25,6 +27,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bytedeco.javacv.FrameGrabber;
 import org.jsoup.Jsoup;
@@ -50,6 +53,11 @@ public class SerenityCommand implements CommandExecutor {
                 
             }
             switch (strings[0]) {
+                case "sword" -> {
+                    ItemStack itemStack = ItemStacks.BASIC_SOLDIER_SWORD.getItemStack();
+                    new EnchantmentWrapper(itemStack, Enchantments.FROSTBANE);
+                    player.getInventory().addItem(itemStack);
+                }
                 case "tree" -> {
                     int iterations = Integer.valueOf(strings[2]);
                     switch (strings[1]) {
