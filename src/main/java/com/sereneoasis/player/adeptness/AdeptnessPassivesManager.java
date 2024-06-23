@@ -1,5 +1,6 @@
 package com.sereneoasis.player.adeptness;
 
+import com.sereneoasis.player.SerenePlayer;
 import com.sereneoasis.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,8 +22,12 @@ public class AdeptnessPassivesManager {
         Arrays.stream(PlayerAdeptness.values()).forEach(playerAdeptness -> initPassives(playerAdeptness));
     }
 
-    public static void checkForPassives(PlayerAdeptness adeptness, Event event){
-        adeptnessPassivesMap.get(adeptness).getOrderedPassives().forEach(passive -> passive.performPassive(event));
+    public static void checkForPassives(PlayerAdeptness adeptness, SerenePlayer serenePlayer, Event event){
+        adeptnessPassivesMap.get(adeptness).getOrderedPassives().forEach(passive -> {
+            if (!serenePlayer.getDisabledPassives().contains(passive)) {
+                passive.performPassive(event);
+            }
+        });
     }
 
     /***
@@ -42,6 +47,11 @@ public class AdeptnessPassivesManager {
                 });
         AdeptnessPassiveTracker adeptnessPassiveTracker = new AdeptnessPassiveTracker(adeptness, passiveSet);
         adeptnessPassivesMap.put(adeptness, adeptnessPassiveTracker);
+    }
+
+
+    public static List<Passive>getAdeptnessPassives(PlayerAdeptness playerAdeptness){
+        return adeptnessPassivesMap.get(playerAdeptness).getOrderedPassives();
     }
 
     /***

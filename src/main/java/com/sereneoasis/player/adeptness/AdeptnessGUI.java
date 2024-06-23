@@ -41,8 +41,9 @@ public class AdeptnessGUI {
                     symbolItemMeta.setLore(lore);
                     symbol.setItemMeta(symbolItemMeta);
 
-                    navigationPane.addItem(new GuiItem(symbol, event -> {
 
+                    navigationPane.addItem(new GuiItem(symbol, event -> {
+                        new AdeptnessPassiveGUI(serenePlayer, adeptness).openGUI(player);
                     }));
                 });
 

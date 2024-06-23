@@ -76,7 +76,7 @@ public class SereneListener implements Listener {
             double amount = ( 1+ event.getExpToDrop()) *  ( 1 + event.getBlock().getBreakSpeed(event.getPlayer()));
             if (Tag.ITEMS_PICKAXES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType()) && Tag.MINEABLE_PICKAXE.isTagged(event.getBlock().getType())) {
                 serenePlayer.incrementAdeptness(PlayerAdeptness.MINING, amount);
-                AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MINING, event);
+                AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MINING, serenePlayer, event);
 
             } else if (Tag.ITEMS_TOOLS.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
                 serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);

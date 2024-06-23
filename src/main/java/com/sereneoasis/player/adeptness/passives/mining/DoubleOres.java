@@ -14,7 +14,7 @@ import java.util.List;
 public class DoubleOres extends Passive {
 
     public DoubleOres() {
-        super("DoubleOres", List.of("Doubles the drops of ores"), 1, (event -> {
+        super("DoubleOres", List.of("Doubles the drops of ores"), 30, (event -> {
             if (event instanceof BlockBreakEvent blockBreakEvent){
                 if (blockBreakEvent.isDropItems()){
                     Collection<ItemStack> drops = blockBreakEvent.getBlock().getDrops();

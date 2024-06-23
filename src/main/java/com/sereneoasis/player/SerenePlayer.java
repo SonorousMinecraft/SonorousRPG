@@ -2,6 +2,7 @@ package com.sereneoasis.player;
 
 import com.nivixx.ndatabase.api.NDatabase;
 import com.nivixx.ndatabase.api.repository.Repository;
+import com.sereneoasis.player.adeptness.Passive;
 import com.sereneoasis.player.adeptness.PlayerAdeptness;
 import com.sereneoasis.player.specialisation.Specialisation;
 import com.sereneoasis.player.specialisation.SpecialisationGUI;
@@ -11,10 +12,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SerenePlayer {
@@ -29,7 +27,18 @@ public class SerenePlayer {
 
 
     private final Player player;
+
+    public Player getPlayer() {
+        return player;
+    }
+
     private Specialisation specialisation;
+
+    private Set<Passive> disabledPassives = new HashSet<>();
+
+    public Set<Passive> getDisabledPassives() {
+        return disabledPassives;
+    }
 
     private final HashMap<PlayerAdeptness, Double>adeptnessExpHashMap = new HashMap<>();
 
