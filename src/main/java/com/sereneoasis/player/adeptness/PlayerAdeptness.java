@@ -1,4 +1,4 @@
-package com.sereneoasis.player;
+package com.sereneoasis.player.adeptness;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

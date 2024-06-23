@@ -5,6 +5,7 @@ import com.sereneoasis.config.FileManager;
 import com.sereneoasis.listeners.EnchantmentListener;
 import com.sereneoasis.listeners.SereneListener;
 import com.sereneoasis.player.SerenePlayer;
+import com.sereneoasis.player.adeptness.AdeptnessPassivesManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -48,6 +49,8 @@ public class SereneRPG extends JavaPlugin {
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
         Bukkit.getOnlinePlayers().forEach(player -> SerenePlayer.loadPlayer(player));
+
+        AdeptnessPassivesManager.enablePassives();
     }
 
     private boolean setupEconomy() {

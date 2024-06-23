@@ -1,16 +1,15 @@
 package com.sereneoasis.listeners;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
-import com.sereneoasis.player.AdeptnessGUI;
-import com.sereneoasis.player.PlayerAdeptness;
+import com.sereneoasis.player.adeptness.AdeptnessGUI;
+import com.sereneoasis.player.adeptness.AdeptnessPassivesManager;
+import com.sereneoasis.player.adeptness.PlayerAdeptness;
 import com.sereneoasis.player.SerenePlayer;
-import com.sereneoasis.player.SpecialisationGUI;
-import net.minecraft.world.inventory.InventoryMenu;
+import com.sereneoasis.player.specialisation.SpecialisationGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -25,8 +24,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.HashMap;
 
 public class SereneListener implements Listener {
 
@@ -79,6 +76,7 @@ public class SereneListener implements Listener {
             double amount = ( 1+ event.getExpToDrop()) *  ( 1 + event.getBlock().getBreakSpeed(event.getPlayer()));
             if (Tag.ITEMS_PICKAXES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType()) && Tag.MINEABLE_PICKAXE.isTagged(event.getBlock().getType())) {
                 serenePlayer.incrementAdeptness(PlayerAdeptness.MINING, amount);
+                AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MINING, event);
 
             } else if (Tag.ITEMS_TOOLS.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
                 serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);

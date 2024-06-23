@@ -1,4 +1,4 @@
-package com.sereneoasis.player;
+package com.sereneoasis.player.specialisation;
 
 import com.sereneoasis.items.ItemStacks;
 import org.bukkit.Material;

@@ -2,11 +2,13 @@ package com.sereneoasis.player;
 
 import com.nivixx.ndatabase.api.NDatabase;
 import com.nivixx.ndatabase.api.repository.Repository;
+import com.sereneoasis.player.adeptness.PlayerAdeptness;
+import com.sereneoasis.player.specialisation.Specialisation;
+import com.sereneoasis.player.specialisation.SpecialisationGUI;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
