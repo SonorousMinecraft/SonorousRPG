@@ -35,6 +35,10 @@ public class SerenePlayer {
         return adeptnessExpHashMap.get(playerAdeptness);
     }
 
+    public int getAdeptnessLevel (PlayerAdeptness playerAdeptness){
+        return (int) Math.floor(Math.sqrt(adeptnessExpHashMap.get(playerAdeptness)));
+    }
+
     public void incrementAdeptness(PlayerAdeptness playerAdeptness, double amount){
         double newAdeptness = adeptnessExpHashMap.get(playerAdeptness) + 1;
         adeptnessExpHashMap.put(playerAdeptness, newAdeptness);

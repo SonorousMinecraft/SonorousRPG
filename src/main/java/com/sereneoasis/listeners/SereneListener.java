@@ -1,25 +1,32 @@
 package com.sereneoasis.listeners;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
+import com.sereneoasis.player.AdeptnessGUI;
 import com.sereneoasis.player.PlayerAdeptness;
 import com.sereneoasis.player.SerenePlayer;
 import com.sereneoasis.player.SpecialisationGUI;
+import net.minecraft.world.inventory.InventoryMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 public class SereneListener implements Listener {
 
@@ -92,4 +99,29 @@ public class SereneListener implements Listener {
         double amount = event.getFrom().distance(event.getTo()) * 0.1;
         serenePlayer.incrementAdeptness(PlayerAdeptness.MOVEMENT, amount);
     }
+
+    @EventHandler
+    public void onCraftingGuideClick(InventoryClickEvent event){
+        if (event.getClickedInventory().getType() != null) {
+            if (event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+                Player player = (Player) event.getWhoClicked();
+                if (event.isLeftClick()) {
+                    if (event.getSlot() == 40) {
+                        AdeptnessGUI adeptnessGUI = new AdeptnessGUI(player);
+                        adeptnessGUI.openGUI(player);
+
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+        if (event.getInventory().getType().equals(InventoryType.PLAYER)) {
+
+        }
+    }
+
+
 }
