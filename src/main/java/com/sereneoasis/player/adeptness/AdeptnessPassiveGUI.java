@@ -44,6 +44,9 @@ public class AdeptnessPassiveGUI {
                     ItemMeta symbolItemMeta = symbol.getItemMeta();
 
                     symbolItemMeta.setDisplayName(passive.getName());
+                    List<String> lore = passive.getDescription();
+                    lore.add(0,"Level: " + passive.getRequiredLevel());
+                    symbolItemMeta.setLore(lore);
                     symbol.setItemMeta(symbolItemMeta);
 
 
@@ -64,6 +67,8 @@ public class AdeptnessPassiveGUI {
                 });
 
         gui.addPane(navigationPane);
+
+
     }
 
     public void openGUI(Player player){

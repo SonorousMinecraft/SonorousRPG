@@ -24,10 +24,18 @@ public class AdeptnessPassivesManager {
 
     public static void checkForPassives(PlayerAdeptness adeptness, SerenePlayer serenePlayer, Event event){
         adeptnessPassivesMap.get(adeptness).getOrderedPassives().forEach(passive -> {
-            if (!serenePlayer.getDisabledPassives().contains(passive)) {
+            if (!serenePlayer.getDisabledPassives().contains(passive) && serenePlayer.getAdeptnessLevel(adeptness) >= passive.getRequiredLevel()) {
                 passive.performPassive(event);
             }
         });
+    }
+
+    public static boolean checkForPassive(PlayerAdeptness adeptness, Player player, Class<? extends Passive> passiveType){
+        SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
+        return adeptnessPassivesMap.get(adeptness).getOrderedPassives().stream().filter( passive -> {
+            return (!serenePlayer.getDisabledPassives().contains(passive) && serenePlayer.getAdeptnessLevel(adeptness) >= passive.getRequiredLevel());
+        }).anyMatch(passive -> passive.getClass().equals(passiveType));
+
     }
 
     /***
