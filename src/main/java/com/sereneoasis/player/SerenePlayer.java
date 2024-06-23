@@ -35,7 +35,7 @@ public class SerenePlayer {
         return adeptnessExpHashMap.get(playerAdeptness);
     }
 
-    public void incrementAdeptness(PlayerAdeptness playerAdeptness){
+    public void incrementAdeptness(PlayerAdeptness playerAdeptness, double amount){
         double newAdeptness = adeptnessExpHashMap.get(playerAdeptness) + 1;
         adeptnessExpHashMap.put(playerAdeptness, newAdeptness);
         double level = Math.sqrt(newAdeptness);
@@ -98,6 +98,12 @@ public class SerenePlayer {
         PlayerData playerData = new PlayerData();
         playerData.setKey(player.getUniqueId());
         playerData.setSpecialisation(serenePlayer.specialisation.getName());
+        playerData.setUnarmed(serenePlayer.getAdeptness(PlayerAdeptness.UNARMED));
+        playerData.setSwords(serenePlayer.getAdeptness(PlayerAdeptness.SWORDS));
+        playerData.setMining(serenePlayer.getAdeptness(PlayerAdeptness.MINING));
+        playerData.setMovement(serenePlayer.getAdeptness(PlayerAdeptness.MOVEMENT));
+        playerData.setTools(serenePlayer.getAdeptness(PlayerAdeptness.TOOLS));
+        playerData.setRanged(serenePlayer.getAdeptness(PlayerAdeptness.RANGED));
         repository.upsertAsync(playerData);
     }
 

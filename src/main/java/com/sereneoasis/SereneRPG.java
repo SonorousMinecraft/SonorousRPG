@@ -4,7 +4,9 @@ import com.sereneoasis.command.SerenityCommand;
 import com.sereneoasis.config.FileManager;
 import com.sereneoasis.listeners.EnchantmentListener;
 import com.sereneoasis.listeners.SereneListener;
+import com.sereneoasis.player.SerenePlayer;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,6 +47,7 @@ public class SereneRPG extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new EnchantmentListener(), this);
         this.getCommand("sereneRPG").setExecutor(new SerenityCommand());
 
+        Bukkit.getOnlinePlayers().forEach(player -> SerenePlayer.loadPlayer(player));
     }
 
     private boolean setupEconomy() {
@@ -66,6 +69,8 @@ public class SereneRPG extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().log(Level.INFO, "SereneRPG was disabled successfully.");
+        Bukkit.getOnlinePlayers().forEach(player -> SerenePlayer.upsertPlayer(player));
+
     }
 
 

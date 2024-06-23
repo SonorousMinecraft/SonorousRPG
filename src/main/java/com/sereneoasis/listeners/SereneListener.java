@@ -1,12 +1,15 @@
 package com.sereneoasis.listeners;
 
+import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import com.sereneoasis.player.PlayerAdeptness;
 import com.sereneoasis.player.SerenePlayer;
 import com.sereneoasis.player.SpecialisationGUI;
 import org.bukkit.Material;
 import org.bukkit.Tag;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,26 +38,29 @@ public class SereneListener implements Listener {
 
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event){
-        if (event.getDamager() instanceof Player player){
-            SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
-            switch (event.getCause()) {
-                case ENTITY_ATTACK -> {
-                    ItemStack heldItem = player.getInventory().getItemInMainHand();
-                    Material type = (heldItem.getType());
-                    if (type.isAir()) {
-                        serenePlayer.incrementAdeptness(PlayerAdeptness.UNARMED);
-                    }
-                    else if (Tag.ITEMS_SWORDS.isTagged(type)){
-                        serenePlayer.incrementAdeptness(PlayerAdeptness.SWORDS);
-                    } else if (Tag.ITEMS_TOOLS.isTagged(type)) {
-                        serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS);
+        if (event.getEntity() instanceof LivingEntity livingEntity) {
+            double amount = event.getDamage() + livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+
+            if (event.getDamager() instanceof Player player) {
+                SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
+                switch (event.getCause()) {
+                    case ENTITY_ATTACK -> {
+                        ItemStack heldItem = player.getInventory().getItemInMainHand();
+                        Material type = (heldItem.getType());
+                        if (type.isAir()) {
+                            serenePlayer.incrementAdeptness(PlayerAdeptness.UNARMED, amount);
+                        } else if (Tag.ITEMS_SWORDS.isTagged(type)) {
+                            serenePlayer.incrementAdeptness(PlayerAdeptness.SWORDS, amount);
+                        } else if (Tag.ITEMS_TOOLS.isTagged(type)) {
+                            serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);
+                        }
                     }
                 }
-            }
-        } else if (event.getDamager() instanceof Arrow arrow){
-            if (arrow.getShooter() instanceof Player player){
-                SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
-                serenePlayer.incrementAdeptness(PlayerAdeptness.RANGED);
+            } else if (event.getDamager() instanceof Arrow arrow) {
+                if (arrow.getShooter() instanceof Player player) {
+                    SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
+                    serenePlayer.incrementAdeptness(PlayerAdeptness.RANGED, amount);
+                }
             }
         }
     }
@@ -63,11 +69,12 @@ public class SereneListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event){
         if (event.getPlayer() != null){
             SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
+            double amount = ( 1+ event.getExpToDrop()) *  ( 1 + event.getBlock().getBreakSpeed(event.getPlayer()));
             if (Tag.ITEMS_PICKAXES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType()) && Tag.MINEABLE_PICKAXE.isTagged(event.getBlock().getType())) {
-                serenePlayer.incrementAdeptness(PlayerAdeptness.MINING);
+                serenePlayer.incrementAdeptness(PlayerAdeptness.MINING, amount);
 
             } else if (Tag.ITEMS_TOOLS.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
-                serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS);
+                serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);
             }
 
         }
@@ -76,7 +83,13 @@ public class SereneListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event){
         SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
-        serenePlayer.incrementAdeptness(PlayerAdeptness.MOVEMENT);
+        serenePlayer.incrementAdeptness(PlayerAdeptness.MOVEMENT, 0.1);
+    }
 
+    @EventHandler
+    public void onJump(PlayerJumpEvent event){
+        SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
+        double amount = event.getFrom().distance(event.getTo()) * 0.1;
+        serenePlayer.incrementAdeptness(PlayerAdeptness.MOVEMENT, amount);
     }
 }
