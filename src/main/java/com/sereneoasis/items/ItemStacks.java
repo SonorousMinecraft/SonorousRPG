@@ -23,17 +23,39 @@ public enum ItemStacks {
     BAKERS_LOAVES(Material.BREAD,  ItemCategory.BAKED_FOOD, 8, ChatColor.DARK_RED + "Baker's Loaves", 0, 100),
     RED_VELVET_CAKE(Material.CAKE,  ItemCategory.BAKED_FOOD, 1, ChatColor.DARK_RED + "Red Velvet Cake", 0, 200),
 
+    // Fighter
     TRAINING_SWORD(Material.WOODEN_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Training Sword", 0, 10),
     BASIC_SOLDIER_SWORD(Material.STONE_SWORD,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Basic Soldier Sword", 0, 30),
-    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
 
-    MURDERERS_DAGGER(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Murderer's Dagger", 0, 70),
-    SILENT_SNIPER(Material.CROSSBOW,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Silent Sniper", 0, 100),
-    POISONED_ARROW(Material.TIPPED_ARROW,  ItemCategory.WEAPONS, 32, ChatColor.DARK_GRAY + "Poisoned Arrow", 0, 50),
+    // Rogue
+
+    KUNAIS(Material.ARROW,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Kunais", 0, 10),
 
     WORN_ROGUE_RAGS(Material.LEATHER_CHESTPLATE,  ItemCategory.ARMOR, 1, ChatColor.DARK_GRAY + "Worn Rogue Rags", 0, 20),
     STOLEN_INGOTS(Material.IRON_INGOT,  ItemCategory.MISC, 3, ChatColor.GRAY + "Stolen Ingots", 0, 100),
-    MYSTERIOUS_PEARLS(Material.ENDER_PEARL,  ItemCategory.MISC, 8, ChatColor.LIGHT_PURPLE + "Mysterious Pearls", 0, 50);
+    MYSTERIOUS_PEARLS(Material.ENDER_PEARL,  ItemCategory.MISC, 8, ChatColor.LIGHT_PURPLE + "Mysterious Pearls", 0, 50),
+
+
+    // Ranger
+    WORN_BOW(Material.BOW,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Worn bow", 0, 10),
+
+
+    // Mage
+    NOVICE_STAFF(Material.STICK,  ItemCategory.WEAPONS, 1, ChatColor.GRAY + "Novice Staff", 0, 10),
+
+
+    // Barbarian
+    BABY_BERSERKER_AXE(Material.WOODEN_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Baby berserker Axe", 0, 50),
+
+
+    // Assassin
+    BACKSTABBER(Material.FLINT,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Backstabber", 0, 70),
+
+    MURDERERS_DAGGER(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Murderer's Dagger", 0, 70),
+    SILENT_SNIPER(Material.CROSSBOW,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Silent Sniper", 0, 100),
+    POISONED_ARROW(Material.TIPPED_ARROW,  ItemCategory.WEAPONS, 32, ChatColor.DARK_GRAY + "Poisoned Arrow", 0, 50);
+
+
 
 //    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50),
 //    BESERKER_AXE(Material.IRON_AXE,  ItemCategory.WEAPONS, 1, ChatColor.DARK_GRAY + "Beserker Axe", 0, 50);
