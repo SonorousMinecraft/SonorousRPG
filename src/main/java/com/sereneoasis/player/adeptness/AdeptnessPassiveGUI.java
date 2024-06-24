@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class AdeptnessPassiveGUI {
                     ItemMeta symbolItemMeta = symbol.getItemMeta();
 
                     symbolItemMeta.setDisplayName(passive.getName());
-                    List<String> lore = passive.getDescription();
+                    List<String> lore = new ArrayList<>();
+                    lore.addAll(passive.getDescription());
                     lore.add(0,"Level: " + passive.getRequiredLevel());
                     symbolItemMeta.setLore(lore);
                     symbol.setItemMeta(symbolItemMeta);

@@ -24,7 +24,7 @@ public class Uppercuts extends Passive {
                             ItemStack heldItem = player.getInventory().getItemInMainHand();
                             Material type = (heldItem.getType());
                             if (type.isAir()) {
-                                if (player.isSneaking()){
+                                if (player.isSneaking() && player.getLocation().subtract(0,0.05,0).getBlock().getType().isSolid()){
 //                                    Bukkit.broadcastMessage(String.valueOf(livingEntity.getVelocity().getY()));
                                     VelocityUtils.applyVelocityDamageEvent(livingEntity, new Vector(0, 2.0, 0));
                                     player.setVelocity(new Vector(0, 2.0, 0));
