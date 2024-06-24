@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Decapitate extends Passive {
     public Decapitate() {
-        super("Decapitate", List.of("Skilled archers can control their arrows"), 1, (event -> {
+        super("Decapitate", List.of("Heads will roll"), 1, (event -> {
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {
                     if (entityDamageByEntityEvent.getDamager() instanceof Player player) {
