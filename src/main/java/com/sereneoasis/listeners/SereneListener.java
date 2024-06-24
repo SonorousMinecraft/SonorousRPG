@@ -50,10 +50,11 @@ public class SereneListener implements Listener {
 
             if (event.getDamager() instanceof Player player) {
                 SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
+                ItemStack heldItem = player.getInventory().getItemInMainHand();
+                Material type = (heldItem.getType());
                 switch (event.getCause()) {
                     case ENTITY_ATTACK -> {
-                        ItemStack heldItem = player.getInventory().getItemInMainHand();
-                        Material type = (heldItem.getType());
+
                         if (type.isAir()) {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.UNARMED, amount);
                             AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.UNARMED, serenePlayer, event);
@@ -61,11 +62,17 @@ public class SereneListener implements Listener {
 
                         } else if (Tag.ITEMS_SWORDS.isTagged(type)) {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.SWORDS, amount);
+                            AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.SWORDS, serenePlayer, event);
                         } else if (Tag.ITEMS_TOOLS.isTagged(type)) {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);
                             AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.TOOLS, serenePlayer, event);
-
                         }
+                    }
+                    case ENTITY_SWEEP_ATTACK -> {
+                         if (Tag.ITEMS_SWORDS.isTagged(type)) {
+                             serenePlayer.incrementAdeptness(PlayerAdeptness.SWORDS, amount);
+                             AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.SWORDS, serenePlayer, event);
+                         }
                     }
                 }
             } else if (event.getDamager() instanceof Arrow arrow) {
@@ -156,7 +163,6 @@ public class SereneListener implements Listener {
     private void iterateThroughActiveArrows(Arrow arrow){
         Bukkit.getScheduler().runTaskLater(SereneRPG.plugin, () -> {
             if (arrowShooters.containsKey(arrow)) {
-                Bukkit.broadcastMessage("test");
                 SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(arrowShooters.get(arrow));
                 ArrowFlyEvent arrowFlyEvent = new ArrowFlyEvent(arrowShooters.get(arrow), arrow);
                 Bukkit.getPluginManager().callEvent(arrowFlyEvent);
