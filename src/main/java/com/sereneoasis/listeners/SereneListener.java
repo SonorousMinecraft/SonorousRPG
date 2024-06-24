@@ -17,12 +17,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class SereneListener implements Listener {
@@ -89,6 +91,8 @@ public class SereneListener implements Listener {
     public void onMove(PlayerMoveEvent event){
         SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
         serenePlayer.incrementAdeptness(PlayerAdeptness.MOVEMENT, 0.1);
+        AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MOVEMENT, serenePlayer, event);
+
     }
 
     @EventHandler
@@ -96,6 +100,21 @@ public class SereneListener implements Listener {
         SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
         double amount = event.getFrom().distance(event.getTo()) * 0.1;
         serenePlayer.incrementAdeptness(PlayerAdeptness.MOVEMENT, amount);
+        AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MOVEMENT, serenePlayer, event);
+    }
+
+    @EventHandler
+    public void onToggleFlight(PlayerToggleFlightEvent event){
+        SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
+        AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MOVEMENT, serenePlayer, event);
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event){
+        if (event.getEntity() instanceof  Player player) {
+            SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
+            AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MOVEMENT, serenePlayer, event);
+        }
     }
 
     @EventHandler

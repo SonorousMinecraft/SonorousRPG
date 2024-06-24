@@ -7,7 +7,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BlockUtils {
-    
+
+
+    public static Set<Block> getBlocksAroundPoint(Block block, double diameter){
+        Location location = block.getLocation().add(0.5,0.5,0.5);
+        Set<Block>blocks = new HashSet<>();
+        for (double x = -diameter/2; x < diameter/2 ; x++){
+            for (double y = -diameter/2; y < diameter/2 ; y++){
+                for (double z = -diameter/2; z < diameter/2 ; z++){
+                    blocks.add(location.clone().add(x,y,z).getBlock());
+                }
+            }
+        }
+        return blocks;
+    }
+
+
     public static Set<Block> getBlocksAroundPoint(Location location, double diameter){
         Set<Block>blocks = new HashSet<>();
         for (double x = -diameter/2; x < diameter/2 ; x++){

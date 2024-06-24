@@ -20,7 +20,7 @@ public class VeinMiner extends Passive {
                     Block originalBlock  = blockBreakEvent.getBlock();
                     Player player = blockBreakEvent.getPlayer();
 
-                    BlockUtils.getBlocksAroundPoint(originalBlock.getLocation().add(0.5,0.5,0.5), 3).forEach(veinBlock -> {
+                    BlockUtils.getBlocksAroundPoint(originalBlock, 3).forEach(veinBlock -> {
                         if (veinBlock.getType().equals(originalBlock.getType())){
                             veinBlock.getDrops(player.getInventory().getItemInMainHand()).forEach(itemStack -> {
                                 InventoryMagnet.handleConflicts(player, itemStack);
