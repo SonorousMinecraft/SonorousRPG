@@ -34,7 +34,7 @@ public class OneTwo extends Passive {
                             ItemStack heldItem = player.getInventory().getItemInMainHand();
                             Material type = (heldItem.getType());
                             if (type.isAir()) {
-                                if (!player.isSneaking()) {
+                                if (!player.isSneaking() && player.getVelocity().length() > 0.1) {
                                     oneTwo(player, livingEntity);
                                     RECURSIVE_PUNCH_PREVENT_SET.add(player);
                                 }

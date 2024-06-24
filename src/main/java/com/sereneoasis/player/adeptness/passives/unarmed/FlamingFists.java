@@ -20,7 +20,7 @@ public class FlamingFists extends Passive {
                         ItemStack heldItem = player.getInventory().getItemInMainHand();
                         Material type = (heldItem.getType());
                         if (type.isAir()) {
-                            if (!player.isSneaking() ){
+                            if (!player.isSneaking() && player.getVelocity().length() > 0.1 ){
                                 livingEntity.setFireTicks(20);
                             }
                         }

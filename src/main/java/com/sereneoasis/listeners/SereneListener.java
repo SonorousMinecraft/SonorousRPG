@@ -63,6 +63,8 @@ public class SereneListener implements Listener {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.SWORDS, amount);
                         } else if (Tag.ITEMS_TOOLS.isTagged(type)) {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);
+                            AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.TOOLS, serenePlayer, event);
+
                         }
                     }
                 }
@@ -86,6 +88,8 @@ public class SereneListener implements Listener {
 
             } else if (Tag.ITEMS_TOOLS.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
                 serenePlayer.incrementAdeptness(PlayerAdeptness.TOOLS, amount);
+                AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.TOOLS, serenePlayer, event);
+
             }
 
         }
