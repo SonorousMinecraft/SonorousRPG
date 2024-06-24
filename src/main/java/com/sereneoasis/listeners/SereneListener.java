@@ -22,10 +22,7 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -59,6 +56,9 @@ public class SereneListener implements Listener {
                         Material type = (heldItem.getType());
                         if (type.isAir()) {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.UNARMED, amount);
+                            AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.UNARMED, serenePlayer, event);
+
+
                         } else if (Tag.ITEMS_SWORDS.isTagged(type)) {
                             serenePlayer.incrementAdeptness(PlayerAdeptness.SWORDS, amount);
                         } else if (Tag.ITEMS_TOOLS.isTagged(type)) {
@@ -119,6 +119,14 @@ public class SereneListener implements Listener {
             SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(player);
             AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MOVEMENT, serenePlayer, event);
         }
+    }
+
+    @EventHandler
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event){
+        SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getPlayer());
+
+        AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.UNARMED, serenePlayer, event);
+
     }
 
 
