@@ -1,11 +1,13 @@
 package com.sereneoasis.listeners;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
+import com.sereneoasis.SereneRPG;
 import com.sereneoasis.player.adeptness.AdeptnessGUI;
 import com.sereneoasis.player.adeptness.AdeptnessPassivesManager;
 import com.sereneoasis.player.adeptness.PlayerAdeptness;
 import com.sereneoasis.player.SerenePlayer;
 import com.sereneoasis.player.specialisation.SpecialisationGUI;
+import io.papermc.paper.event.entity.EntityMoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -16,8 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -26,6 +27,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Stack;
 
 public class SereneListener implements Listener {
 
@@ -116,6 +120,48 @@ public class SereneListener implements Listener {
             AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.MOVEMENT, serenePlayer, event);
         }
     }
+
+
+    @EventHandler
+    public void onArrowFly(ArrowFlyEvent event){
+        SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(event.getShooter());
+        AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.RANGED, serenePlayer, event);
+    }
+
+    private static final HashMap<Arrow, Player> arrowShooters = new HashMap<>();
+
+    @EventHandler
+    public void onBowShoot(EntityShootBowEvent event){
+        if (event.getEntity() instanceof  Player player) {
+            if (event.getProjectile() instanceof Arrow arrow) {
+                arrowShooters.put(arrow, player);
+
+                iterateThroughActiveArrows(arrow);
+            }
+        }
+    }
+
+    private void iterateThroughActiveArrows(Arrow arrow){
+        Bukkit.getScheduler().runTaskLater(SereneRPG.plugin, () -> {
+            if (arrowShooters.containsKey(arrow)) {
+                Bukkit.broadcastMessage("test");
+                SerenePlayer serenePlayer = SerenePlayer.getSerenePlayer(arrowShooters.get(arrow));
+                ArrowFlyEvent arrowFlyEvent = new ArrowFlyEvent(arrowShooters.get(arrow), arrow);
+                Bukkit.getPluginManager().callEvent(arrowFlyEvent);
+                AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.RANGED, serenePlayer, arrowFlyEvent);
+                iterateThroughActiveArrows(arrow);
+            }
+        }, 1L);
+    }
+
+    @EventHandler
+    public void onEntityHit(ProjectileHitEvent event){
+        if (event.getEntity() instanceof Arrow arrow){
+            arrowShooters.remove(arrow);
+        }
+    }
+
+
 
     @EventHandler
     public void onCraftingGuideClick(InventoryClickEvent event){
