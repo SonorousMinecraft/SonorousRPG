@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Swordsman extends Passive {
     public Swordsman() {
-        super("Swordsman", List.of("Always sweep with full damage"), 1, (event -> {
+        super("Swordsman", List.of("Always sweep with full damage"), 20, (event -> {
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {
                     if (entityDamageByEntityEvent.getDamager() instanceof Player player) {

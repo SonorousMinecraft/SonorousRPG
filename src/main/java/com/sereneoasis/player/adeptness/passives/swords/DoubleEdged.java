@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DoubleEdged extends Passive {
     public DoubleEdged() {
-        super("Double Edged", List.of("Cut opponents twice"), 1, (event -> {
+        super("Double Edged", List.of("Cut opponents twice"), 5, (event -> {
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {
                     if (entityDamageByEntityEvent.getDamager() instanceof Player player) {

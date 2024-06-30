@@ -11,7 +11,7 @@ import java.util.List;
 
 public class WallClimb extends Passive {
     public WallClimb() {
-        super("Wall Climb", List.of("Allows players to climb up walls"), 1, (event -> {
+        super("Wall Climb", List.of("Allows players to climb up walls"), 10, (event -> {
             if (event instanceof PlayerMoveEvent moveEvent)
             {
                 Player player = moveEvent.getPlayer();

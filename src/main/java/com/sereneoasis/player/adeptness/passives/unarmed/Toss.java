@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Toss extends Passive {
     public Toss() {
-        super("Toss", List.of("Throw an entity around"), 1, (event -> {
+        super("Toss", List.of("Throw an entity around"), 10, (event -> {
 
             if (event instanceof PlayerInteractEntityEvent entityDamageByEntityEvent) {
                 Player player = entityDamageByEntityEvent.getPlayer();

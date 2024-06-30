@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FlamingFists extends Passive {
     public FlamingFists() {
-        super("FlamingFists", List.of("Punch so fast you set opponents alight"), 1, (event -> {
+        super("FlamingFists", List.of("Punch so fast you set opponents alight"), 5, (event -> {
 
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class GroundPound extends Passive {
     public GroundPound() {
-        super("Ground Pound", List.of("Smash an opponent into the ground", "Shift and click whilst mid air"), 1, (event -> {
+        super("Ground Pound", List.of("Smash an opponent into the ground", "Shift and click whilst mid air"), 5, (event -> {
 
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {

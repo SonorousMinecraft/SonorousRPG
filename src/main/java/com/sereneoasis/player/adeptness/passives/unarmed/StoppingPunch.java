@@ -15,7 +15,7 @@ import java.util.List;
 
 public class StoppingPunch extends Passive {
     public StoppingPunch() {
-        super("StoppingPunch", List.of("Punches when standing still have more knockback"), 1, (event -> {
+        super("StoppingPunch", List.of("Punches when standing still have more knockback"), 3, (event -> {
 
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {

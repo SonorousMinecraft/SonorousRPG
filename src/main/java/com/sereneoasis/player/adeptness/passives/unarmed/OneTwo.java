@@ -25,7 +25,7 @@ public class OneTwo extends Passive {
 
     private static final Set<Player> RECURSIVE_PUNCH_PREVENT_SET = new HashSet<>();
     public OneTwo() {
-        super("OneTwo", List.of("The good old reliable"), 1, (event -> {
+        super("OneTwo", List.of("The good old reliable"), 3, (event -> {
 
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                 if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {

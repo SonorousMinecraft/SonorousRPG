@@ -13,7 +13,7 @@ import java.util.List;
 
 public class WallCling extends Passive {
     public WallCling() {
-        super("Wall Cling", List.of("Allows players to cling to walls"), 1, (event -> {
+        super("Wall Cling", List.of("Allows players to cling to walls"), 20, (event -> {
             if (event instanceof PlayerMoveEvent moveEvent)
             {
                 Player player = moveEvent.getPlayer();

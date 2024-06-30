@@ -19,7 +19,7 @@ public class Parry extends Passive {
 
     private final static Set<Player> PARRY_COOLDOWNS = new HashSet<>();
     public Parry() {
-        super("Parry", List.of("Deflect a hit every 5 seconds"), 1, (event -> {
+        super("Parry", List.of("Deflect a hit every 5 seconds"), 10, (event -> {
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                     if (entityDamageByEntityEvent.getEntity() instanceof Player player) {
                         ItemStack heldItem = player.getInventory().getItemInMainHand();

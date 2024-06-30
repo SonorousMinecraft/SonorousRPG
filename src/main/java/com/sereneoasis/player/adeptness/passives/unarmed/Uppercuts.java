@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Uppercuts extends Passive {
     public Uppercuts() {
-        super("Uppercuts", List.of("Uppercut opponents by shift clicking"), 1, (event -> {
+        super("Uppercuts", List.of("Uppercut opponents by shift clicking"), 4, (event -> {
 
                 if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
                     if (entityDamageByEntityEvent.getEntity() instanceof LivingEntity livingEntity) {

@@ -14,7 +14,7 @@ import java.util.List;
 public class VeinMiner extends Passive {
 
     public VeinMiner() {
-        super("Vein Miner", List.of("Mines adjacent ores"), 1, (event) -> {
+        super("Vein Miner", List.of("Mines adjacent ores"), 30, (event) -> {
             if (event instanceof BlockBreakEvent blockBreakEvent){
                 if (blockBreakEvent.isDropItems()){
                     Block originalBlock  = blockBreakEvent.getBlock();

@@ -23,7 +23,7 @@ public class TreeCapitate extends Passive {
 
 
     public TreeCapitate() {
-        super("TreeCapitate", List.of("Fell trees in one blow whilst sneaking"), 1, (event -> {
+        super("TreeCapitate", List.of("Fell trees in one blow whilst sneaking"), 10, (event -> {
             if (event instanceof BlockBreakEvent blockBreakEvent){
                 Player player = blockBreakEvent.getPlayer();
                 if (player.isSneaking()) {

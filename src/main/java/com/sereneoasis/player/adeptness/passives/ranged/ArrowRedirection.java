@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ArrowRedirection extends Passive {
     public ArrowRedirection() {
-        super("Arrow Redirection", List.of("Skilled archers can control their arrows"), 1, (event -> {
+        super("Arrow Redirection", List.of("Skilled archers can control their arrows"), 10, (event -> {
             if (event instanceof ArrowFlyEvent arrowFlyEvent) {
                 Arrow arrow = arrowFlyEvent.getArrow();
                 arrow.setVelocity(arrowFlyEvent.getShooter().getEyeLocation().getDirection().multiply(arrow.getVelocity().length()));

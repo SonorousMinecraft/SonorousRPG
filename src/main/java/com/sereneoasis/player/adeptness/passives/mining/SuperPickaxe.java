@@ -15,7 +15,7 @@ import java.util.List;
 public class SuperPickaxe extends Passive {
 
     public SuperPickaxe() {
-        super("Super Pickaxe", List.of("Mine a 3x3 area"), 1, (event) -> {
+        super("Super Pickaxe", List.of("Mine a 3x3 area"), 40, (event) -> {
             if (event instanceof BlockBreakEvent blockBreakEvent) {
                 Block originalBlock = blockBreakEvent.getBlock();
                 Player player = blockBreakEvent.getPlayer();

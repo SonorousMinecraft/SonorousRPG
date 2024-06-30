@@ -13,7 +13,7 @@ import java.util.List;
 public class InventoryMagnet extends Passive {
 
     public InventoryMagnet() {
-        super("Inventory Magnet", List.of("Causes broken blocks to go straight to your inventory"), 1, (event -> {
+        super("Inventory Magnet", List.of("Causes broken blocks to go straight to your inventory"), 20, (event -> {
             if (event instanceof BlockBreakEvent blockBreakEvent){
                 if (blockBreakEvent.isDropItems()){
                     Collection<ItemStack> drops = blockBreakEvent.getBlock().getDrops();

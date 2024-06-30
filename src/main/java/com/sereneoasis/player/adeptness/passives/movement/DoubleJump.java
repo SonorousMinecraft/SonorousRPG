@@ -18,7 +18,7 @@ public class DoubleJump extends Passive {
 
     private static final Set<Player> jumpPrepare = new HashSet<>();
     public DoubleJump() {
-        super("Double Jump", List.of("Players can double jump"), 1, (event -> {
+        super("Double Jump", List.of("Players can double jump"), 5, (event -> {
             if (event instanceof PlayerJumpEvent jumpEvent)
             {
                 Player player = jumpEvent.getPlayer();
