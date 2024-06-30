@@ -45,6 +45,16 @@ public class SereneListener implements Listener {
 
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event){
+        if (event.getEntity() instanceof Player player) {
+            ItemStack heldItem = player.getInventory().getItemInMainHand();
+            Material type = (heldItem.getType());
+            if (Tag.ITEMS_SWORDS.isTagged(type)) {
+                AdeptnessPassivesManager.checkForPassives(PlayerAdeptness.SWORDS, SerenePlayer.getSerenePlayer(player), event);
+
+            }
+        }
+
+
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             double amount = event.getDamage() + livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 
