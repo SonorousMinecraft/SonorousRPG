@@ -7,8 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BlockUtils {
-    
-    public static Set<Block> getBlocksAroundPoint(Location location, int diameter){
+
+
+    public static Set<Block> getBlocksAroundPoint(Block block, double diameter){
+        Location location = block.getLocation().add(0.5,0.5,0.5);
         Set<Block>blocks = new HashSet<>();
         for (double x = -diameter/2; x < diameter/2 ; x++){
             for (double y = -diameter/2; y < diameter/2 ; y++){
@@ -20,7 +22,20 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static Set<Block> getCircleAroundPoint(Location location, int diameter){
+
+    public static Set<Block> getBlocksAroundPoint(Location location, double diameter){
+        Set<Block>blocks = new HashSet<>();
+        for (double x = -diameter/2; x < diameter/2 ; x++){
+            for (double y = -diameter/2; y < diameter/2 ; y++){
+                for (double z = -diameter/2; z < diameter/2 ; z++){
+                    blocks.add(location.clone().add(x,y,z).getBlock());
+                }
+            }
+        }
+        return blocks;
+    }
+
+    public static Set<Block> getCircleAroundPoint(Location location, double diameter){
         Set<Block>blocks = new HashSet<>();
         for (double x = -diameter/2; x < diameter/2 ; x++){
             for (double z = -diameter/2; z < diameter/2 ; z++){
@@ -30,7 +45,7 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static Set<Block> getAirSphereBlocksAroundPoint(Location location, int diameter){
+    public static Set<Block> getAirSphereBlocksAroundPoint(Location location, double diameter){
         Set<Block>blocks = new HashSet<>();
         for (double x = -diameter/2; x < diameter/2 ; x++){
             for (double y = -diameter/2; y < diameter/2 ; y++){
@@ -53,7 +68,7 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static Set<Block> getAirBlocksAroundPoint(Location location, int diameter){
+    public static Set<Block> getAirBlocksAroundPoint(Location location, double diameter){
         Set<Block>blocks = new HashSet<>();
         for (double x = -diameter/2; x < diameter/2 ; x++){
             for (double y = -diameter/2; y < diameter/2 ; y++){
@@ -68,7 +83,7 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static Set<Block> getAirCircleAroundPoint(Location location, int diameter){
+    public static Set<Block> getAirCircleAroundPoint(Location location, double diameter){
         Set<Block>blocks = new HashSet<>();
         for (double x = (double) -diameter /2; x < (double) diameter /2 ; x++){
             for (double z = (double) -diameter /2; z < (double) diameter /2 ; z++){
@@ -83,7 +98,7 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static Set<Block> getAirHollowCircleAroundPoint(Location location, int diameter){
+    public static Set<Block> getAirHollowCircleAroundPoint(Location location, double diameter){
         Set<Block>blocks = new HashSet<>();
 
         for (double x = (double) -diameter /2 -1; x < (double) diameter /2 + 1 ; x++){
